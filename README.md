@@ -6,7 +6,7 @@ how are you ?
 le code Gui :
 import plotly.express as px
 
-from dash import dcc
+from dash import dcc 
 from dash import dash_table
 
 def build_dropdown_menu(menu_items):
