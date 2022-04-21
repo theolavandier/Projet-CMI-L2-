@@ -28,7 +28,7 @@ CONTENT_STYLE = {
 
 sidebar = html.Div(
 	[
-		html.H2("TISSANDIER Mathilde", className="display-4"),
+		html.H2("TISSANDIER LAVANDIER", className="display-4"),
 		html.Hr(),
 		html.P(
 			"Forêt Pyrénnées", className="lead"
