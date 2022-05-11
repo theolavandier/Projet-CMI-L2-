@@ -5,19 +5,19 @@ con = sqlite3.connect('test.db')
 cur = con.cursor()
 
 cur.execute('''
-    DROP TABLE valley
+    DROP TABLE IF EXISTS valley 
 ''')
 
 cur.execute('''
-    DROP TABLE stations
+    DROP TABLE IF EXISTS stations
 ''')
 
 cur.execute('''
-    DROP TABLE arbre
+    DROP TABLE IF EXISTS arbre
 ''')
 
 cur.execute('''
-    DROP TABLE récolte
+    DROP TABLE IF EXISTS récolte
 ''')
 
 cur.execute('''
@@ -32,9 +32,7 @@ cur.execute('''
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     Station TEXT NOT NULL,
     Range REAL,
-    Altitude REAL,
-    valley_id INTEGER,
-    FOREIGN KEY (valley_id) REFERENCES valley(id)
+    Altitude REAL
     );
 ''')
 
@@ -45,9 +43,7 @@ cur.execute('''
     Species TEXT NOT NULL,
     VH REAL,
     H REAL,
-    SH REAL,
-    station_id INTEGER,
-    FOREIGN KEY (station_id) REFERENCES stations(id)
+    SH REAL
     );
 ''')
 
@@ -67,9 +63,7 @@ cur.execute('''
     tot_Germ REAL,
     M_Germ REAL, 
     N_Germ REAL, 
-    rate_Germ REAL,
-    arbre_id INTEGER,
-    FOREIGN KEY (arbre_id) REFERENCES arbre(id)
+    rate_Germ REAL
     );
 ''')
 
