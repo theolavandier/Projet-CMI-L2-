@@ -5,9 +5,20 @@ con = sqlite3.connect('test.db')
 cur = con.cursor()
 
 cur.execute('''
-    DROP TABLE Valley
+    DROP TABLE valley
 ''')
 
+cur.execute('''
+    DROP TABLE stations
+''')
+
+cur.execute('''
+    DROP TABLE arbre
+''')
+
+cur.execute('''
+    DROP TABLE récolte
+''')
 
 cur.execute('''
     CREATE TABLE IF NOT EXISTS valley (
