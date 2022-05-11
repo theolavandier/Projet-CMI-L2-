@@ -1,4 +1,26 @@
 import pandas as pd
+import sqlite3
+
+con = sqlite3.connect('Pyrennees.db')
+cur = con.cursor()
+
+cur.execute('''
+    CREATE TABLE IF NOT EXISTS valley (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nom TEXT NOT NULL
+    );
+''')
+
+cur.execute('''
+    CREATE TABLE IF NOT EXISTS stations (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nom TEXT NOT NULL,
+    range REAL,
+    altitude REAL,
+    FOREIGN KEY (valley_id) REFERENCES valley(id)
+    );
+''')
+
 
 df = pd.read_csv('model/Repro_IS.csv', sep=';')
 select_column = 'Valley'
