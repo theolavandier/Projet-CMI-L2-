@@ -7,16 +7,16 @@ cur = con.cursor()
 cur.execute('''
     CREATE TABLE IF NOT EXISTS valley (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    nom TEXT NOT NULL
+    Valley TEXT NOT NULL
     );
 ''')
 
 cur.execute('''
     CREATE TABLE IF NOT EXISTS stations (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    nom TEXT NOT NULL,
-    range REAL,
-    altitude REAL,
+    Stations TEXT NOT NULL,
+    Range REAL,
+    Altitude REAL,
     valley_id INTEGER,
     FOREIGN KEY (valley_id) REFERENCES valley(id)
     );
@@ -76,7 +76,7 @@ h.to_sql('recolte', con, if_exists='append', index=False)
 
 
 
-df = pd.read_csv('model/Repro_IS.csv', sep=';')
+df = pd.read_csv('Repro_IS.csv', sep=';')
 select_column = 'Valley'
 select_column_Year = 'Year'
 select_column_Station = 'Station'
