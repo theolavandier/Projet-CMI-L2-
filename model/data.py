@@ -26,7 +26,7 @@ cur.execute('''
     CREATE TABLE IF NOT EXISTS arbre (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     code TEXT NOT NULL,
-    especes TEXT NOT NULL,
+    Species TEXT NOT NULL,
     VH REAL,
     H REAL,
     SH REAL,
