@@ -1,8 +1,13 @@
 import pandas as pd
 import sqlite3
 
-con = sqlite3.connect('Projet final.db')
+con = sqlite3.connect('test.db')
 cur = con.cursor()
+
+cur.execute('''
+    DROP TABLE Valley
+''')
+
 
 cur.execute('''
     CREATE TABLE IF NOT EXISTS valley (
@@ -60,19 +65,30 @@ cur.execute('''
 data = pd.read_csv('Repro_IS.csv', sep=';') 
 data.to_sql('Repro_data', con, if_exists='replace', index=False)
 
-valley_list = ['Valley']
-v = data[valley_list]
-stations_list = ['Station', 'Range', 'Altitude']
-s = data[stations_list]
-tree_list = ['code', 'Species', 'VH', 'H', 'SH']
-t=data[tree_list]
-harvest_list = ['ID', 'harv_num', 'DD', 'harv', 'Year', 'Date', 'Mtot', 'Ntot', 'Ntot1', 'oneacorn', 'tot_Germ', 'M_Germ', 'N_Germ', 'rate_Germ']
-h = data[harvest_list]
 
-v.to_sql('valley', con, if_exists='append', index=False)
-s.to_sql('stations', con, if_exists='append', index=False)
-t.to_sql('arbre', con, if_exists='append', index=False)
-h.to_sql('récolte', con, if_exists='append', index=False)
+
+valley_list = pd.read_sql('''
+        SELECT Valley FROM Repro_data GROUP BY Valley''', con)
+
+valley_list.to_sql('valley', con, if_exists='append', index=False)
+
+
+stations_list = pd.read_sql('''
+        SELECT Station, Range, Altitude FROM Repro_data GROUP BY Station''', con)
+        
+stations_list.to_sql('stations', con, if_exists='append', index=False)
+
+
+tree_list = pd.read_sql('''
+        SELECT code, Species, VH, H, SH FROM Repro_data GROUP BY code''', con)
+        
+tree_list.to_sql('arbre', con, if_exists='append', index=False)
+        
+ 
+harvest_list =  pd.read_sql('''
+        SELECT ID, harv_num, DD, harv, Year, Date, Mtot, Ntot, Ntot1, oneacorn, tot_Germ, M_Germ, N_Germ, rate_Germ FROM Repro_data GROUP BY ID''', con)
+
+harvest_list.to_sql('récolte', con, if_exists='append', index=False)
 
 
 
