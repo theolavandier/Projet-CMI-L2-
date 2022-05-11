@@ -27,7 +27,7 @@ CONTENT_STYLE = {
 }
 
 sidebar = html.Div(
-	[
+    [
 		html.H2("TISSANDIER LAVANDIER", className="display-4"),
 		html.Hr(),
 		html.P(
