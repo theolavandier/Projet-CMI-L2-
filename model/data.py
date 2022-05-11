@@ -21,15 +21,38 @@ cur.execute('''
     );
 ''')
 
+cur.execute('''
+    CREATE TABLE IF NOT EXISTS arbre (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    code TEXT NOT NULL,
+    especes TEXT NOT NULL,
+    VH REAL,
+    H REAL,
+    SH REAL
+    FOREIGN KEY (station_id) REFERENCES stations(id)
+    );
+''')
 
-
-
-
-
-
-
-
-
+cur.execute('''
+    CREATE TABLE IF NOT EXISTS récolte (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    ID TEXT NOT NULL,
+    harv_num REAL,
+    DD REAL,
+    harv REAL,
+    Year INTEGER,
+    Date DATETIME,
+    Mtot REAL,
+    Ntot REAL,
+    Ntot1 REAL,
+    oneacorn REAL,
+    tot_Germ REAL,
+    M_Germ REAL, 
+    N_Germ REAL, 
+    rate_Germ REAL
+    FOREIGN KEY (arbre_id) REFERENCES arbre(id)
+    );
+''')
 
 data = pd.read_csv('Repro_IS.csv', sep=';') 
 data.to_sql('Repro_data', con, if_exists='replace', index=False)
@@ -38,11 +61,15 @@ valley_list = ['Valley']
 v = data[valley_list]
 stations_list = ['Station', 'Range', 'Altitude']
 s = data[stations_list]
-
+tree_list = ['code', 'species', 'VH', 'H', 'SH']
+t=data[tree_list]
+harvest_list = ['ID', 'harv_num', 'DD', 'harv', 'Year', 'Date', 'Mtot', 'Ntot', 'Ntot1', 'oneacorn', 'tot_Germ', 'M_Germ', 'N_Germ', 'rate_Germ']
+h = data[harvest_list]
 
 v.to_sql('valley', con, if_exists='append', index=False)
 s.to_sql('stations', con, if_exists='append', index=False)
-
+t.to_sql('arbre', con, if_exists='append', index=False)
+h.to_sql('recolte', con, if_exists='append', index=False)
 
 
 
