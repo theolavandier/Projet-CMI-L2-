@@ -1,7 +1,7 @@
 import pandas as pd
 import sqlite3
 
-con = sqlite3.connect('Pyrennees.db')
+con = sqlite3.connect('Projet final.db')
 cur = con.cursor()
 
 cur.execute('''
@@ -14,7 +14,7 @@ cur.execute('''
 cur.execute('''
     CREATE TABLE IF NOT EXISTS stations (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    Stations TEXT NOT NULL,
+    Station TEXT NOT NULL,
     Range REAL,
     Altitude REAL,
     valley_id INTEGER,
@@ -72,7 +72,7 @@ h = data[harvest_list]
 v.to_sql('valley', con, if_exists='append', index=False)
 s.to_sql('stations', con, if_exists='append', index=False)
 t.to_sql('arbre', con, if_exists='append', index=False)
-h.to_sql('recolte', con, if_exists='append', index=False)
+h.to_sql('récolte', con, if_exists='append', index=False)
 
 
 
