@@ -17,6 +17,7 @@ cur.execute('''
     nom TEXT NOT NULL,
     range REAL,
     altitude REAL,
+    valley_id INTEGER,
     FOREIGN KEY (valley_id) REFERENCES valley(id)
     );
 ''')
@@ -28,14 +29,15 @@ cur.execute('''
     especes TEXT NOT NULL,
     VH REAL,
     H REAL,
-    SH REAL
+    SH REAL,
+    station_id INTEGER,
     FOREIGN KEY (station_id) REFERENCES stations(id)
     );
 ''')
 
 cur.execute('''
     CREATE TABLE IF NOT EXISTS récolte (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    id_r INTEGER PRIMARY KEY AUTOINCREMENT,
     ID TEXT NOT NULL,
     harv_num REAL,
     DD REAL,
@@ -49,7 +51,8 @@ cur.execute('''
     tot_Germ REAL,
     M_Germ REAL, 
     N_Germ REAL, 
-    rate_Germ REAL
+    rate_Germ REAL,
+    arbre_id INTEGER,
     FOREIGN KEY (arbre_id) REFERENCES arbre(id)
     );
 ''')
@@ -61,7 +64,7 @@ valley_list = ['Valley']
 v = data[valley_list]
 stations_list = ['Station', 'Range', 'Altitude']
 s = data[stations_list]
-tree_list = ['code', 'species', 'VH', 'H', 'SH']
+tree_list = ['code', 'Species', 'VH', 'H', 'SH']
 t=data[tree_list]
 harvest_list = ['ID', 'harv_num', 'DD', 'harv', 'Year', 'Date', 'Mtot', 'Ntot', 'Ntot1', 'oneacorn', 'tot_Germ', 'M_Germ', 'N_Germ', 'rate_Germ']
 h = data[harvest_list]
