@@ -22,6 +22,25 @@ cur.execute('''
 ''')
 
 
+
+
+
+
+
+
+
+
+
+data = pd.read_csv('Repro_IS.csv', sep=';') 
+data.to_sql('Repro_data', con, if_exists='replace', index=False)
+
+
+
+
+
+
+
+
 df = pd.read_csv('model/Repro_IS.csv', sep=';')
 select_column = 'Valley'
 select_column_Year = 'Year'
