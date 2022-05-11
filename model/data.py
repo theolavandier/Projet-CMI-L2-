@@ -34,9 +34,14 @@ cur.execute('''
 data = pd.read_csv('Repro_IS.csv', sep=';') 
 data.to_sql('Repro_data', con, if_exists='replace', index=False)
 
+valley_list = ['Valley']
+v = data[valley_list]
+stations_list = ['Station', 'Range', 'Altitude']
+s = data[stations_list]
 
 
-
+v.to_sql('valley', con, if_exists='append', index=False)
+s.to_sql('stations', con, if_exists='append', index=False)
 
 
 
