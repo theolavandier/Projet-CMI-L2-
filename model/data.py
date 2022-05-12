@@ -65,6 +65,17 @@ def setup(cur):
         );
     ''')
 
+    cur.execute('''
+        CREATE TABLE IF NOT EXISTS keytab (
+        id_valley INTEGER,
+        id_station INTEGER,
+        id_arbre INTEGER,
+        FOREIGN KEY (id_valley) REFERENCES valler(id),
+        FOREIGN KEY (id_station) REFERENCES station(id),
+        FOREIGN KEY (id_arbre) REFERENCES arbre(id)
+        );
+    ''')
+
     with open('./model/Repro_IS.csv', 'r') as csvfile:
         reader = csv.DictReader(csvfile, delimiter=';')
         for row in reader:
@@ -79,6 +90,7 @@ def setup(cur):
             if result.fetchone() == None:
                 query = 'INSERT INTO valley (Valley) VALUES ("{}");'.format(row['Valley'])
                 cur.execute(query)
+
             
         
 
