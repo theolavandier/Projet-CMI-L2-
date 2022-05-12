@@ -1,7 +1,8 @@
 import pandas as pd
 import sqlite3
+import csv 
 
-con = sqlite3.connect('test.db')
+con = sqlite3.connect('test.db', timeout=10)
 cur = con.cursor()
 
 cur.execute('''
@@ -67,38 +68,31 @@ cur.execute('''
     );
 ''')
 
-data = pd.read_csv('Repro_IS.csv', sep=';') 
-data.to_sql('Repro_data', con, if_exists='replace', index=False)
 
 
-
-valley_list = pd.read_sql('''
-        SELECT Valley FROM Repro_data GROUP BY Valley''', con)
-
-valley_list.to_sql('valley', con, if_exists='append', index=False)
-
-
-stations_list = pd.read_sql('''
-        SELECT Station, Range, Altitude FROM Repro_data GROUP BY Station''', con)
+with open('Repro_IS.csv', 'r') as csvfile:
+    reader = csv.DictReader(csvfile, delimiter=';')
+    for row in reader:
+        query = 'SELECT (id) FROM stations WHERE Station="{}"'.format(row['Station'])
+        result = cur.execute(query)        
+        if result.fetchone() == None:
+            query = 'INSERT INTO stations (Station, Range, Altitude) VALUES ("{}", {}, {});'.format(row['Station'], row['Range'], row['Altitude'])
+            cur.execute(query)
+            
+        query = 'SELECT (id) FROM valley WHERE Valley="{}"'.format(row['Valley'])
+        result = cur.execute(query)        
+        if result.fetchone() == None:
+            query = 'INSERT INTO valley (Valley) VALUES ("{}");'.format(row['Valley'])
+            cur.execute(query)
+            
         
-stations_list.to_sql('stations', con, if_exists='append', index=False)
+con.commit()
 
 
-tree_list = pd.read_sql('''
-        SELECT code, Species, VH, H, SH FROM Repro_data GROUP BY code''', con)
-        
-tree_list.to_sql('arbre', con, if_exists='append', index=False)
-        
- 
-harvest_list =  pd.read_sql('''
-        SELECT ID, harv_num, DD, harv, Year, Date, Mtot, Ntot, Ntot1, oneacorn, tot_Germ, M_Germ, N_Germ, rate_Germ FROM Repro_data GROUP BY ID''', con)
-
-harvest_list.to_sql('récolte', con, if_exists='append', index=False)
-
-
-
+"""
 df = pd.read_csv('Repro_IS.csv', sep=';')
 select_column = 'Valley'
+
 select_column_Year = 'Year'
 select_column_Station = 'Station'
 
@@ -185,4 +179,4 @@ def extract_df5(value_dropdown_year):
     x_att = 'VH'
     y_att = 'Ntot'
     z_att = 'Station'
-    return df_years, (x_att, y_att, z_att)
+    return df_years, (x_att, y_att, z_att)"""
