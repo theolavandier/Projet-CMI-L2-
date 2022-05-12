@@ -1,92 +1,87 @@
 import pandas as pd
-import sqlite3
 import csv 
 
-con = sqlite3.connect('test.db', timeout=10)
-cur = con.cursor()
+def setup(cur):
+    cur.execute('''
+        DROP TABLE IF EXISTS valley 
+    ''')
 
-cur.execute('''
-    DROP TABLE IF EXISTS valley 
-''')
+    cur.execute('''
+        DROP TABLE IF EXISTS stations
+    ''')
 
-cur.execute('''
-    DROP TABLE IF EXISTS stations
-''')
+    cur.execute('''
+        DROP TABLE IF EXISTS arbre
+    ''')
 
-cur.execute('''
-    DROP TABLE IF EXISTS arbre
-''')
+    cur.execute('''
+        DROP TABLE IF EXISTS récolte
+    ''')
 
-cur.execute('''
-    DROP TABLE IF EXISTS récolte
-''')
+    cur.execute('''
+        CREATE TABLE IF NOT EXISTS valley (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        Valley TEXT NOT NULL
+        );
+    ''')
 
-cur.execute('''
-    CREATE TABLE IF NOT EXISTS valley (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    Valley TEXT NOT NULL
-    );
-''')
+    cur.execute('''
+        CREATE TABLE IF NOT EXISTS stations (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        Station TEXT NOT NULL,
+        Range REAL,
+        Altitude REAL
+        );
+    ''')
 
-cur.execute('''
-    CREATE TABLE IF NOT EXISTS stations (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    Station TEXT NOT NULL,
-    Range REAL,
-    Altitude REAL
-    );
-''')
+    cur.execute('''
+        CREATE TABLE IF NOT EXISTS arbre (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        code TEXT NOT NULL,
+        Species TEXT NOT NULL,
+        VH REAL,
+        H REAL,
+        SH REAL
+        );
+    ''')
 
-cur.execute('''
-    CREATE TABLE IF NOT EXISTS arbre (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    code TEXT NOT NULL,
-    Species TEXT NOT NULL,
-    VH REAL,
-    H REAL,
-    SH REAL
-    );
-''')
+    cur.execute('''
+        CREATE TABLE IF NOT EXISTS récolte (
+        id_r INTEGER PRIMARY KEY AUTOINCREMENT,
+        ID TEXT NOT NULL,
+        harv_num REAL,
+        DD REAL,
+        harv REAL,
+        Year INTEGER,
+        Date DATETIME,
+        Mtot REAL,
+        Ntot REAL,
+        Ntot1 REAL,
+        oneacorn REAL,
+        tot_Germ REAL,
+        M_Germ REAL, 
+        N_Germ REAL, 
+        rate_Germ REAL
+        );
+    ''')
 
-cur.execute('''
-    CREATE TABLE IF NOT EXISTS récolte (
-    id_r INTEGER PRIMARY KEY AUTOINCREMENT,
-    ID TEXT NOT NULL,
-    harv_num REAL,
-    DD REAL,
-    harv REAL,
-    Year INTEGER,
-    Date DATETIME,
-    Mtot REAL,
-    Ntot REAL,
-    Ntot1 REAL,
-    oneacorn REAL,
-    tot_Germ REAL,
-    M_Germ REAL, 
-    N_Germ REAL, 
-    rate_Germ REAL
-    );
-''')
-
-
-
-with open('Repro_IS.csv', 'r') as csvfile:
-    reader = csv.DictReader(csvfile, delimiter=';')
-    for row in reader:
-        query = 'SELECT (id) FROM stations WHERE Station="{}"'.format(row['Station'])
-        result = cur.execute(query)        
-        if result.fetchone() == None:
-            query = 'INSERT INTO stations (Station, Range, Altitude) VALUES ("{}", {}, {});'.format(row['Station'], row['Range'], row['Altitude'])
-            cur.execute(query)
-            
-        query = 'SELECT (id) FROM valley WHERE Valley="{}"'.format(row['Valley'])
-        result = cur.execute(query)        
-        if result.fetchone() == None:
-            query = 'INSERT INTO valley (Valley) VALUES ("{}");'.format(row['Valley'])
-            cur.execute(query)
+    with open('./model/Repro_IS.csv', 'r') as csvfile:
+        reader = csv.DictReader(csvfile, delimiter=';')
+        for row in reader:
+            query = 'SELECT (id) FROM stations WHERE Station="{}"'.format(row['Station'])
+            result = cur.execute(query)        
+            if result.fetchone() == None:
+                query = 'INSERT INTO stations (Station, Range, Altitude) VALUES ("{}", {}, {});'.format(row['Station'], row['Range'], row['Altitude'])
+                cur.execute(query)
+                
+            query = 'SELECT (id) FROM valley WHERE Valley="{}"'.format(row['Valley'])
+            result = cur.execute(query)        
+            if result.fetchone() == None:
+                query = 'INSERT INTO valley (Valley) VALUES ("{}");'.format(row['Valley'])
+                cur.execute(query)
             
         
-con.commit()
+
 
 
 """
