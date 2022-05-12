@@ -6,5 +6,10 @@ cur = con.cursor()
 
 data.setup(cur)
 
+
+
+
+
+
 con.commit()
 con.close()

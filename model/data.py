@@ -2,21 +2,6 @@ import pandas as pd
 import csv 
 
 def setup(cur):
-    cur.execute('''
-        DROP TABLE IF EXISTS valley 
-    ''')
-
-    cur.execute('''
-        DROP TABLE IF EXISTS stations
-    ''')
-
-    cur.execute('''
-        DROP TABLE IF EXISTS arbre
-    ''')
-
-    cur.execute('''
-        DROP TABLE IF EXISTS récolte
-    ''')
 
     cur.execute('''
         CREATE TABLE IF NOT EXISTS valley (
@@ -67,12 +52,15 @@ def setup(cur):
 
     cur.execute('''
         CREATE TABLE IF NOT EXISTS keytab (
-        id_valley INTEGER,
-        id_station INTEGER,
+        id_key INTEGER PRIMARY KEY AUTOINCREMENT,
+        id_recolte INTEGER,
         id_arbre INTEGER,
-        FOREIGN KEY (id_valley) REFERENCES valler(id),
+        id_station INTEGER,
+        id_valley INTEGER,
+        FOREIGN KEY (id_recolte) REFERENCES récolte(id_r),
+        FOREIGN KEY (id_arbre) REFERENCES arbre(id),
         FOREIGN KEY (id_station) REFERENCES station(id),
-        FOREIGN KEY (id_arbre) REFERENCES arbre(id)
+        FOREIGN KEY (id_valley) REFERENCES valler(id)
         );
     ''')
 
@@ -94,19 +82,34 @@ def setup(cur):
             query = 'SELECT (id) FROM arbre WHERE code="{}"'.format(row['code'])
             result = cur.execute(query)        
             if result.fetchone() == None:
-                query = 'INSERT INTO arbre (code, Species, VH, H, SH) VALUES ("{}", "{}", "{}", "{}", "{}");'.format(row['code'],row['Species'], row['VH'], row['H'], row['SH'])
+                query = 'INSERT INTO arbre (code, Species, VH, H, SH) VALUES ("{}", "{}", "{}", "{}", "{}");'.\
+                    format(row['code'],row['Species'], row['VH'], row['H'], row['SH'])
                 cur.execute(query)
 
             query = 'SELECT (id_r) FROM récolte WHERE ID="{}"'.format(row['ID'])
             result = cur.execute(query)        
             if result.fetchone() == None:
-                query = 'INSERT INTO récolte (ID,harv_num,DD,harv,Year,Date,Mtot,Ntot,Ntot1,oneacorn,tot_Germ, M_Germ,N_Germ,rate_Germ) VALUES ("{}", "{}", "{}", "{}", "{}", "{}", "{}", "{}", "{}", "{}", "{}", "{}", "{}", "{}");'.format(row['ID'],row['harv_num'],row['DD'],row['harv'],row['Year'],row['Date'], row['Mtot'],row['Ntot'],row['Ntot1'],row['oneacorn'],row['tot_Germ'],row['M_Germ'],row['N_Germ'], row['rate_Germ'])
+                query = 'INSERT INTO récolte (ID,harv_num,DD,harv,Year,Date,Mtot,Ntot,Ntot1,oneacorn,tot_Germ, M_Germ,N_Germ,rate_Germ) VALUES\
+                     ("{}", "{}", "{}", "{}", "{}", "{}", "{}", "{}", "{}", "{}", "{}", "{}", "{}", "{}");'.\
+                         format(row['ID'],row['harv_num'],row['DD'],row['harv'],row['Year'],row['Date'],\
+                              row['Mtot'],row['Ntot'],row['Ntot1'],row['oneacorn'],row['tot_Germ'],row['M_Germ'],row['N_Germ'], row['rate_Germ'])
+                cur.execute(query)
+
+
+            query= 'SELECT id_key FROM keytab, récolte, arbre, stations, valley WHERE\
+                 id_recolte=id_r AND récolte.ID = "{}"'.format(row['ID'])
+                 
+            result = cur.execute(query)        
+            if result.fetchone() == None:
+                query = 'INSERT INTO keytab (id_recolte, id_arbre, id_station, id_valley) \
+                    SELECT id_r, arbre.id, stations.id, valley.id FROM récolte,arbre,stations,valley\
+                        WHERE récolte.ID = "{}" and arbre.code = "{}" and stations.Station = "{}" and valley.Valley = "{}";'.format(row['ID'],row['code'],row['Station'],row['Valley'])
                 cur.execute(query)
         
 
 
 
-"""
+'''
 df = pd.read_csv('Repro_IS.csv', sep=';')
 select_column = 'Valley'
 
@@ -196,4 +199,5 @@ def extract_df5(value_dropdown_year):
     x_att = 'VH'
     y_att = 'Ntot'
     z_att = 'Station'
-    return df_years, (x_att, y_att, z_att)"""
+    return df_years, (x_att, y_att, z_att)
+'''
