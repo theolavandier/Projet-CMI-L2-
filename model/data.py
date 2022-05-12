@@ -91,7 +91,17 @@ def setup(cur):
                 query = 'INSERT INTO valley (Valley) VALUES ("{}");'.format(row['Valley'])
                 cur.execute(query)
 
-            
+            query = 'SELECT (id) FROM arbre WHERE code="{}"'.format(row['code'])
+            result = cur.execute(query)        
+            if result.fetchone() == None:
+                query = 'INSERT INTO arbre (code, Species, VH, H, SH) VALUES ("{}", "{}", "{}", "{}", "{}");'.format(row['code'],row['Species'], row['VH'], row['H'], row['SH'])
+                cur.execute(query)
+
+            query = 'SELECT (id_r) FROM récolte WHERE ID="{}"'.format(row['ID'])
+            result = cur.execute(query)        
+            if result.fetchone() == None:
+                query = 'INSERT INTO récolte (ID,harv_num,DD,harv,Year,Date,Mtot,Ntot,Ntot1,oneacorn,tot_Germ, M_Germ,N_Germ,rate_Germ) VALUES ("{}", "{}", "{}", "{}", "{}", "{}", "{}", "{}", "{}", "{}", "{}", "{}", "{}", "{}");'.format(row['ID'],row['harv_num'],row['DD'],row['harv'],row['Year'],row['Date'], row['Mtot'],row['Ntot'],row['Ntot1'],row['oneacorn'],row['tot_Germ'],row['M_Germ'],row['N_Germ'] row['rate_Germ'])
+                cur.execute(query)
         
 
 
