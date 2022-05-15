@@ -2,7 +2,7 @@ import plotly.express as px
 
 from dash import dcc
 from dash import dash_table
-
+'''
 def build_dropdown_menu(menu_items):
     return dcc.Dropdown(
         id="dropdown",
@@ -113,3 +113,20 @@ def figure_graph(df, attributes):
     x, y, z = attributes
     fig_graph = px.scatter(df, x=x, y=y, color=z, title = "Modèle en fonction du VH et des Ntot pour les stations et pouvant varier en fonction des années")
     return fig_graph
+'''
+
+def build_dropdown_menu(item_list):
+	options = [{'label': x, 'value':y} for x,y in item_list]
+	return dcc.Dropdown(id = 'dropdown',
+						options=options,
+						multi=True)
+
+def build_timeline_graph_piechart_valley(timeline_data, valleys):
+	timeline_graph = px.line(timeline_data, x='year', y=timeline_data.columns,
+		title='Evolution des récoltes – Valleys {}'.format(valleys))
+	return timeline_graph
+
+def build_timeline_graph_piechart_year(timeline_data, years):
+	timeline_graph = px.line(timeline_data, x='year', y=timeline_data.columns,
+		title='Evolution des récoltes – Years {}'.format(years))
+	return timeline_graph
