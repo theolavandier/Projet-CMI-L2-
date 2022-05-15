@@ -130,6 +130,21 @@ def get_valley():
 	result = cursor.execute(query)
 	return result.fetchall()
 
+def get_arbre():
+	connexion = sqlite3.connect('Pyrenees.db')
+	query="SELECT code, id FROM arbre"
+	cursor = connexion.cursor()
+	result = cursor.execute(query)
+	return result.fetchall()
+
+def get_recolte():
+	connexion = sqlite3.connect('Pyrenees.db')
+	query="SELECT ID, id_r FROM récolte"
+	cursor = connexion.cursor()
+	result = cursor.execute(query)
+	return result.fetchall()
+
+
 '''
 df = pd.read_csv('Repro_IS.csv', sep=';')
 select_column = 'Valley'
