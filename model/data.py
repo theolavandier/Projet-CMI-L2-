@@ -1,5 +1,6 @@
 import pandas as pd
 import csv 
+import sqlite3
 
 def setup(cur):
 
@@ -115,6 +116,12 @@ def setup(cur):
                 query = 'UPDATE récolte SET id_arbre = {} WHERE ID ="{}"'.format(result.fetchone()[0], row['ID'])
                 cur.execute(query)
 
+def get_stations():
+	connexion = sqlite3.connect('Pyrenees.db')
+	query="SELECT nom, id FROM station"
+	cursor = connexion.cursor()
+	result = cursor.execute(query)
+	return result.fetchall()
 
 '''
 df = pd.read_csv('Repro_IS.csv', sep=';')
