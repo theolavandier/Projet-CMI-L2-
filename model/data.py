@@ -123,6 +123,13 @@ def get_stations():
 	result = cursor.execute(query)
 	return result.fetchall()
 
+def get_valley():
+	connexion = sqlite3.connect('Pyrenees.db')
+	query="SELECT nom, id FROM station"
+	cursor = connexion.cursor()
+	result = cursor.execute(query)
+	return result.fetchall()
+
 '''
 df = pd.read_csv('Repro_IS.csv', sep=';')
 select_column = 'Valley'
