@@ -153,7 +153,7 @@ def get_recolte():
 
 def get_year():
 	connexion = sqlite3.connect('Pyrenees.db')
-	query="SELECT DISTINCT Year, id_r FROM récolte"
+	query="SELECT DISTINCT Year, id_r FROM récolte GROUP BY Year"
 	cursor = connexion.cursor()
 	result = cursor.execute(query)
 	return result.fetchall()
