@@ -118,14 +118,14 @@ def setup(cur):
 
 def get_stations():
 	connexion = sqlite3.connect('Pyrenees.db')
-	query="SELECT nom, id FROM station"
+	query="SELECT Station, id FROM station"
 	cursor = connexion.cursor()
 	result = cursor.execute(query)
 	return result.fetchall()
 
 def get_valley():
 	connexion = sqlite3.connect('Pyrenees.db')
-	query="SELECT nom, id FROM station"
+	query="SELECT Valley, id FROM valley"
 	cursor = connexion.cursor()
 	result = cursor.execute(query)
 	return result.fetchall()
