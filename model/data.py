@@ -2,6 +2,13 @@ import pandas as pd
 import csv 
 import sqlite3
 
+
+import dash
+from dash import html
+from dash import dcc
+from dash.dependencies import Input, Output
+from dash.exceptions import PreventUpdate
+
 def setup(cur):
 
     cur.execute('''
@@ -144,6 +151,45 @@ def get_recolte():
 	result = cursor.execute(query)
 	return result.fetchall()
 
+def get_year():
+	connexion = sqlite3.connect('Pyrenees.db')
+	query="SELECT UNIQUE Year FROM récolte"
+	cursor = connexion.cursor()
+	result = cursor.execute(query)
+	return result.fetchall()
+
+
+def prepare_data_piechart(valley_list, year_list):
+    if valley_list or year_list == None:
+        raise PreventUpdate
+    else:
+        connexion = sqlite3.connect('Pyrenees.db')
+        if (len(valley_list) == 1 and len(year_list) == 1):
+            valley = valley_list[0] 
+            year = year_list[0]
+            query = "SELECT récolte.Year, récolte.Ntot, stations.Stations, valley.Valley FROM récolte, arbre, stations, valley\
+                WHERE récolte.id_arbre = arbre.id AND arbre.id_station = stations.id AND stations.id_valley = valley.id\
+                    AND valley.Valley ='{}' AND récolte.Year = '{}'".format(valley, year)
+        else:
+            query = "SELECT récolte.Year, récolte.Ntot, stations.Stations, valley.Valley FROM récolte, arbre, stations, valley\
+                WHERE récolte.id_arbre = arbre.id AND arbre.id_station = stations.id AND stations.id_valley = valley.id\
+                    AND valley.Valley IN '{}' AND récolte.Year IN '{}'".format(tuple(valley_list), tuple(year_list))
+
+        df = pd.read_sql(query, connexion)
+        df_agreg = df.groupby(['Station', 'Year'])
+        d = df_agreg.to_dict()['Ntot']
+        years = sorted(set([x[1] for x in d.keys()]))
+        arbres = set([x[0] for x in d.keys()])
+        for a in arbres:
+            for y in years:
+                try:
+                    print(d[(a, y)])
+                except KeyError:
+                    d[(a, y)] = 0
+        arbres_columns = {x: [d[(x, y)] for y in years] for x in arbres}
+        arbres_columns['year'] = years
+        timeline_data = pd.DataFrame(arbres_columns)
+        return df_agreg
 
 '''
 df = pd.read_csv('Repro_IS.csv', sep=';')
