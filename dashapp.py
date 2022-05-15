@@ -25,7 +25,8 @@ app.layout = html.Div(id = 'parent', children = [
 )
 
 @app.callback(Output(component_id='timeline_plot', component_property= 'figure'),
-			  [Input(component_id='dropdown', component_property= 'value')])
+			  [Input(component_id='dropdown', component_property= 'value'),
+              Input(component_id='dropdown2', component_property= 'value2')])
 
 def graph_update(dropdown_values_valley, dropdown_values_year):
     if dropdown_values_valley and dropdown_values_year == None:
