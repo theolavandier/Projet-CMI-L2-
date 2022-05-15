@@ -15,7 +15,9 @@ def setup(cur):
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         Station TEXT NOT NULL,
         Range REAL,
-        Altitude REAL
+        Altitude REAL,
+        id_valley INTEGER,
+        FOREIGN KEY (id_valley) REFERENCES valler(id)
         );
     ''')
 
@@ -26,7 +28,9 @@ def setup(cur):
         Species TEXT NOT NULL,
         VH REAL,
         H REAL,
-        SH REAL
+        SH REAL,
+        id_station INTEGER,
+        FOREIGN KEY (id_station) REFERENCES station(id)
         );
     ''')
 
@@ -46,7 +50,9 @@ def setup(cur):
         tot_Germ REAL,
         M_Germ REAL, 
         N_Germ REAL, 
-        rate_Germ REAL
+        rate_Germ REAL,
+        id_arbre INTEGER,
+        FOREIGN KEY (id_arbre) REFERENCES arbre(id)
         );
     ''')
 
@@ -70,7 +76,7 @@ def setup(cur):
             query = 'SELECT (id) FROM stations WHERE Station="{}"'.format(row['Station'])
             result = cur.execute(query)        
             if result.fetchone() == None:
-                query = 'INSERT INTO stations (Station, Range, Altitude) VALUES ("{}", {}, {});'.format(row['Station'], row['Range'], row['Altitude'])
+                query = 'INSERT INTO stations (Station, Range, Altitude, id_valley) VALUES ("{}", {}, {}, 0);'.format(row['Station'], row['Range'], row['Altitude'])
                 cur.execute(query)
                 
             query = 'SELECT (id) FROM valley WHERE Valley="{}"'.format(row['Valley'])
@@ -82,15 +88,15 @@ def setup(cur):
             query = 'SELECT (id) FROM arbre WHERE code="{}"'.format(row['code'])
             result = cur.execute(query)        
             if result.fetchone() == None:
-                query = 'INSERT INTO arbre (code, Species, VH, H, SH) VALUES ("{}", "{}", "{}", "{}", "{}");'.\
+                query = 'INSERT INTO arbre (code, Species, VH, H, SH, id_station) VALUES ("{}", "{}", "{}", "{}", "{}", 0);'.\
                     format(row['code'],row['Species'], row['VH'], row['H'], row['SH'])
                 cur.execute(query)
 
             query = 'SELECT (id_r) FROM récolte WHERE ID="{}"'.format(row['ID'])
             result = cur.execute(query)        
             if result.fetchone() == None:
-                query = 'INSERT INTO récolte (ID,harv_num,DD,harv,Year,Date,Mtot,Ntot,Ntot1,oneacorn,tot_Germ, M_Germ,N_Germ,rate_Germ) VALUES\
-                     ("{}", "{}", "{}", "{}", "{}", "{}", "{}", "{}", "{}", "{}", "{}", "{}", "{}", "{}");'.\
+                query = 'INSERT INTO récolte (ID,harv_num,DD,harv,Year,Date,Mtot,Ntot,Ntot1,oneacorn,tot_Germ, M_Germ,N_Germ,rate_Germ, id_arbre) VALUES\
+                     ("{}", "{}", "{}", "{}", "{}", "{}", "{}", "{}", "{}", "{}", "{}", "{}", "{}", "{}", 0);'.\
                          format(row['ID'],row['harv_num'],row['DD'],row['harv'],row['Year'],row['Date'],\
                               row['Mtot'],row['Ntot'],row['Ntot1'],row['oneacorn'],row['tot_Germ'],row['M_Germ'],row['N_Germ'], row['rate_Germ'])
                 cur.execute(query)
@@ -105,8 +111,33 @@ def setup(cur):
                     SELECT id_r, arbre.id, stations.id, valley.id FROM récolte,arbre,stations,valley\
                         WHERE récolte.ID = "{}" and arbre.code = "{}" and stations.Station = "{}" and valley.Valley = "{}";'.format(row['ID'],row['code'],row['Station'],row['Valley'])
                 cur.execute(query)
-        
-
+                
+                
+                
+    with open('./model/Repro_IS.csv', 'r') as csvfile:
+        reader = csv.DictReader(csvfile, delimiter=';')
+        for row in reader:
+            query = 'SELECT (id_valley) FROM stations WHERE Station="{}"'.format(row['Station'])
+            result = cur.execute(query)        
+            if result.fetchone()[0] == 0:
+                query = 'UPDATE stations SET id_valley = (SELECT id FROM valley WHERE Valley="{}") WHERE Station ="{}"'.format(row['Valley'],row['Station'] )
+                cur.execute(query)
+                
+            query = 'SELECT (id_station) FROM arbre WHERE code="{}"'.format(row['code'])
+            result = cur.execute(query)    
+            if result.fetchone()[0] == 0:
+                query = 'SELECT id FROM stations WHERE Station="{}"'.format(row['Station'])
+                result = cur.execute(query)  
+                query = 'UPDATE arbre SET id_station = {} WHERE code ="{}"'.format(result.fetchone()[0], row['code'])
+                cur.execute(query)
+                
+            query ='SELECT (id_arbre) FROM récolte WHERE ID ="{}"'.format(row['ID'])
+            result = cur.execute(query)
+            if result.fetchone()[0] == 0:
+                query = 'SELECT id FROM arbre WHERE code="{}"'.format(row['code'])
+                result = cur.execute(query)  
+                query = 'UPDATE récolte SET id_arbre = {} WHERE ID ="{}"'.format(result.fetchone()[0], row['ID'])
+                cur.execute(query)
 
 
 '''
