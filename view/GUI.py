@@ -121,6 +121,12 @@ def build_dropdown_menu(item_list):
 						options=options,
 						multi=True)
 
+def build_dropdown_menu2(item_list):
+	options = [{'label': x, 'value':y} for x,y in item_list]
+	return dcc.Dropdown(id = 'dropdown3',
+						options=options,
+						multi=True)
+
 def build_timeline_graph_piechart_valley(timeline_data, valleys):
 	timeline_graph = px.line(timeline_data, x='year', y=timeline_data.columns,
 		title='Evolution des récoltes – Valleys {}'.format(valleys))

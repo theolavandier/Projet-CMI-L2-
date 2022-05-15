@@ -17,6 +17,7 @@ app.layout = html.Div(id = 'parent', children = [
 		html.H1(id = 'piechart', children = 'Graphique sous forme de piechart ', style = {'textAlign':'center',\
 												'marginTop':40,'marginBottom':40}),
 		view.GUI.build_dropdown_menu(data.get_valley()),
+        view.GUI.build_dropdown_menu2(data.get_year()),
 		html.Hr(),
 		dcc.Graph(id = 'timeline_plot')
 
@@ -37,7 +38,7 @@ def graph_update(dropdown_values_valley, dropdown_values_year):
     return (view.GUI.build_timeline_graph_piechart(timeline_data, valleys), view.GUI.build_timeline_graph_piechart(timeline_data, years))
 
 if __name__ == '__main__': 
-	app.run_server(debug=True)
+	app.run_server(debug=False)
 
 
 
