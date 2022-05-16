@@ -123,36 +123,37 @@ def setup(cur):
                 query = 'UPDATE récolte SET id_arbre = {} WHERE ID ="{}"'.format(result.fetchone()[0], row['ID'])
                 cur.execute(query)
 
-def get_stations(cur):
-	query="SELECT Station, id FROM stations"
-	cursor = cur
-	result = cursor.execute(query)
-	return result.fetchall()
 
-def get_valley(cur):
+
+def get_valley(con,cur):
 	query="SELECT Valley, id FROM valley"
 	cursor = cur
-	result = cursor.execute(query)
-	return result.fetchall()
+	df = pd.read_sql(query, con)
+	return df['Valley'].tolist()
 
-def get_arbre(cur):
+def get_arbre(con,cur):
 	query="SELECT code, id FROM arbre"
 	cursor = cur
-	result = cursor.execute(query)
-	return result.fetchall()
+	df = pd.read_sql(query, con)
+	return df['code'].tolist()
 
-def get_recolte(cur):
+def get_recolte(con,cur):
 	query="SELECT ID, id_r FROM récolte"
 	cursor = cur
-	result = cursor.execute(query)
-	return result.fetchall()
+	df = pd.read_sql(query, con)
+	return df['ID'].tolist()
 
-def get_year(cur):
+def get_year(con,cur):
 	query="SELECT DISTINCT Year, id_r FROM récolte GROUP BY Year"
 	cursor = cur
-	result = cursor.execute(query)
-	return result.fetchall()
+	df = pd.read_sql(query, con)
+	return df['Year'].tolist()
 
+def get_stations(con,cur):
+    query="SELECT Station, id FROM stations"
+    cursor = cur
+    df = pd.read_sql(query, con)
+    return df['Station'].tolist()
 
 def prepare_data_piechart(con, valley_list, year_list):
     if valley_list == None and year_list == None:
@@ -166,7 +167,7 @@ def prepare_data_piechart(con, valley_list, year_list):
                 WHERE valley.id ='{}' AND récolte.Year = {}".format(valley, year)
         else:
             query = "SELECT récolte.Ntot, stations.Station FROM récolte, arbre, stations, valley\
-                WHERE valley.Valley IN '{}' AND récolte.Year IN '{}'".format(tuple(valley_list), tuple(year_list))
+                WHERE valley.Valley IN '{}' AND récolte.Year IN '{}'".format(valley_list, year_list)
 
         df = pd.read_sql(query, connexion)
         df_agreg = df.groupby(['Station']).mean()
@@ -184,19 +185,14 @@ def prepare_data_piechart(con, valley_list, year_list):
 
 
 def prepare_data_histogramme(con, valley_list):
-	if valley_list == None:
-		raise PreventUpdate
-	else:
-		connexion = con
-		if len(valley_list) == 1:
-			valley = valley_list[0]
-			query = "SELECT stations.Station, récolte.Year, récolte.Ntot FROM stations, récolte, valley, arbre WHERE récolte.id_arbre = arbre.id AND arbre.id_station = stations.id AND stations.id_valley = valley.id AND valley.id='{}'".format(valley)
-		else:
-			query = "SELECT stations.Station, récolte.Year, récolte.Ntot FROM stations, récolte, valley, arbre WHERE récolte.id_arbre = arbre.id AND arbre.id_station = stations.id AND stations.id_valley = valley.id AND valley.id IN '{}'".format(tuple(valley_list))
-
-		df = pd.read_sql(query, connexion)
-		df_agreg = df.groupby(['Station', 'Year']).mean()
-		return df_agreg
+    if valley_list == None:
+        raise PreventUpdate
+    else:
+        valley = valley_list[0]
+        query = "SELECT Station, Year, AVG(Ntot) as Ntot FROM (SELECT Station, Year, Ntot, Valley FROM stations, récolte, valley, arbre WHERE arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley ) WHERE Valley='{}' GROUP BY Station, Year".format(valley_list)
+        df = pd.read_sql(query, con)
+        df_agreg = df.groupby(['Station', 'Year'])
+        return df
 
 
 def prepare_data(con, station_list):
@@ -208,7 +204,7 @@ def prepare_data(con, station_list):
             station = station_list[0]
             query = "SELECT arbre.code, recolte.Year, recolte.Ntot FROM arbre JOIN recolte ON arbre.id=recolte.arbre_id WHERE arbre.station_id={}".format(station)
         else :
-            query = "SELECT arbre.code, recolte.Year, recolte.Ntot FROM arbre JOIN recolte ON arbre.id=recolte.arbre_id WHERE arbre.station_id IN {}".format(tuple(station_list))
+            query = "SELECT arbre.code, recolte.Year, recolte.Ntot FROM arbre JOIN recolte ON arbre.id=recolte.arbre_id WHERE arbre.station_id IN {}".format(station_list)
         df = pd.read_sql(query, connexion)
         df_agreg = df.groupby(['code', 'Year']).mean()
         d = df_agreg.to_dict()['Ntot']

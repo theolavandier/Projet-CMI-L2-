@@ -116,14 +116,14 @@ def figure_graph(df, attributes):
 '''
 
 def build_dropdown_menu(item_list):
-    options = [{'label': x, 'value':y} for x,y in item_list]
+    options = [{'label': x, 'value':x} for x in item_list]
     return dcc.Dropdown(id = 'dropdown',
                         options=options,
                         multi=True)
 
 
 def build_dropdown_menu1(item_list):
-	options = [{'label': x, 'value':y} for x,y in item_list]
+	options = [{'label': x, 'value':x} for x in item_list]
 	return dcc.Dropdown(id = 'dropdown1',
 						options=options,
                         value=item_list[1],
@@ -131,7 +131,7 @@ def build_dropdown_menu1(item_list):
  
  
 def build_dropdown_menu2(item_list):
-    options =[{'label': x, 'value':y} for x,y in item_list]
+    options =[{'label': x, 'value':x} for x in item_list]
     return dcc.Dropdown(id= 'dropdown2',
                         options=options,
                         value=item_list[1],
@@ -139,11 +139,11 @@ def build_dropdown_menu2(item_list):
 
 
 def build_dropdown_menu3(item_list):
-    options =[{'label': x, 'value':y} for x,y in item_list]
+    options =[{'label': x, 'value':x} for x in item_list]
     return dcc.Dropdown(id= 'dropdown3',
                         options=options,
                         value=item_list[1],
-                        multi=True)
+                        multi=False)
 
 
 def build_piechart(data):
@@ -152,11 +152,14 @@ def build_piechart(data):
         
 
 def build_histogramme(data):
-	histogramme = px.bar(data, x=["Years"], y=["Ntot"],color=["Station"], barmode="group", title = "Histogramme type fourni")
+	histogramme = px.bar(data, x=data.Year , y=data.Ntot, color=data.Station, barmode="group", title = "Histogramme type fourni")
 	return histogramme
 
 def init_graph(id_graph):
-    return dcc.Graph(id=id_graph)
+    return dcc.Graph(id="{}".format(id_graph))
+
+def init_graph_histo():
+    return dcc.Graph(id="histogramme")
 
 
 def build_timeline_graph(timeline_data, stations):

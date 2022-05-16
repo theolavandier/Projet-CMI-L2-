@@ -64,36 +64,18 @@ app.layout = html.Div([
 
 @app.callback(
 	Output("page-content", "children"),
-	[Input("url", "pathname")]
+	Input("url", "pathname")
 )
 def render_page_content(pathname):
     
 	if pathname == "/":
-		dropdown3 = view.GUI.build_dropdown_menu3(data.get_valley(cur))
-		graph = view.GUI.init_graph('histogramme')
-		return [
-			html.Div([
-				dropdown3, graph
+		
+		return html.Div([
+				view.GUI.build_dropdown_menu3(data.get_valley(con,cur)),
+				view.GUI.init_graph_histo()
 			])
-		]
-	elif pathname == "/piechart":
-		dropdown1 = view.GUI.build_dropdown_menu1(data.get_valley(cur)),
-		dropdown2 = view.GUI.build_dropdown_menu2(data.get_year(cur)),
-		pie_chart = view.GUI.init_graph('pie_chart')
-		return [
-			html.Div([
-				dropdown1,dropdown2,pie_chart
-			])
-		]
-  
-	elif pathname == "/prof":
-		dropdown = view.GUI.build_dropdown_menu(data.get_stations(cur)),
-		graph2 = view.GUI.init_graph('timeline_plot')
-		return [
-			html.Div([
-				dropdown, graph2
-			])
-		]
+		
+	
 	else:
 		return html.Div(
 			[
@@ -104,7 +86,24 @@ def render_page_content(pathname):
 		)
 
 
-
+'''elif pathname == "/piechart":
+		dropdown1 = view.GUI.build_dropdown_menu1(data.get_valley(con,cur)),
+		dropdown2 = view.GUI.build_dropdown_menu2(data.get_year(con,cur)),
+		pie_chart = view.GUI.init_graph('pie_chart')
+		return [
+			html.Div([
+				dropdown1,dropdown2,pie_chart
+			])
+		]
+  
+	elif pathname == "/prof":
+		dropdown = view.GUI.build_dropdown_menu(data.get_stations(con,cur)),
+		graph2 = view.GUI.init_graph('timeline_plot')
+		return [
+			html.Div([
+				dropdown, graph2
+			])
+		]'''
 
 '''
 app.layout = html.Div(id = 'parent', children = [
@@ -125,20 +124,22 @@ def histogramme_update(dropdown_values_valley):
         raise PreventUpdate 
     
     histogramme = data.prepare_data_histogramme(con, dropdown_values_valley)
+    print(histogramme)
     return view.GUI.build_histogramme(histogramme)
 
-
+'''
 @app.callback(Output('pie_chart','figure'),
 			  [Input('dropdown1','value'),
               Input('dropdown2', 'value')])
 
+
 def pie_chart_update(dropdown_values_valley, dropdown_values_year):
     if dropdown_values_valley or dropdown_values_year == None:
         raise PreventUpdate 
-    all_valleys = data.get_valley(cur)
+    all_valleys = data.get_valley(con,cur)
     
     valleys = list(map(lambda x: all_valleys[x-1][0], dropdown_values_valley))
-    all_years = data.get_year(cur)
+    all_years = data.get_year(con,cur)
     years=list(map(lambda x: all_years[x-1][0], dropdown_values_year))
     
     pie_data = data.prepare_data_piechart(con, dropdown_values_valley, dropdown_values_year)
@@ -151,20 +152,11 @@ def pie_chart_update(dropdown_values_valley, dropdown_values_year):
 def graph_update(dropdown_values):
     if dropdown_values == None:
         raise PreventUpdate
-    all_stations = data.get_stations(cur)
+    all_stations = data.get_stations(con,cur)
     timeline_data = data.prepare_data(dropdown_values)
     stations = list(map(lambda x: all_stations[x-1][0], dropdown_values))
     return view.GUI.build_timeline_graph(timeline_data, stations)
     
-
-'''
-@app.callback(
-    Output("dm", "figure"),
-    [Input("dropdown3", "value")])
-def update_dist_marg(valley):
-    
-    sub_df, attributes = model.data.extract_df3(valley)
-    return view.GUI.build_dist_marg(sub_df, attributes)
 '''
 
 if __name__ == '__main__': 
