@@ -41,6 +41,7 @@ sidebar = html.Div(
 		),
 		dbc.Nav(
 			[
+				dbc.NavLink("Histogramme", href="/", active="exact"),
 				dbc.NavLink("Piechart", href="/", active="exact"),
 			],
 			vertical=True,
@@ -66,17 +67,25 @@ app.layout = html.Div([
 )
 def render_page_content(pathname):
     
-    if pathname == "/":
-        dropdown = view.GUI.build_dropdown_menu(data.get_valley(cur), 'dropdown'),
-        dropdown2 = view.GUI.build_dropdown_menu(data.get_year(cur), 'dropdown2'),
-        graph = view.GUI.init_graph('pie_chart')
-        return [
+	if pathname == "/":
+		dropdown3 = view.GUI.build_dropdown_menu(data.get_valley(cur),'dropdown3')
+		graph = view.GUI.init_graph('histogramme')
+		return [
+			html.Div([
+				dropdown3, graph
+			])
+		]
+	elif pathname == "/piechart":
+		dropdown = view.GUI.build_dropdown_menu(data.get_valley(cur), 'dropdown'),
+		dropdown2 = view.GUI.build_dropdown_menu(data.get_year(cur), 'dropdown2'),
+		graph = view.GUI.init_graph('pie_chart')
+		return [
 			html.Div([
 				dropdown,dropdown2,graph
 			])
 		]
-    else:
-        return html.Div(
+	else:
+		return html.Div(
 			[
 				html.H1("404: Not found", className="text-danger"),
 				html.Hr(),
@@ -98,6 +107,19 @@ app.layout = html.Div(id = 'parent', children = [
 
 	]
 )'''
+@app.callback(Output('histogramme','figure'),
+              Input('dropdown3', 'value'))
+
+def graph_update(dropdown_values_valley):
+    if dropdown_values_valley == None:
+        raise PreventUpdate 
+    all_valleys = data.get_valleys(cur)
+    
+    valleys = list(map(lambda x: all_valleys[x-1][0], dropdown_values_valley))
+    
+    histogramme = data.prepare_data_histogramme(cur, dropdown_values_valley)
+    return view.GUI.build_histogramme(histogramme)
+
 
 @app.callback(Output('pie_chart','figure'),
 			  [Input('dropdown','value'),

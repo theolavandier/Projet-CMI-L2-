@@ -126,7 +126,11 @@ def build_dropdown_menu(item_list, dropdownid):
 def build_piechart(data):
 	pie = px.pie(data, values=data.columns, names="Station", title='Pourcentage de gland par station en fonction des années et des deux stations')
 	return pie
+        
 
+def build_histogramme(data):
+	histogramme = px.bar(data, x="Year", y="Ntot",color="Station", barmode="group", title = "Histogramme type fourni")
+	return histogramme
 
 def init_graph(id_graph):
     return dcc.Graph(id="{}".format(id_graph))
