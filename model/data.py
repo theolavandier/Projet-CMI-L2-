@@ -171,17 +171,14 @@ def prepare_data_piechart(cur, valley_list, year_list):
         df = pd.read_sql(query, connexion)
         df_agreg = df.groupby(['Station']).mean()
         d = df_agreg.to_dict()['Ntot']
-        years = sorted(set([x[1] for x in d.keys()]))
-        valleys = set([x[0] for x in d.keys()])
-        for a in valleys:
-            for y in years:
-                try:
-                    print(d[(a, y)])
-                except KeyError:
-                    d[(a, y)] = 0
-        arbres_columns = {x: [d[(x, y)] for y in years] for x in valleys}
-        arbres_columns['year'] = years
-        px_data = pd.DataFrame(arbres_columns)
+        stations = sorted(set([x[0] for x in d.keys()]))
+        for a in stations:
+            try:
+                print(d[(a)])
+            except KeyError:
+                d[(a)] = 0
+        stations_columns = {x: d[(x)] for x in stations}
+        px_data = pd.DataFrame(stations_columns)
         return px_data
 
 

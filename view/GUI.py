@@ -127,3 +127,7 @@ def build_piechart(data):
 	pie = px.pie(data, values=data.columns, names="Station", title='Pourcentage de gland par station en fonction des années et des deux stations')
 	return pie
 
+
+def init_graph(id_graph):
+    return dcc.Graph(id="{}".format(id_graph))
+
