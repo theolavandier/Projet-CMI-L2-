@@ -129,7 +129,7 @@ def build_piechart(data):
         
 
 def build_histogramme(data):
-	histogramme = px.bar(data, x="Year", y="Ntot",color="Station", barmode="group", title = "Histogramme type fourni")
+	histogramme = px.bar(data, x=["Years"], y=["Ntot"],color=["Station"], barmode="group", title = "Histogramme type fourni")
 	return histogramme
 
 def init_graph(id_graph):

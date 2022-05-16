@@ -196,7 +196,6 @@ def prepare_data_histogramme(con, valley_list):
 
 		df = pd.read_sql(query, connexion)
 		df_agreg = df.groupby(['Station', 'Year']).mean()
-		d = df_agreg.to_dict()['Ntot']
 		return df_agreg
 
 '''

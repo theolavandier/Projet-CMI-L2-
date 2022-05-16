@@ -42,7 +42,7 @@ sidebar = html.Div(
 		dbc.Nav(
 			[
 				dbc.NavLink("Histogramme", href="/", active="exact"),
-				dbc.NavLink("Piechart", href="/", active="exact"),
+				dbc.NavLink("Piechart", href="/piechart", active="exact"),
 			],
 			vertical=True,
 			pills=True,
@@ -149,7 +149,7 @@ def update_dist_marg(valley):
 '''
 
 if __name__ == '__main__': 
-	app.run_server(debug=False)
+	app.run_server(debug=True)
 
 
 
