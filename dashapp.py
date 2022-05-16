@@ -43,7 +43,7 @@ sidebar = html.Div(
 			[
 				dbc.NavLink("Histogramme", href="/", active="exact"),
 				dbc.NavLink("Piechart", href="/piechart", active="exact"),
-				dbc.NavLink("prof", href="/piechart", active="exact"),
+				dbc.NavLink("prof", href="/prof", active="exact"),
 			],
 			vertical=True,
 			pills=True,
@@ -151,7 +151,7 @@ def pie_chart_update(dropdown_values_valley, dropdown_values_year):
 def graph_update(dropdown_values):
     if dropdown_values == None:
         raise PreventUpdate
-    all_stations = data.get_stations()
+    all_stations = data.get_stations(cur)
     timeline_data = data.prepare_data(dropdown_values)
     stations = list(map(lambda x: all_stations[x-1][0], dropdown_values))
     return view.GUI.build_timeline_graph(timeline_data, stations)
