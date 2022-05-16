@@ -163,7 +163,7 @@ def prepare_data_piechart(con, valley_list, year_list):
             valley = valley_list[0] 
             year = year_list[0]
             query = "SELECT récolte.Ntot, stations.Station FROM récolte, stations, valley\
-                WHERE valley.Valley ='{}' AND récolte.Year = {}".format(valley, year)
+                WHERE valley.id ='{}' AND récolte.Year = {}".format(valley, year)
         else:
             query = "SELECT récolte.Ntot, stations.Station FROM récolte, arbre, stations, valley\
                 WHERE valley.Valley IN '{}' AND récolte.Year IN '{}'".format(tuple(valley_list), tuple(year_list))
@@ -190,13 +190,41 @@ def prepare_data_histogramme(con, valley_list):
 		connexion = con
 		if len(valley_list) == 1:
 			valley = valley_list[0]
-			query = "SELECT stations.Station, récolte.Year, récolte.Ntot FROM stations, récolte, valley, arbre WHERE récolte.id_arbre = arbre.id AND arbre.id_station = stations.id AND stations.id_valley = valley.id AND valley.Valley='{}'".format(valley)
+			query = "SELECT stations.Station, récolte.Year, récolte.Ntot FROM stations, récolte, valley, arbre WHERE récolte.id_arbre = arbre.id AND arbre.id_station = stations.id AND stations.id_valley = valley.id AND valley.id='{}'".format(valley)
 		else:
-			query = "SELECT stations.Station, récolte.Year, récolte.Ntot FROM stations, récolte, valley, arbre WHERE récolte.id_arbre = arbre.id AND arbre.id_station = stations.id AND stations.id_valley = valley.id AND valley.Valley IN '{}'".format(tuple(valley_list))
+			query = "SELECT stations.Station, récolte.Year, récolte.Ntot FROM stations, récolte, valley, arbre WHERE récolte.id_arbre = arbre.id AND arbre.id_station = stations.id AND stations.id_valley = valley.id AND valley.id IN '{}'".format(tuple(valley_list))
 
 		df = pd.read_sql(query, connexion)
 		df_agreg = df.groupby(['Station', 'Year']).mean()
 		return df_agreg
+
+
+def prepare_data(con, station_list):
+    if station_list == None:
+        raise PreventUpdate
+    else:
+        connexion = con
+        if len(station_list) == 1:
+            station = station_list[0]
+            query = "SELECT arbre.code, recolte.Year, recolte.Ntot FROM arbre JOIN recolte ON arbre.id=recolte.arbre_id WHERE arbre.station_id={}".format(station)
+        else :
+            query = "SELECT arbre.code, recolte.Year, recolte.Ntot FROM arbre JOIN recolte ON arbre.id=recolte.arbre_id WHERE arbre.station_id IN {}".format(tuple(station_list))
+        df = pd.read_sql(query, connexion)
+        df_agreg = df.groupby(['code', 'Year']).mean()
+        d = df_agreg.to_dict()['Ntot']
+        years = sorted(set([x[1] for x in d.keys()]))
+        arbres = set([x[0] for x in d.keys()])
+        for a in arbres:
+            for y in years:
+                try:
+                    print(d[(a, y)])
+                except KeyError:
+                    d[(a, y)] = 0
+        arbres_columns = {x: [d[(x, y)] for y in years] for x in arbres}
+        arbres_columns['year'] = years
+        timeline_data = pd.DataFrame(arbres_columns)
+        return timeline_data
+
 
 '''
 df = pd.read_csv('Repro_IS.csv', sep=';')

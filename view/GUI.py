@@ -115,12 +115,35 @@ def figure_graph(df, attributes):
     return fig_graph
 '''
 
-def build_dropdown_menu(item_list, dropdownid):
+def build_dropdown_menu(item_list):
+    options = [{'label': x, 'value':y} for x,y in item_list]
+    return dcc.Dropdown(id = 'dropdown',
+                        options=options,
+                        multi=True)
+
+
+def build_dropdown_menu1(item_list):
 	options = [{'label': x, 'value':y} for x,y in item_list]
-	return dcc.Dropdown(id = '{}'.format(dropdownid),
+	return dcc.Dropdown(id = 'dropdown1',
 						options=options,
                         value=item_list[1],
 						multi=True)
+ 
+ 
+def build_dropdown_menu2(item_list):
+    options =[{'label': x, 'value':y} for x,y in item_list]
+    return dcc.Dropdown(id= 'dropdown2',
+                        options=options,
+                        value=item_list[1],
+                        multi=True)
+
+
+def build_dropdown_menu3(item_list):
+    options =[{'label': x, 'value':y} for x,y in item_list]
+    return dcc.Dropdown(id= 'dropdown3',
+                        options=options,
+                        value=item_list[1],
+                        multi=True)
 
 
 def build_piechart(data):
@@ -133,7 +156,7 @@ def build_histogramme(data):
 	return histogramme
 
 def init_graph(id_graph):
-    return dcc.Graph(id="{}".format(id_graph))
+    return dcc.Graph(id=id_graph)
 
 
 def build_timeline_graph(timeline_data, stations):
