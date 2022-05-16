@@ -154,11 +154,11 @@ def get_year(cur):
 	return result.fetchall()
 
 
-def prepare_data_piechart(cur, valley_list, year_list):
+def prepare_data_piechart(con, valley_list, year_list):
     if valley_list == None and year_list == None:
         raise PreventUpdate
     else:
-        connexion = cur
+        connexion = con
         if (len(valley_list) == 1 and len(year_list) == 1):
             valley = valley_list[0] 
             year = year_list[0]
@@ -183,6 +183,21 @@ def prepare_data_piechart(cur, valley_list, year_list):
 
 
 
+def prepare_data_histogramme(con, valley_list):
+	if valley_list == None:
+		raise PreventUpdate
+	else:
+		connexion = con
+		if len(valley_list) == 1:
+			valley = valley_list[0]
+			query = "SELECT stations.Station, récolte.Year, récolte.Ntot FROM stations, récolte, valley, arbre WHERE récolte.id_arbre = arbre.id AND arbre.id_station = stations.id AND stations.id_valley = valley.id AND valley.Valley='{}'".format(valley)
+		else:
+			query = "SELECT stations.Station, récolte.Year, récolte.Ntot FROM stations, récolte, valley, arbre WHERE récolte.id_arbre = arbre.id AND arbre.id_station = stations.id AND stations.id_valley = valley.id AND valley.Valley IN '{}'".format(tuple(valley_list))
+
+		df = pd.read_sql(query, connexion)
+		df_agreg = df.groupby(['Station', 'Year']).mean()
+		d = df_agreg.to_dict()['Ntot']
+		return df_agreg
 
 '''
 df = pd.read_csv('Repro_IS.csv', sep=';')

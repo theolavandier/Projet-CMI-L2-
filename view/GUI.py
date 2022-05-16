@@ -135,3 +135,10 @@ def build_histogramme(data):
 def init_graph(id_graph):
     return dcc.Graph(id="{}".format(id_graph))
 
+
+def build_timeline_graph(timeline_data, stations):
+	timeline_graph = px.line(timeline_data, x='year', y=timeline_data.columns,
+		title='Evolution des récoltes – Station {}'.format(stations))
+	return timeline_graph
+
+

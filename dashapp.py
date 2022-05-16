@@ -110,14 +110,14 @@ app.layout = html.Div(id = 'parent', children = [
 @app.callback(Output('histogramme','figure'),
               Input('dropdown3', 'value'))
 
-def graph_update(dropdown_values_valley):
+def histogramme_update(dropdown_values_valley):
     if dropdown_values_valley == None:
         raise PreventUpdate 
-    all_valleys = data.get_valleys(cur)
+    all_valleys = data.get_valley(cur)
     
     valleys = list(map(lambda x: all_valleys[x-1][0], dropdown_values_valley))
     
-    histogramme = data.prepare_data_histogramme(cur, dropdown_values_valley)
+    histogramme = data.prepare_data_histogramme(con, dropdown_values_valley)
     return view.GUI.build_histogramme(histogramme)
 
 
@@ -125,7 +125,7 @@ def graph_update(dropdown_values_valley):
 			  [Input('dropdown','value'),
               Input('dropdown2', 'value')])
 
-def graph_update(dropdown_values_valley, dropdown_values_year):
+def pie_chart_update(dropdown_values_valley, dropdown_values_year):
     if dropdown_values_valley or dropdown_values_year == None:
         raise PreventUpdate 
     all_valleys = data.get_valleys(cur)
@@ -134,7 +134,7 @@ def graph_update(dropdown_values_valley, dropdown_values_year):
     all_years = data.get_year(cur)
     years=list(map(lambda x: all_years[x-1][0], dropdown_values_year))
     
-    pie_data = data.prepare_data_piechart(cur, dropdown_values_valley, dropdown_values_year)
+    pie_data = data.prepare_data_piechart(con, dropdown_values_valley, dropdown_values_year)
     return view.GUI.build_piechart(pie_data)
 
 
