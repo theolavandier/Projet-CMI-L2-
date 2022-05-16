@@ -115,24 +115,15 @@ def figure_graph(df, attributes):
     return fig_graph
 '''
 
-def build_dropdown_menu(item_list):
+def build_dropdown_menu(item_list, dropdownid):
 	options = [{'label': x, 'value':y} for x,y in item_list]
-	return dcc.Dropdown(id = 'dropdown',
+	return dcc.Dropdown(id = '{}'.format(dropdownid),
 						options=options,
+                        value=item_list[1],
 						multi=True)
 
-def build_dropdown_menu2(item_list):
-	options = [{'label': x, 'value':y} for x,y in item_list]
-	return dcc.Dropdown(id = 'dropdown3',
-						options=options,
-						multi=True)
 
-def build_timeline_graph_piechart_valley(timeline_data, valleys):
-	timeline_graph = px.line(timeline_data, x='year', y=timeline_data.columns,
-		title='Evolution des récoltes – Valleys {}'.format(valleys))
-	return timeline_graph
+def build_piechart(data):
+	pie = px.pie(data, values=data.columns, names="Station", title='Pourcentage de gland par station en fonction des années et des deux stations')
+	return pie
 
-def build_timeline_graph_piechart_year(timeline_data, years):
-	timeline_graph = px.line(timeline_data, x='year', y=timeline_data.columns,
-		title='Evolution des récoltes – Years {}'.format(years))
-	return timeline_graph

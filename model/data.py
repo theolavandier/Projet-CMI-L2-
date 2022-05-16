@@ -123,73 +123,69 @@ def setup(cur):
                 query = 'UPDATE récolte SET id_arbre = {} WHERE ID ="{}"'.format(result.fetchone()[0], row['ID'])
                 cur.execute(query)
 
-def get_stations():
-	connexion = sqlite3.connect('Pyrenees.db')
-	query="SELECT Station, id FROM station"
-	cursor = connexion.cursor()
+def get_stations(cur):
+	query="SELECT Station, id FROM stations"
+	cursor = cur
 	result = cursor.execute(query)
 	return result.fetchall()
 
-def get_valley():
-	connexion = sqlite3.connect('Pyrenees.db')
+def get_valley(cur):
 	query="SELECT Valley, id FROM valley"
-	cursor = connexion.cursor()
+	cursor = cur
 	result = cursor.execute(query)
 	return result.fetchall()
 
-def get_arbre():
-	connexion = sqlite3.connect('Pyrenees.db')
+def get_arbre(cur):
 	query="SELECT code, id FROM arbre"
-	cursor = connexion.cursor()
+	cursor = cur
 	result = cursor.execute(query)
 	return result.fetchall()
 
-def get_recolte():
-	connexion = sqlite3.connect('Pyrenees.db')
+def get_recolte(cur):
 	query="SELECT ID, id_r FROM récolte"
-	cursor = connexion.cursor()
+	cursor = cur
 	result = cursor.execute(query)
 	return result.fetchall()
 
-def get_year():
-	connexion = sqlite3.connect('Pyrenees.db')
+def get_year(cur):
 	query="SELECT DISTINCT Year, id_r FROM récolte GROUP BY Year"
-	cursor = connexion.cursor()
+	cursor = cur
 	result = cursor.execute(query)
 	return result.fetchall()
 
 
-def prepare_data_piechart(valley_list, year_list):
-    if valley_list or year_list == None:
+def prepare_data_piechart(cur, valley_list, year_list):
+    if valley_list == None and year_list == None:
         raise PreventUpdate
     else:
-        connexion = sqlite3.connect('Pyrenees.db')
+        connexion = cur
         if (len(valley_list) == 1 and len(year_list) == 1):
             valley = valley_list[0] 
             year = year_list[0]
-            query = "SELECT récolte.Year, récolte.Ntot, stations.Stations, valley.Valley FROM récolte, arbre, stations, valley\
-                WHERE récolte.id_arbre = arbre.id AND arbre.id_station = stations.id AND stations.id_valley = valley.id\
-                    AND valley.Valley ='{}' AND récolte.Year = '{}'".format(valley, year)
+            query = "SELECT récolte.Ntot, stations.Station FROM récolte, stations, valley\
+                WHERE valley.Valley ='{}' AND récolte.Year = {}".format(valley, year)
         else:
-            query = "SELECT récolte.Year, récolte.Ntot, stations.Stations, valley.Valley FROM récolte, arbre, stations, valley\
-                WHERE récolte.id_arbre = arbre.id AND arbre.id_station = stations.id AND stations.id_valley = valley.id\
-                    AND valley.Valley IN '{}' AND récolte.Year IN '{}'".format(tuple(valley_list), tuple(year_list))
+            query = "SELECT récolte.Ntot, stations.Station FROM récolte, arbre, stations, valley\
+                WHERE valley.Valley IN '{}' AND récolte.Year IN '{}'".format(tuple(valley_list), tuple(year_list))
 
         df = pd.read_sql(query, connexion)
-        df_agreg = df.groupby(['Station', 'Year'])
+        df_agreg = df.groupby(['Station']).mean()
         d = df_agreg.to_dict()['Ntot']
         years = sorted(set([x[1] for x in d.keys()]))
-        arbres = set([x[0] for x in d.keys()])
-        for a in arbres:
+        valleys = set([x[0] for x in d.keys()])
+        for a in valleys:
             for y in years:
                 try:
                     print(d[(a, y)])
                 except KeyError:
                     d[(a, y)] = 0
-        arbres_columns = {x: [d[(x, y)] for y in years] for x in arbres}
+        arbres_columns = {x: [d[(x, y)] for y in years] for x in valleys}
         arbres_columns['year'] = years
-        timeline_data = pd.DataFrame(arbres_columns)
-        return df_agreg
+        px_data = pd.DataFrame(arbres_columns)
+        return px_data
+
+
+
 
 '''
 df = pd.read_csv('Repro_IS.csv', sep=';')

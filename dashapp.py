@@ -16,27 +16,29 @@ app = dash.Dash()   #initialising dash app
 app.layout = html.Div(id = 'parent', children = [
 		html.H1(id = 'piechart', children = 'Graphique sous forme de piechart ', style = {'textAlign':'center',\
 												'marginTop':40,'marginBottom':40}),
-		view.GUI.build_dropdown_menu(data.get_valley()),
-        view.GUI.build_dropdown_menu2(data.get_year()),
+		view.GUI.build_dropdown_menu(data.get_valley(cur), 'dropdown'),
+        view.GUI.build_dropdown_menu(data.get_year(cur), 'dropdown2'),
 		html.Hr(),
-		dcc.Graph(id = 'timeline_plot')
+		dcc.Graph(id = 'pie_chart')
 
 	]
 )
 
-@app.callback(Output(component_id='timeline_plot', component_property= 'figure'),
-			  [Input(component_id='dropdown', component_property= 'value'),
-              Input(component_id='dropdown2', component_property= 'value2')])
+@app.callback(Output('pie_chart','figure'),
+			  [Input('dropdown','value'),
+              Input('dropdown2', 'value')])
 
 def graph_update(dropdown_values_valley, dropdown_values_year):
-    if dropdown_values_valley and dropdown_values_year == None:
-        raise PreventUpdate
-    all_valleys = data.get_valleys()
-    timeline_data = data.prepare_data_piechart(dropdown_values_valley)
-    valleys = list(map(lambda x: all_valleys[x][0], dropdown_values_valley))
-    all_years = data.get_year()
-    years=list(map(lambda x: all_years[x][0], dropdown_values_year))
-    return (view.GUI.build_timeline_graph_piechart(timeline_data, valleys), view.GUI.build_timeline_graph_piechart(timeline_data, years))
+    if dropdown_values_valley or dropdown_values_year == None:
+        raise PreventUpdate 
+    all_valleys = data.get_valleys(cur)
+    
+    valleys = list(map(lambda x: all_valleys[x-1][0], dropdown_values_valley))
+    all_years = data.get_year(cur)
+    years=list(map(lambda x: all_years[x-1][0], dropdown_values_year))
+    
+    pie_data = data.prepare_data_piechart(cur, dropdown_values_valley, dropdown_values_year)
+    return view.GUI.build_piechart(pie_data)
 
 if __name__ == '__main__': 
 	app.run_server(debug=False)
