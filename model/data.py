@@ -208,32 +208,6 @@ def prepare_data_distmarge(con, valley_list):
         return df
 
 
-def prepare_data(con, station_list):
-    if station_list == None:
-        raise PreventUpdate
-    else:
-        connexion = con
-        if len(station_list) == 1:
-            station = station_list[0]
-            query = "SELECT arbre.code, recolte.Year, recolte.Ntot FROM arbre JOIN recolte ON arbre.id=recolte.arbre_id WHERE arbre.station_id={}".format(station)
-        else :
-            query = "SELECT arbre.code, recolte.Year, recolte.Ntot FROM arbre JOIN recolte ON arbre.id=recolte.arbre_id WHERE arbre.station_id IN {}".format(station_list)
-        df = pd.read_sql(query, connexion)
-        df_agreg = df.groupby(['code', 'Year']).mean()
-        d = df_agreg.to_dict()['Ntot']
-        years = sorted(set([x[1] for x in d.keys()]))
-        arbres = set([x[0] for x in d.keys()])
-        for a in arbres:
-            for y in years:
-                try:
-                    print(d[(a, y)])
-                except KeyError:
-                    d[(a, y)] = 0
-        arbres_columns = {x: [d[(x, y)] for y in years] for x in arbres}
-        arbres_columns['year'] = years
-        timeline_data = pd.DataFrame(arbres_columns)
-        return timeline_data
-
 
 '''
 df = pd.read_csv('Repro_IS.csv', sep=';')

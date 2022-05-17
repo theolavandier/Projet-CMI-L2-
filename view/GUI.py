@@ -129,7 +129,8 @@ def build_dropdown_menu_options(item_list, iddropdown):
                         value=item_list,
                         multi=True)
 
-
+def init_graph(id_graph):
+    return dcc.Graph(id="{}".format(id_graph))
 
 def build_piechart(data):
 	pie = px.pie(data, values=data.Ntot, names=data.Station, title='Pourcentage de gland par station en fonction des années et des deux stations')
@@ -140,19 +141,10 @@ def build_histogramme(data):
 	histogramme = px.bar(data, x=data.Year , y=data.Ntot, color=data.Station, barmode="group", title = "Histogramme type fourni")
 	return histogramme
 
-def init_graph(id_graph):
-    return dcc.Graph(id="{}".format(id_graph))
-
 def build_distmarge(data):
     dm = px.scatter(data, x=data.Range, y=data.rate_Germ, color=data.rate_Germ, marginal_y="violin",
            marginal_x="box", trendline="ols", template="simple_white", title="Distribution Marginale sur le ration de glands ayant germés en fonction du rang de l'altitude")
 
     return dm
-
-
-def build_timeline_graph(timeline_data, stations):
-	timeline_graph = px.line(timeline_data, x='year', y=timeline_data.columns,
-		title='Evolution des récoltes – Station {}'.format(stations))
-	return timeline_graph
 
 
