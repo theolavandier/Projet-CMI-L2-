@@ -24,6 +24,8 @@ def setup(cur):
         Station TEXT NOT NULL,
         Range REAL,
         Altitude REAL,
+        lat REAL,
+        lon REAL,
         id_valley INTEGER,
         FOREIGN KEY (id_valley) REFERENCES valler(id)
         );
@@ -122,6 +124,9 @@ def setup(cur):
                 result = cur.execute(query)  
                 query = 'UPDATE récolte SET id_arbre = {} WHERE ID ="{}"'.format(result.fetchone()[0], row['ID'])
                 cur.execute(query)
+
+    query = 'UPDATE stations SET lat = 0.324446 WHERE Station = "Josbaig"'   
+    cur.execute(query)    
 
 
 

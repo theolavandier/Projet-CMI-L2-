@@ -11,7 +11,7 @@ import dash_bootstrap_components as dbc
 con = sqlite3.connect('Pyrenees.db' ,check_same_thread=False)
 cur = con.cursor()
 
-###data.setup(cur)
+data.setup(cur)
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.MORPH])   #initialising dash app
 
 
@@ -116,7 +116,7 @@ def render_page_content(pathname):
 			])
 	elif pathname == "/3dplot":
 		return html.Div([
-				view.GUI.build_dropdown_menu(data.get_stations(con,cur),"dropdown7"),
+				view.GUI.build_dropdown_menu_options(data.get_stations(con,cur),"dropdown7"),
 				view.GUI.init_graph("3dplot")
 			])
 	else:
@@ -193,11 +193,6 @@ def plot3d_update(dropdown_values_stations):
 
 if __name__ == '__main__': 
 	app.run_server(debug=True)
-
-
-
-
-
 
 con.commit()
 con.close()
