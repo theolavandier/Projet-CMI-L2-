@@ -85,12 +85,12 @@ def render_page_content(pathname):
 	if pathname == "/":
 		
 		return html.Div([
-				view.GUI.build_dropdown_menu(data.get_valley(con,cur),"dropdown3"),
+				view.GUI.build_dropdown_menu_options(data.get_valley(con,cur),"dropdown3"),
 				view.GUI.init_graph("histogramme")
 			])
 	elif pathname == "/distmarge":
 		return html.Div([
-				view.GUI.build_dropdown_menu(data.get_valley(con,cur),"dropdown4"),
+				view.GUI.build_dropdown_menu_options(data.get_valley(con,cur),"dropdown4"),
 				view.GUI.init_graph("distmarge")
 			])
 	elif pathname == "/piechart":
@@ -169,6 +169,7 @@ def piechart_update (dropdown_values_valley, dropdown_values_year):
 	
 	piechart = data.prepare_data_piechart(con, dropdown_values_valley,dropdown_values_year)
 	return view.GUI.build_piechart(piechart)
+
 
 '''
 def pie_chart_update(dropdown_values_valley, dropdown_values_year):

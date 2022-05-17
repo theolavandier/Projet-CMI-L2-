@@ -186,8 +186,12 @@ def prepare_data_histogramme(con, valley_list):
     if valley_list == None :
         raise PreventUpdate
     else:
-        valley = valley_list[0]
-        query = "SELECT Station, Year, AVG(Ntot) as Ntot FROM (SELECT Station, Year, Ntot, Valley FROM stations, récolte, valley, arbre WHERE arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley ) WHERE Valley='{}' GROUP BY Station, Year".format(valley_list)
+        if (len(valley_list) == 1):
+            valley = valley_list[0]
+            query = "SELECT Station, Year, AVG(Ntot) as Ntot FROM (SELECT Station, Year, Ntot, Valley FROM stations, récolte, valley, arbre WHERE arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley ) WHERE Valley='{}' GROUP BY Station, Year".format(valley)
+        else:
+            query = "SELECT Station, Year, AVG(Ntot) as Ntot FROM (SELECT Station, Year, Ntot, Valley FROM stations, récolte, valley, arbre WHERE arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley ) WHERE Valley IN {} GROUP BY Station, Year".format(tuple(valley_list))
+        
         df = pd.read_sql(query, con)
         return df
 
@@ -195,8 +199,11 @@ def prepare_data_distmarge(con, valley_list):
     if valley_list == None:
         raise PreventUpdate
     else:
-        valley = valley_list[0]
-        query = "SELECT Range, rate_Germ FROM (SELECT Range , rate_Germ , Valley FROM stations, récolte, valley, arbre WHERE rate_Germ  != 'NA' AND arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley ) WHERE Valley= '{}'".format(valley_list)
+        if (len(valley_list) == 1):
+            valley = valley_list[0]
+            query = "SELECT Range, rate_Germ FROM (SELECT Range , rate_Germ , Valley FROM stations, récolte, valley, arbre WHERE rate_Germ  != 'NA' AND arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley ) WHERE Valley= '{}'".format(valley)
+        else:
+            query = "SELECT Range, rate_Germ FROM (SELECT Range , rate_Germ , Valley FROM stations, récolte, valley, arbre WHERE rate_Germ  != 'NA' AND arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley ) WHERE Valley IN {}".format(tuple(valley_list))
         df = pd.read_sql(query, con)
         return df
 
