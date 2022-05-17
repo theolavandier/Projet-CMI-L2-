@@ -53,5 +53,8 @@ def build_linegraph(data):
     fig.update_layout(hovermode="x unified")
     return fig
 
+def build_3dplot(data):
+    fig = px.line_3d(data, x=data.DD, y=data.Year, z=data.AVG_Ntot, color=data.Year)
+    return fig
 
 
