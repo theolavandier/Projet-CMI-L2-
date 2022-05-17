@@ -221,6 +221,21 @@ def prepare_data_animation(con, valley_list):
         df = pd.read_sql(query, con)
         return df.sort_values(by=['Year','Station'])
 
+
+def prepare_data_linegraph(con, station_list):
+    if station_list == None :
+        raise PreventUpdate
+    else:
+        if (len(station_list) == 1):
+            station = station_list[0]
+            query = "SELECT VH, AVG(Mtot) as AVG_Mtot, code FROM (SELECT Station, VH, Mtot, code FROM stations, récolte, valley, arbre WHERE arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley ) WHERE Station='{}' GROUP BY VH".format(station)
+        else:
+            query = "SELECT VH, AVG(Mtot) as AVG_Mtot, code FROM (SELECT Station, VH, Mtot, code FROM stations, récolte, valley, arbre WHERE arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley ) WHERE Station IN {} GROUP BY VH".format(tuple(station_list))
+        
+        df = pd.read_sql(query, con)
+        return df
+    
+
 '''
 df = pd.read_csv('Repro_IS.csv', sep=';')
 select_column = 'Valley'

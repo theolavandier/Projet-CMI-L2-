@@ -154,3 +154,7 @@ def build_animation(data):
             animation_frame=data.Year, range_y=[0,10000])
 	return  animation
 
+
+def build_linegraph(data):
+    a = px.scatter_matrix(data, dimensions=data.columns, color=data.code)
+    return a
