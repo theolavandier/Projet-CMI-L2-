@@ -56,9 +56,10 @@ sidebar = html.Div(
 				dbc.NavLink("Piechart", href="/piechart", active="exact"),
 				dbc.NavLink("Distribution Marginale", href="/distmarge", active="exact"),
 				dbc.NavLink("Animation", href="/animation", active="exact"),
+				dbc.NavLink("Line Graph", href="/linegraph", active="exact"),
 			],
 		
-			vertical=True,
+			vertical=True,	
 			pills=True,
 		),
 		html.A([
@@ -107,7 +108,11 @@ def render_page_content(pathname):
 				view.GUI.build_dropdown_menu_options(data.get_valley(con,cur),"dropdown5"),
 				view.GUI.init_graph("animation")
 			])
-	
+	elif pathname == "/linegraph":
+		return html.Div([
+				view.GUI.build_dropdown_menu_options(data.get_stations(con,cur),"dropdown6"),
+				view.GUI.init_graph("linegraph")
+			])
 	else:
 		return html.Div(
 			[
@@ -158,6 +163,15 @@ def animation_update(dropdown_values_valley):
     animation = data.prepare_data_animation(con, dropdown_values_valley)
     return view.GUI.build_animation(animation)
 
+@app.callback(Output('linegrap','figure'),
+              Input('dropdown6', 'value'))
+
+def linegraph_update(dropdown_values_stations):
+    if dropdown_values_stations == None:
+        raise PreventUpdate 
+    
+    linegraph = data.prepare_data_linegraph(con, dropdown_values_stations)
+    return view.GUI.build_linegraph(linegraph)
 
 
 if __name__ == '__main__': 
