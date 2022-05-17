@@ -1,3 +1,4 @@
+from re import A
 import plotly.express as px
 
 from dash import dcc
@@ -147,4 +148,9 @@ def build_distmarge(data):
 
     return dm
 
+def build_animation(data):
+	animation = px.bar(
+            data, x=data.Station, y=data.Ntot, color=data.Station, 
+            animation_frame=data.Year, range_y=[0,10000])
+	return  animation
 

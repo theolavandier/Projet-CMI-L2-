@@ -55,6 +55,7 @@ sidebar = html.Div(
 				dbc.NavLink("Histogramme", href="/", active="exact"),
 				dbc.NavLink("Piechart", href="/piechart", active="exact"),
 				dbc.NavLink("Distribution Marginale", href="/distmarge", active="exact"),
+				dbc.NavLink("Distribution Marginale", href="/animation", active="exact"),
 			],
 		
 			vertical=True,
@@ -98,6 +99,11 @@ def render_page_content(pathname):
 				view.GUI.build_dropdown_menu_options(data.get_year(con,cur),"dropdown2"),
 				view.GUI.init_graph("piechart")
 			])
+	elif pathname == "/animation":
+		return html.Div([
+				view.GUI.build_dropdown_menu_options(data.get_valley(con,cur),"dropdown5"),
+				view.GUI.init_graph("animation")
+			])
 	
 	else:
 		return html.Div(
@@ -139,6 +145,15 @@ def piechart_update (dropdown_values_valley, dropdown_values_year):
 	piechart = data.prepare_data_piechart(con, dropdown_values_valley,dropdown_values_year)
 	return view.GUI.build_piechart(piechart)
 
+
+@app.callback(Output('animation','figure'),
+              Input('dropdown5', 'value'))
+
+def animation_update(dropdown_values_valley):
+    if dropdown_values_valley == None:
+        raise PreventUpdate 
+    animation = data.prepare_data_animation(con, dropdown_values_valley)
+    return view.GUI.build_animation(animation)
 
 
 
