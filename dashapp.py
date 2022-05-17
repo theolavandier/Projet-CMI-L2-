@@ -61,8 +61,11 @@ sidebar = html.Div(
 			vertical=True,
 			pills=True,
 		),
-		html.Img(src='/assets/gland.png', style=GLAND),
-	],
+		html.A([
+			html.Img(src='/assets/gland.png', style=GLAND)
+		],
+		href="https://fr.wikipedia.org/wiki/Ch%C3%AAne_p%C3%A9doncul%C3%A9"),
+	],	
 	style=SIDEBAR_STYLE,
 )
 
