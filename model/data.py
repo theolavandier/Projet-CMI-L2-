@@ -155,32 +155,7 @@ def get_stations(con,cur):
     df = pd.read_sql(query, con)
     return df['Station'].tolist()
 
-def prepare_data_piechart(con, valley_list, year_list):
-    if valley_list == None and year_list == None:
-        raise PreventUpdate
-    else:
-        connexion = con
-        if (len(valley_list) == 1 and len(year_list) == 1):
-            valley = valley_list[0] 
-            year = year_list[0]
-            query = "SELECT récolte.Ntot, stations.Station FROM récolte, stations, valley\
-                WHERE valley.id ='{}' AND récolte.Year = {}".format(valley, year)
-        else:
-            query = "SELECT récolte.Ntot, stations.Station FROM récolte, arbre, stations, valley\
-                WHERE valley.Valley IN '{}' AND récolte.Year IN '{}'".format(valley_list, year_list)
 
-        df = pd.read_sql(query, connexion)
-        df_agreg = df.groupby(['Station']).mean()
-        d = df_agreg.to_dict()['Ntot']
-        stations = sorted(set([x[0] for x in d.keys()]))
-        for a in stations:
-            try:
-                print(d[(a)])
-            except KeyError:
-                d[(a)] = 0
-        stations_columns = {x: d[(x)] for x in stations}
-        px_data = pd.DataFrame(stations_columns)
-        return px_data
 
 def prepare_data_piechart(con,valley_list,year_list):
     if valley_list == None and year_list == None:
@@ -189,11 +164,22 @@ def prepare_data_piechart(con,valley_list,year_list):
         if (len(valley_list) == 1 and len(year_list) == 1):
             valley = valley_list[0] 
             year = year_list[0]
-            query = "SELECT récolte.Ntot, stations.Station FROM récolte, stations, valley\
-                WHERE valley.id ='{}' AND récolte.Year = {}".format(valley, year)
+            query = "SELECT Station, Ntot FROM (SELECT Station, Year, Ntot, Valley FROM stations, récolte, valley, arbre WHERE arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley )\
+                 WHERE Valley='{}' AND Year='{}' ".format(valley, year)
+        elif (len(valley_list) == 1):
+            valley = valley_list[0]
+            query = "SELECT Station, Ntot FROM (SELECT Station, Year, Ntot, Valley FROM stations, récolte, valley, arbre WHERE arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley )\
+                 WHERE Valley='{}' AND Year IN {} ".format(valley, tuple(year_list))
+        elif (len(year_list)==1):
+            years = year_list[0]
+            query = "SELECT Station, Ntot FROM (SELECT Station, Year, Ntot, Valley FROM stations, récolte, valley, arbre WHERE arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley )\
+                 WHERE Valley IN {} AND Year = '{}' ".format(tuple(valley_list), years)
         else:
-            query = "SELECT récolte.Ntot, stations.Station FROM récolte, arbre, stations, valley\
-                WHERE valley.Valley IN '{}' AND récolte.Year IN '{}'".format(valley_list, year_list)
+            query = "SELECT Station, Ntot FROM (SELECT Station, Year, Ntot, Valley FROM stations, récolte, valley, arbre WHERE arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley )\
+                 WHERE Valley IN {} AND Year IN {}".format(tuple(valley_list), tuple(year_list))
+            
+        df = pd.read_sql(query, con)
+        return df
 
 
 def prepare_data_histogramme(con, valley_list):

@@ -95,8 +95,8 @@ def render_page_content(pathname):
 			])
 	elif pathname == "/piechart":
 		return html.Div([
-				view.GUI.build_dropdown_menu(data.get_valley(con,cur),"dropdown1"),
-				view.GUI.build_dropdown_menu(data.get_year(con,cur),"dropdown2"),
+				view.GUI.build_dropdown_menu_options(data.get_valley(con,cur),"dropdown1"),
+				view.GUI.build_dropdown_menu_options(data.get_year(con,cur),"dropdown2"),
 				view.GUI.init_graph("piechart")
 			])
 	
@@ -164,11 +164,11 @@ def distmarge_update(dropdown_values_valley):
 			  [Input('dropdown1','value'),
               Input('dropdown2', 'value')])
 def piechart_update (dropdown_values_valley, dropdown_values_year):
-	if dropdown_values_valley or dropdown_values_year == None:
+	if dropdown_values_valley == None or dropdown_values_year == None:
 		raise PreventUpdate
 	
 	piechart = data.prepare_data_piechart(con, dropdown_values_valley,dropdown_values_year)
-	return view.GUI.build_piechart()
+	return view.GUI.build_piechart(piechart)
 
 '''
 def pie_chart_update(dropdown_values_valley, dropdown_values_year):

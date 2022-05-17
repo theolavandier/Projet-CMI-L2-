@@ -120,12 +120,19 @@ def build_dropdown_menu(item_list, iddropdown):
     return dcc.Dropdown(id = '{}'.format(iddropdown),
                         options=options,
                         value=item_list[0],
-                        multi=False)
+                        multi=True)
+
+def build_dropdown_menu_options(item_list, iddropdown):
+    options = [{'label': x, 'value':x} for x in item_list]
+    return dcc.Dropdown(id = '{}'.format(iddropdown),
+                        options=options,
+                        value=item_list,
+                        multi=True)
 
 
 
 def build_piechart(data):
-	pie = px.pie(data, values=data.columns, names="Station", title='Pourcentage de gland par station en fonction des années et des deux stations')
+	pie = px.pie(data, values=data.Ntot, names=data.Station, title='Pourcentage de gland par station en fonction des années et des deux stations')
 	return pie
         
 
