@@ -198,7 +198,7 @@ def prepare_data_distmarge(con, valley_list):
         raise PreventUpdate
     else:
         valley = valley_list[0]
-        query = "SELECT Range, rate_Germ FROM (SELECT Range , rate_Germ , Valley FROM stations, récolte, valley, arbre WHERE arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley ) WHERE Valley= '{}'".format(valley_list)
+        query = "SELECT Range, rate_Germ FROM (SELECT Range , rate_Germ , Valley FROM stations, récolte, valley, arbre WHERE rate_Germ  != 'NA' AND arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley ) WHERE Valley= '{}'".format(valley_list)
         df = pd.read_sql(query, con)
         return df
 
