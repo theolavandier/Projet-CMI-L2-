@@ -214,12 +214,12 @@ def prepare_data_animation(con, valley_list):
     else:
         if (len(valley_list) == 1):
             valley = valley_list[0]
-            query = "SELECT Station, Year, AVG(Ntot) as Ntot FROM (SELECT Station, Year, Ntot, Valley FROM stations, récolte, valley, arbre WHERE arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley ) WHERE Valley='{}' AND Year != 2011 GROUP BY Station, Year".format(valley)
+            query = "SELECT Station, Year, AVG(Ntot) as Ntot FROM (SELECT Station, Year, Ntot, Valley FROM stations, récolte, valley, arbre WHERE arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley ) WHERE Valley='{}' AND Year > 2014 GROUP BY Station, Year".format(valley)
         else:
-            query = "SELECT Station, Year, AVG(Ntot) as Ntot FROM (SELECT Station, Year, Ntot, Valley FROM stations, récolte, valley, arbre WHERE arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley ) WHERE Valley IN {} AND Year != 2011 GROUP BY Station, Year".format(tuple(valley_list))
+            query = "SELECT Station, Year, AVG(Ntot) as Ntot FROM (SELECT Station, Year, Ntot, Valley FROM stations, récolte, valley, arbre WHERE arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley ) WHERE Valley IN {} AND Year > 2014 GROUP BY Station, Year".format(tuple(valley_list))
         
         df = pd.read_sql(query, con)
-        return df.sort_values(by=['Year'])
+        return df.sort_values(by=['Year','Station'])
 
 '''
 df = pd.read_csv('Repro_IS.csv', sep=';')
