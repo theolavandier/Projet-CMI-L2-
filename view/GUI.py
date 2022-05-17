@@ -135,6 +135,11 @@ def build_histogramme(data):
 def init_graph(id_graph):
     return dcc.Graph(id="{}".format(id_graph))
 
+def build_distmarge(data):
+    dm = px.scatter(data, x=data.Range, y=data.rate_Germ, color=data.rate_Germ, marginal_y="violin",
+           marginal_x="box", trendline="ols", template="simple_white", title="Distribution Marginale sur le ration de glands ayant germés en fonction du rang de l'altitude")
+
+    return dm
 
 
 def build_timeline_graph(timeline_data, stations):
