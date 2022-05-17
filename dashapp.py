@@ -31,6 +31,14 @@ CONTENT_STYLE = {
 	"margin-right": "2rem",
 	"padding": "2rem 1rem",
 }
+GLAND = {
+	"margin-left": "3rem",
+	"margin-right": "2rem",
+	"padding": "2rem 1rem",
+	"height": "200px",
+	"width": "150px",
+}
+
 NOMS = {
 	"font-size": "25px",
 }
@@ -41,6 +49,7 @@ sidebar = html.Div(
 		html.P(
 			"Forêt Pyrénnées", className="lead"
 		),
+  
 		dbc.Nav(
 			[
 				dbc.NavLink("Histogramme", href="/", active="exact"),
@@ -48,9 +57,11 @@ sidebar = html.Div(
 				dbc.NavLink("prof", href="/prof", active="exact"),
 				dbc.NavLink("Distribution Marginale", href="/distmarge", active="exact"),
 			],
+		
 			vertical=True,
 			pills=True,
 		),
+		html.Img(src='/assets/gland.png', style=GLAND),
 	],
 	style=SIDEBAR_STYLE,
 )
