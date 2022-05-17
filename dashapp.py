@@ -11,7 +11,7 @@ import dash_bootstrap_components as dbc
 con = sqlite3.connect('Pyrenees.db' ,check_same_thread=False)
 cur = con.cursor()
 
-data.setup(cur)
+###data.setup(cur)
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.MORPH])   #initialising dash app
 
 
@@ -93,7 +93,12 @@ def render_page_content(pathname):
 				view.GUI.build_dropdown_menu(data.get_valley(con,cur),"dropdown4"),
 				view.GUI.init_graph("distmarge")
 			])
-
+	elif pathname == "/piechart":
+		return html.Div([
+				view.GUI.build_dropdown_menu(data.get_valley(con,cur),"dropdown1"),
+				view.GUI.build_dropdown_menu(data.get_year(con,cur),"dropdown2"),
+				view.GUI.init_graph("piechart")
+			])
 	
 	else:
 		return html.Div(
@@ -154,12 +159,18 @@ def distmarge_update(dropdown_values_valley):
     
     distmarge = data.prepare_data_distmarge(con, dropdown_values_valley)
     return view.GUI.build_distmarge(distmarge)
-'''
-@app.callback(Output('pie_chart','figure'),
+
+@app.callback(Output('piechart','figure'),
 			  [Input('dropdown1','value'),
               Input('dropdown2', 'value')])
+def piechart_update (dropdown_values_valley, dropdown_values_year):
+	if dropdown_values_valley or dropdown_values_year == None:
+		raise PreventUpdate
+	
+	piechart = data.prepare_data_piechart(con, dropdown_values_valley,dropdown_values_year)
+	return view.GUI.build_piechart()
 
-
+'''
 def pie_chart_update(dropdown_values_valley, dropdown_values_year):
     if dropdown_values_valley or dropdown_values_year == None:
         raise PreventUpdate 

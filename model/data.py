@@ -182,10 +182,22 @@ def prepare_data_piechart(con, valley_list, year_list):
         px_data = pd.DataFrame(stations_columns)
         return px_data
 
+def prepare_data_piechart(con,valley_list,year_list):
+    if valley_list == None and year_list == None:
+        raise PreventUpdate
+    else:
+        if (len(valley_list) == 1 and len(year_list) == 1):
+            valley = valley_list[0] 
+            year = year_list[0]
+            query = "SELECT récolte.Ntot, stations.Station FROM récolte, stations, valley\
+                WHERE valley.id ='{}' AND récolte.Year = {}".format(valley, year)
+        else:
+            query = "SELECT récolte.Ntot, stations.Station FROM récolte, arbre, stations, valley\
+                WHERE valley.Valley IN '{}' AND récolte.Year IN '{}'".format(valley_list, year_list)
 
 
 def prepare_data_histogramme(con, valley_list):
-    if valley_list == None:
+    if valley_list == None :
         raise PreventUpdate
     else:
         valley = valley_list[0]
