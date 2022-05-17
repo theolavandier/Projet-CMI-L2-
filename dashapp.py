@@ -54,7 +54,6 @@ sidebar = html.Div(
 			[
 				dbc.NavLink("Histogramme", href="/", active="exact"),
 				dbc.NavLink("Piechart", href="/piechart", active="exact"),
-				dbc.NavLink("prof", href="/prof", active="exact"),
 				dbc.NavLink("Distribution Marginale", href="/distmarge", active="exact"),
 			],
 		
