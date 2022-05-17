@@ -12,7 +12,7 @@ con = sqlite3.connect('Pyrenees.db' ,check_same_thread=False)
 cur = con.cursor()
 
 data.setup(cur)
-app = dash.Dash(__name__, external_stylesheets=[dbc.themes.SKETCHY])   #initialising dash app
+app = dash.Dash(__name__, external_stylesheets=[dbc.themes.MORPH])   #initialising dash app
 
 
 SIDEBAR_STYLE = {
@@ -20,7 +20,7 @@ SIDEBAR_STYLE = {
 	"top": 0,
 	"left": 0,
 	"bottom": 0,
-	"width": "16rem",
+	"width": "19rem",
 	"padding": "2rem 1rem",
 	"background-color": "#f8f9fa",
 }
@@ -31,10 +31,12 @@ CONTENT_STYLE = {
 	"margin-right": "2rem",
 	"padding": "2rem 1rem",
 }
-
+NOMS = {
+	"font-size": "25px",
+}
 sidebar = html.Div(
     [
-		html.H2("TISSANDIER LAVANDIER", className="display-4"),
+		html.H2("TISSANDIER LAVANDIER", className="display-4", style = NOMS),
 		html.Hr(),
 		html.P(
 			"Forêt Pyrénnées", className="lead"
