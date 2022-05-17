@@ -44,6 +44,7 @@ sidebar = html.Div(
 				dbc.NavLink("Histogramme", href="/", active="exact"),
 				dbc.NavLink("Piechart", href="/piechart", active="exact"),
 				dbc.NavLink("prof", href="/prof", active="exact"),
+				dbc.NavLink("Distribution Marginale", href="/distmarge", active="exact"),
 			],
 			vertical=True,
 			pills=True,
@@ -71,10 +72,15 @@ def render_page_content(pathname):
 	if pathname == "/":
 		
 		return html.Div([
-				view.GUI.build_dropdown_menu3(data.get_valley(con,cur)),
-				view.GUI.init_graph_histo()
+				view.GUI.build_dropdown_menu(data.get_valley(con,cur),"dropdown3"),
+				view.GUI.init_graph("histogramme")
 			])
-		
+	elif pathname == "distmarge":
+		return html.Div([
+				view.GUI.build_dropdown_menu(data.get_valley(con,cur),"dropdown4"),
+				view.GUI.init_graph("distmarge")
+			])
+
 	
 	else:
 		return html.Div(
@@ -124,9 +130,17 @@ def histogramme_update(dropdown_values_valley):
         raise PreventUpdate 
     
     histogramme = data.prepare_data_histogramme(con, dropdown_values_valley)
-    print(histogramme)
     return view.GUI.build_histogramme(histogramme)
 
+@app.callback(Output('distmarge','figure'),
+              Input('dropdown4', 'value'))
+
+def distmarge_update(dropdown_values_valley):
+    if dropdown_values_valley == None:
+        raise PreventUpdate 
+    
+    distmarge = data.prepare_data_distmarge(con, dropdown_values_valley)
+    return view.GUI.build_distmarge(distmarge)
 '''
 @app.callback(Output('pie_chart','figure'),
 			  [Input('dropdown1','value'),
