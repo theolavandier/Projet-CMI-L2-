@@ -234,3 +234,17 @@ def prepare_data_linegraph(con, station_list):
         df = pd.read_sql(query, con)
         return df
 
+
+def prepare_data_3dplot(con, station_list):
+    if station_list == None :
+        raise PreventUpdate
+    else:
+        if (len(station_list) == 1):
+            station = station_list[0]
+            query = "SELECT Year ,DD, AVG(Ntot) as AVG_Ntot FROM (SELECT Station, DD, Ntot, Year FROM stations, récolte, valley, arbre WHERE arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley ) WHERE Station='{}' GROUP BY Year, DD".format(station)
+        else:
+            query = "SELECT Year ,DD, AVG(Ntot) as AVG_Ntot FROM (SELECT Station, DD, Ntot, Year FROM stations, récolte, valley, arbre WHERE arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley ) WHERE Station IN {} GROUP BY Year, DD".format(tuple(station_list))
+        
+        df = pd.read_sql(query, con)
+        return df
+
