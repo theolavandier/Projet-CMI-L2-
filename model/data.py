@@ -125,8 +125,48 @@ def setup(cur):
                 query = 'UPDATE récolte SET id_arbre = {} WHERE ID ="{}"'.format(result.fetchone()[0], row['ID'])
                 cur.execute(query)
 
-    query = 'UPDATE stations SET lat = 0.324446 WHERE Station = "Josbaig"'   
-    cur.execute(query)    
+    query = 'UPDATE stations SET lat = 43.2642616 WHERE Station = "Josbaig"'   
+    cur.execute(query) 
+    query = 'UPDATE stations SET lon = -0.7114511 WHERE Station = "Josbaig"'   
+    cur.execute(query)  
+    query = 'UPDATE stations SET lat = 43.0563951 WHERE Station = "Peguere"'   
+    cur.execute(query) 
+    query = 'UPDATE stations SET lon = 1.2767851 WHERE Station = "Peguere"'   
+    cur.execute(query) 
+    query = 'UPDATE stations SET lat = 45.2023158 WHERE Station = "Laveyron"'   
+    cur.execute(query) 
+    query = 'UPDATE stations SET lon = 4.8144436 WHERE Station = "Laveyron"'   
+    cur.execute(query)
+    query = 'UPDATE stations SET lat = 43.2269 WHERE Station = "Papillon"'   
+    cur.execute(query) 
+    query = 'UPDATE stations SET lon = 1.2877 WHERE Station = "Papillon"'   
+    cur.execute(query)
+    query = 'UPDATE stations SET lat = 42.8894933 WHERE Station = "Gabas"'   
+    cur.execute(query) 
+    query = 'UPDATE stations SET lon = -0.4280869 WHERE Station = "Gabas"'   
+    cur.execute(query)
+    query = 'UPDATE stations SET lat = 42.8549763 WHERE Station = "Artouste"'   
+    cur.execute(query) 
+    query = 'UPDATE stations SET lon = -0.3097375 WHERE Station = "Artouste"'   
+    cur.execute(query)
+    query = 'UPDATE stations SET lat = 42.7879051 WHERE Station = "Gedre-Bas"'   
+    cur.execute(query) 
+    query = 'UPDATE stations SET lon = 0.0202936 WHERE Station = "Gedre-bas"'   
+    cur.execute(query)
+    query = 'UPDATE stations SET lat = 43.2325985 WHERE Station = "Ibos"'   
+    cur.execute(query) 
+    query = 'UPDATE stations SET lon = 0.0045982 WHERE Station = "Ibos"'   
+    cur.execute(query)
+    query = 'UPDATE stations SET lat = 43.85337 WHERE Station = "Le-Hourcq"'   
+    cur.execute(query) 
+    query = 'UPDATE stations SET lon = -0.9254837 WHERE Station = "Le-Hourcq"'   
+    cur.execute(query)
+    query = 'UPDATE stations SET lat = 43.1226157 WHERE Station = "Bager"'   
+    cur.execute(query) 
+    query = 'UPDATE stations SET lon = -0.5275369 WHERE Station = "Bager"'   
+    cur.execute(query)
+
+
 
 
 
