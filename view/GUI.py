@@ -21,6 +21,11 @@ def build_dropdown_menu_options(item_list, iddropdown):
 def init_graph(id_graph):
     return dcc.Graph(id="{}".format(id_graph))
 
+def build_radioitems(id):
+    return dcc.RadioItems(id="{}".format(id),
+                        value='discrete', 
+        options=['discrete', 'continuous'],)
+
 def build_piechart(data):
 	pie = px.pie(data, values=data.Ntot, names=data.Station, title='Pourcentage de gland par station en fonction des années et des deux stations')
 	return pie
@@ -43,7 +48,7 @@ def build_animation(data):
 	return  animation
 
 def build_linegraph(data):
-    fig = px.line(data, x=data.VH, y=data.AVG_Mtot, color=data.code, title="layout.hovermode='x unified'")
+    fig = px.line(data, x=data.VH, y=data.AVG_Mtot, color=data.code, title="titre indéterminé", color_discrete_sequence=px.colors.qualitative.Set3_r    )
     fig.update_traces(mode="markers+lines", hovertemplate=None)
     fig.update_layout(hovermode="x unified")
     return fig

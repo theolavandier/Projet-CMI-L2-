@@ -164,14 +164,15 @@ def animation_update(dropdown_values_valley):
     return view.GUI.build_animation(animation)
 
 @app.callback(Output('linegraph','figure'),
-              Input('dropdown6', 'value'))
+              [Input('dropdown6', 'value')])
 
 def linegraph_update(dropdown_values_stations):
-    if dropdown_values_stations == None:
-        raise PreventUpdate 
-    
-    linegraph = data.prepare_data_linegraph(con, dropdown_values_stations)
-    return view.GUI.build_linegraph(linegraph)
+	if dropdown_values_stations == None:
+		raise PreventUpdate 
+	else:
+		linegraph = data.prepare_data_linegraph(con, dropdown_values_stations)
+			
+		return view.GUI.build_linegraph(linegraph)
 
 
 if __name__ == '__main__': 
