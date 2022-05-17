@@ -75,7 +75,7 @@ def render_page_content(pathname):
 				view.GUI.build_dropdown_menu(data.get_valley(con,cur),"dropdown3"),
 				view.GUI.init_graph("histogramme")
 			])
-	elif pathname == "distmarge":
+	elif pathname == "/distmarge":
 		return html.Div([
 				view.GUI.build_dropdown_menu(data.get_valley(con,cur),"dropdown4"),
 				view.GUI.init_graph("distmarge")

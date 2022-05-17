@@ -119,7 +119,8 @@ def build_dropdown_menu(item_list, iddropdown):
     options = [{'label': x, 'value':x} for x in item_list]
     return dcc.Dropdown(id = '{}'.format(iddropdown),
                         options=options,
-                        multi=True)
+                        value=item_list[0],
+                        multi=False)
 
 
 
