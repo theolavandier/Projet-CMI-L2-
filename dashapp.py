@@ -57,6 +57,7 @@ sidebar = html.Div(
 				dbc.NavLink("Distribution Marginale", href="/distmarge", active="exact"),
 				dbc.NavLink("Animation", href="/animation", active="exact"),
 				dbc.NavLink("Line Graph", href="/linegraph", active="exact"),
+				dbc.NavLink("3d Plot", href="/3dplot", active="exact"),
 			],
 		
 			vertical=True,	
@@ -112,6 +113,11 @@ def render_page_content(pathname):
 		return html.Div([
 				view.GUI.build_dropdown_menu_options(data.get_stations(con,cur),"dropdown6"),
 				view.GUI.init_graph("linegraph")
+			])
+	elif pathname == "/3dplot":
+		return html.Div([
+				view.GUI.build_dropdown_menu(data.get_stations(con,cur),"dropdown7"),
+				view.GUI.init_graph("3dplot")
 			])
 	else:
 		return html.Div(
@@ -174,6 +180,16 @@ def linegraph_update(dropdown_values_stations):
 			
 		return view.GUI.build_linegraph(linegraph)
 
+@app.callback(Output('3dplot','figure'),
+              [Input('dropdown7', 'value')])
+
+def plot3d_update(dropdown_values_stations):
+	if dropdown_values_stations == None:
+		raise PreventUpdate 
+	else:
+		plot3d = data.prepare_data_3dplot(con, dropdown_values_stations)
+			
+		return view.GUI.build_3dplot(plot3d)
 
 if __name__ == '__main__': 
 	app.run_server(debug=True)
