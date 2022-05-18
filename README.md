@@ -70,7 +70,12 @@ On a ici 3 fonctions. La première get_valley va retourner une liste des valleys
 
 ![Capture d’écran 2022-05-18 205613](https://user-images.githubusercontent.com/102798509/169131681-62f574ac-9e7b-4e6c-b69f-9ea26610c2e2.png)
 
-TEXTE
+Cette fonction prend en argument un connecteur, une liste de station, et un interval range.
+Elle permet de retourner un dataframe construit à parir d'une requête SQL. La liste de station et la range 
+interviennent quand à eux comme des conditions pour créer notre dataframe. Ici on ne veut que les lignes contenant
+la où les stations passées en arguments, et nous voulons trier certaines valeurs en fonction de l'interval range.
+Nous avons d'autre fonctions qui fonctionnent en suivant le même principe d'arguments conditions.
+Ces dataframes, retournés par nos différentes fonctions, nous permettrons de constuire des graphs avec différentes données.
 
 ## LE GUI :
 
@@ -87,7 +92,13 @@ On créé ici un dropdown. Quand on l'appliquera, il sera possible de sélection
 
 ![Capture d’écran 2022-05-18 205751](https://user-images.githubusercontent.com/102798509/169133031-a72b50d2-65d5-41d0-8e43-a798ba772222.png)
 
-TEXTE
+Ces deux fonctions sont très similaire à notre fonction build_dropdown_menu_options, car elles retournent aussi un composant
+Dash. 
+	- build_radioitems permet de créer une sorte de liste de valeurs que nous choisissons avec le paramètre item_list.
+	 Nous pouvons sélectionner une valeur de cette liste à la fois.
+	- build_slider permet de créer une barre latérale, pour pouvoir choisir manuellement une intervalle de valeurs. 
+	 Nous devons donc choisir dans notre fonction une intervalle de valeurs. Dans notre cas nous avons choisit [0;55000].
+Dans le deux cas, la variable id permet de donner un identifiant id à notre composant, dans le but de pouvoir l'identifier par la suite.
 
 ![Capture d’écran 2022-05-18 175145](https://user-images.githubusercontent.com/102798509/169086900-1cd6d66f-38ff-437c-94e0-0c289cab363f.png)
 
