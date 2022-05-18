@@ -7,7 +7,7 @@ from dash import dcc
 from dash.dependencies import Input, Output
 from dash.exceptions import PreventUpdate
 
-def setup_table(cur):
+def setup_table(cur): #fonction pour créer les tables de notre database
 
     cur.execute('''
         CREATE TABLE IF NOT EXISTS valley (
@@ -64,7 +64,7 @@ def setup_table(cur):
         );
     ''')
 
-def csv_into_table(cur):
+def csv_into_table(cur): #Fonction qui remplit les tables de la database à partir d'un fichier csvfile
     with open('./model/Repro_IS.csv', 'r') as csvfile:
         reader = csv.DictReader(csvfile, delimiter=';')
         for row in reader:
@@ -99,7 +99,7 @@ def csv_into_table(cur):
                 
                 
                 
-    with open('./model/Repro_IS.csv', 'r') as csvfile:
+    with open('./model/Repro_IS.csv', 'r') as csvfile: #Ici on s'occupe des clés étrangères pour lier les tables
         reader = csv.DictReader(csvfile, delimiter=';')
         for row in reader:
             query = 'SELECT (id_valley) FROM stations WHERE Station="{}"'.format(row['Station'])
@@ -124,7 +124,7 @@ def csv_into_table(cur):
                 query = 'UPDATE récolte SET id_arbre = {} WHERE ID ="{}"'.format(result.fetchone()[0], row['ID'])
                 cur.execute(query)
 
-    query = 'UPDATE stations SET lat = 43.2642616 WHERE Station = "Josbaig"'   
+    query = 'UPDATE stations SET lat = 43.2642616 WHERE Station = "Josbaig"'   #Ici on ajoute les positions géographique de chaque station, qui ne sont pas présentes dans le csvfile
     cur.execute(query) 
     query = 'UPDATE stations SET lon = -0.7114511 WHERE Station = "Josbaig"'   
     cur.execute(query)  
@@ -165,22 +165,22 @@ def csv_into_table(cur):
     query = 'UPDATE stations SET lon = -0.5275369 WHERE Station = "Bager"'   
     cur.execute(query)
 
-def get_valley(con):
+def get_valley(con): #renvoie la liste des valleys
 	query="SELECT Valley, id FROM valley"
 	df = pd.read_sql(query, con)
 	return df['Valley'].tolist()
 
-def get_year(con):
+def get_year(con): #renvoie la liste des années
 	query="SELECT DISTINCT Year, id_r FROM récolte GROUP BY Year"
 	df = pd.read_sql(query, con)
 	return df['Year'].tolist()
 
-def get_stations(con):
+def get_stations(con): #renvoie la liste des stations
     query="SELECT Station, id FROM stations"
     df = pd.read_sql(query, con)
     return df['Station'].tolist()
 
-def prepare_data_piechart(con,valley_list,year_list):
+def prepare_data_piechart(con,valley_list,year_list): #renvoie un dataframe pour constuire une piechart
     if valley_list == None and year_list == None:
         raise PreventUpdate
     else:
@@ -204,7 +204,7 @@ def prepare_data_piechart(con,valley_list,year_list):
         df = pd.read_sql(query, con)
         return df
 
-def prepare_data_histogramme(con, valley_list):
+def prepare_data_histogramme(con, valley_list): #renvoie un dataframe pour constuire un histogramme
     if valley_list == None :
         raise PreventUpdate
     else:
@@ -217,7 +217,7 @@ def prepare_data_histogramme(con, valley_list):
         df = pd.read_sql(query, con)
         return df
 
-def prepare_data_distmarge(con, valley_list):
+def prepare_data_distmarge(con, valley_list): #renvoie un dataframe pour constuire une distribution marginale
     if valley_list == None:
         raise PreventUpdate
     else:
@@ -229,7 +229,7 @@ def prepare_data_distmarge(con, valley_list):
         df = pd.read_sql(query, con)
         return df
 
-def prepare_data_animation(con, valley_list):
+def prepare_data_animation(con, valley_list): #renvoie un dataframe pour constuire une animation avec un barchart
     if valley_list == None :
         raise PreventUpdate
     else:
@@ -242,7 +242,7 @@ def prepare_data_animation(con, valley_list):
         df = pd.read_sql(query, con)
         return df.sort_values(by=['Year','Station'])
 
-def prepare_data_linegraph(con, station_list):
+def prepare_data_linegraph(con, station_list): #renvoie un dataframe pour constuire un Line graph
     if station_list == None :
         raise PreventUpdate
     else:
@@ -255,7 +255,7 @@ def prepare_data_linegraph(con, station_list):
         df = pd.read_sql(query, con)
         return df
 
-def prepare_data_3dplot(con, station_list):
+def prepare_data_3dplot(con, station_list): #renvoie un dataframe pour constuire un 3dplot
     if station_list == None :
         raise PreventUpdate
     else:
@@ -268,7 +268,7 @@ def prepare_data_3dplot(con, station_list):
         df = pd.read_sql(query, con)
         return df
 
-def prepare_data_scatter(con, station_list, range):
+def prepare_data_scatter(con, station_list, range): #renvoie un dataframe pour constuire un scatter plot, et une box plot
     if station_list == None :
         raise PreventUpdate
     else:
@@ -281,7 +281,7 @@ def prepare_data_scatter(con, station_list, range):
         df = pd.read_sql(query, con)
         return df
 
-def prepare_data_map(con, station_list, range):
+def prepare_data_map(con, station_list, range): #renvoie un dataframe pour constuire une map
     if station_list == None :
         raise PreventUpdate
     else:
