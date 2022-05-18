@@ -171,3 +171,26 @@ Nous avons plusieurs fonction pour mettre à jours nos graphique qui fonctionnen
 Ici, on run les serveur, et quand on le ferme, on se déconnecte de la database.
 
 ## LES MODELISATIONS :
+
+On a d'abord notre page de présentation. Nous avons décidé de ne pas la montrer ici car nous voulions nous concentrer uniquement sur les modélisations que nous avons réalisées.
+
+![histo](https://user-images.githubusercontent.com/102798509/169148082-5ae1d41c-e6aa-4e6c-94fe-21c258e19d4a.png)
+
+Nous commençons avec cette première visualisation sous la forme d'un histogramme. Celui-ci représente la moyenne des Ntot par station en fonctions des années. On a de plus un dropdown permettant de filtrer les valleys.
+Ce graphique est assez intéressant car on peut connaître les stations qui produisent le plus de glands entre 2011 et 2020. On peut ainsi voir par exemple que l'année 2015 est l'année où presque toutes stations ont produits un nombre moyen de glands supérieur à la moyenne des autres années.
+
+![piechart](https://user-images.githubusercontent.com/102798509/169148106-ea7f7498-4992-4c69-a3cc-cc155d8ab73c.png)
+
+Nous avons ensuite ce graphique sous forme de piechart. Celui-ci représente le pourcentage de gland par station en fonctions des années. On a de plus un dropdown permettant de filtrer les valleys.
+Ce graphique est intéressant car on peut voir quelles sont les stations qui produisent le plus et cela sur plusieurs années. Si on reprend l'exemple donné. On peut voir que dans la valley d'Ossau composée des stations : Josbaig, Bager, Le-Hourcq, Gabas et Artouste, pendant les années 2011, 2013,2015,2017,2018 et 2020 réunies, c'est la station Josbaig qui a nettement produit le plus grand pourfecntage de glands.
+
+![dist marg](https://user-images.githubusercontent.com/102798509/169148116-966ee72a-07b8-4216-bf26-2cf4da1da8e6.png)
+
+![animation](https://user-images.githubusercontent.com/102798509/169148127-b2fbeb47-a768-4b37-8a43-7b69f8a359e8.png)
+
+![line graph](https://user-images.githubusercontent.com/102798509/169148146-d47f95be-44e9-4229-984c-e4c15378668b.png)
+
+![3d plot](https://user-images.githubusercontent.com/102798509/169148158-dc6cb482-24cd-46f5-b101-5fe81062278b.png)
+
+![3 graphs](https://user-images.githubusercontent.com/102798509/169148172-3d8f9536-e9ed-477a-a0ff-867c3f68fb4f.png)
+
