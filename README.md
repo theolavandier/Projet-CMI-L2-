@@ -52,5 +52,8 @@ On commence par ouvrir le fichier csv et on se met en mode Reader (c'est pour po
 
 ![Capture d’écran 2022-05-18 170542](https://user-images.githubusercontent.com/102798509/169074547-2842a742-5116-4c90-9f3a-3149f657cdc6.png)
 
-On commence fait une nouvelle requête query, on va sélectionner id_station donc la clé étrangère de la table arbre. Si cette clé est nulle, il faut faire une nouvelle requête query dans laquelle on va affecter à id_station : Station.id, on va donc lier les tables arbre et Station.
+On fait une nouvelle requête query, on va sélectionner id_station donc la clé étrangère de la table arbre. Si cette clé est nulle, il faut faire une nouvelle requête query dans laquelle on va affecter à id_station : Station.id, on va donc lier les tables arbre et Station.
 
+![image](https://user-images.githubusercontent.com/102798509/169075766-be4467d2-c90d-4dcd-97aa-c71230bfe173.png)
+
+On fait une nouvelle requête query, on va sélectionner id_arbre donc la clé étrangère de la table récolte. Si cette clé est nulle, il faut faire une nouvelle requête query dans laquelle on va affecter à id_arbre : récolte.id, on va donc lier les tables arbre et récolte.
