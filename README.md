@@ -31,3 +31,11 @@ Nous avons maintenant une base de données mais celle-ci est vide. IL nous faut 
 ![Capture d’écran 2022-05-18 160045](https://user-images.githubusercontent.com/102798509/169060079-1c2813e5-0d5d-41fa-9713-0dcb79ce073c.png)
 
 On commence par ouvrir le fichier csv et on se met en mode Reader (c'est pour pouvoir le lire). On fait une boucle for qui va parcourir entièrement le fichier. On commence avec une première requête query, on va sélectionner l'id de la station, ensuite, si on voit que les données de la table stations sont nulles, on va la remplir avec la deuxième requête query et l'exécuter avec : cur.execute(query).
+
+![image](https://user-images.githubusercontent.com/102798509/169068474-ed5ca6f0-9c5a-4a3d-9fc2-726225fcf7e8.png)
+
+On fait une dnouvelle requête query, on va sélectionner l'id de la valley, ensuite, si on voit que les données de la table valley sont nulles, on va la remplir avec la deuxième requête query et l'exécuter avec : cur.execute(query).
+
+
+
+
