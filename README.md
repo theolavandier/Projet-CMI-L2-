@@ -64,7 +64,7 @@ Comme on avait la longitude et la latitude dans la table Station, il fallait la 
 
 ### Le code :
 
-IMAGE
+![Capture](https://user-images.githubusercontent.com/102798483/169113606-ec9f7d99-7b14-4c6e-9b72-0a056202b2a7.PNG)
 
 On a ici 3 fonctions. La première get_valley va retourner une liste des valleys. La deuxième get_year va retourner une liste des années et la dernière, get_stations, va retourner la liste des stations. On utilise ces 3 fonctions pour construire les dropdowns plus tard.
 
