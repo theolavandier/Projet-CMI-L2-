@@ -74,5 +74,5 @@ On a ici 3 fonctions. La première get_valley va retourner une liste des valleys
 
 
 
-##Le GUI :
+## Le GUI :
 
