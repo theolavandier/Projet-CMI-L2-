@@ -8,7 +8,7 @@ Nous avions pour consigne de reprendre ce fichier et de coder une base de donné
 ### La database :
 ![Capture d’écran 2022-05-18 151754](https://user-images.githubusercontent.com/102798509/169049544-cb0c76dc-b763-4cd3-9bfa-f7cfec376ea0.png)
 
-Nous commençons donc par faire les import qui nous serons primordiales pour la suite de notre code.
+Nous commençons donc par faire les import qui nous serons primordiaux pour la suite de notre code.
 
 ![Capture3](https://user-images.githubusercontent.com/102798483/169115581-b5fc8483-9973-48c4-b6eb-fc8589b7f0ac.PNG)
 
@@ -26,7 +26,7 @@ On fait notre troisième table, elle se nomme arbre. On y met dedans un id qui s
 
 On fait notre dernière table, elle se nomme récolte. On y met dedans un id_r qui s'incrémente automatiquement en commençant par 1. On y met l'id (ID) de la récolte, la semaine de récolte en jour julien (harv_num), le jour de récolte en jour julien (DD), la semaine de récolte en jour julien (harv), l'année (Year), la date (Date), la masse totale de glands (Mtot), la quantité totale de glands produits (Ntot), la quantité totale de glands produits sans les fruits mis à germer et sans les glands détérioré. L'estimation de oneacorn se fait à partir de Ntot1 (Ntot1), la masse moyenne d'un gland (oneacorn), la quantité totale de glands mis à germer (tot_Germ), la masse des glands mis à germer (M_Germ), le nombre de glands qui ont gérmé (N_Germ), le ratio de glands qui ont germé (%) (rate_Germ) et on y met un id_arbre qui sera une clé étrangère. Cette clé rajoutera une colonne dans laquelle on aura l'id d'arbre compris entre 1 et 31. (Chaque récolte se trouve forcément dans un arbre).
 
-Nous avons maintenant une base de données mais celle-ci est vide. IL nous faut donc la remplir.
+Nous avons maintenant une base de données mais celle-ci est vide. Il nous faut donc la remplir.
 
 ![Capture2](https://user-images.githubusercontent.com/102798483/169114778-513218af-c2e5-4d35-b443-91c86eb8834d.PNG)
 
@@ -70,18 +70,13 @@ On a ici 3 fonctions. La première get_valley va retourner une liste des valleys
 
 ![Capture d’écran 2022-05-18 205613](https://user-images.githubusercontent.com/102798509/169131681-62f574ac-9e7b-4e6c-b69f-9ea26610c2e2.png)
 
-Cette fonction prend en argument un connecteur, une liste de station, et un interval range.
-Elle permet de retourner un dataframe construit à parir d'une requête SQL. La liste de station et la range 
-interviennent quand à eux comme des conditions pour créer notre dataframe. Ici on ne veut que les lignes contenant
-la où les stations passées en arguments, et nous voulons trier certaines valeurs en fonction de l'interval range.
-Nous avons d'autre fonctions qui fonctionnent en suivant le même principe d'arguments conditions.
-Ces dataframes, retournés par nos différentes fonctions, nous permettrons de constuire des graphs avec différentes données.
+Cette fonction prend en argument un connecteur, une liste de station, et un interval range. Elle permet de retourner un dataframe construit à parir d'une requête SQL. La liste de station et la range interviennent quand à eux comme des conditions pour créer notre dataframe. Ici on ne veut que les lignes contenant la où les stations passées en arguments, et nous voulons trier certaines valeurs en fonction de l'intervalle range. Nous avons d'autre fonctions qui fonctionnent en suivant le même principe d'arguments conditions. Ces dataframes, retournés par nos différentes fonctions, nous permettrons de constuire des graphs avec différentes données.
 
 ## LE GUI :
 
 ![Capture4](https://user-images.githubusercontent.com/102798483/169116847-a0b022d6-eed5-481c-9ce0-e274c839d8b1.PNG)
 
-Comme pour la partie data, on commence par faire les import qui nous serons primordiales pour la suite de notre code.
+Comme pour la partie data, on commence par faire les import qui nous serons primordiaux pour la suite de notre code.
 
 ### Le code :
 ![image](https://user-images.githubusercontent.com/102798509/169085672-c657230c-24d2-4287-bca2-b8aa8a12fe91.png)
@@ -97,7 +92,7 @@ Dash.
 	- build_radioitems permet de créer une sorte de liste de valeurs que nous choisissons avec le paramètre item_list.
 	 Nous pouvons sélectionner une valeur de cette liste à la fois.
 	- build_slider permet de créer une barre latérale, pour pouvoir choisir manuellement une intervalle de valeurs. 
-	 Nous devons donc choisir dans notre fonction une intervalle de valeurs. Dans notre cas nous avons choisit [0;55000].
+	 Nous devons donc choisir dans notre fonction un intervalle de valeurs. Dans notre cas nous avons choisit [0;55000].
 Dans le deux cas, la variable id permet de donner un identifiant id à notre composant, dans le but de pouvoir l'identifier par la suite.
 
 ![Capture d’écran 2022-05-18 175145](https://user-images.githubusercontent.com/102798509/169086900-1cd6d66f-38ff-437c-94e0-0c289cab363f.png)
@@ -115,7 +110,7 @@ intéractifs.
 
 ![Capture d’écran 2022-05-18 210654](https://user-images.githubusercontent.com/102798509/169137054-b05da799-86f4-4efa-b3f7-814a2ce3680d.png)
 
-Comme pour les deux autres parties, on commence par faire les import qui nous serons primordiales pour la suite de notre code.
+Comme pour les deux autres parties, on commence par faire les import qui nous serons primordiaux pour la suite de notre code.
 
 ![Capture d’écran 2022-05-18 210913](https://user-images.githubusercontent.com/102798509/169137734-c32c9aad-ab76-4631-819b-0fa952d75c72.png)
 
@@ -127,7 +122,7 @@ Dans notre application, nous avons fait beaucoup de CSS pour mettre en forme cet
 partie pour éviter que cette présentation soit trop longue.
 
 Notre application sera principalement divisée en deux parties :
-	-Nous aurons un menu sur la gauche de notre site, nous permettant de se déplacer sur le site dans les differents graphiques.
+	-Nous aurons un menu sur la gauche de notre site, nous permettant de se déplacer sur le site dans les différents graphiques.
 	-Puis nous aurons une partie contenant les graphiques et les différentes intéractions qui leurs sont associées. 
 
 ![Capture d’écran 2022-05-18 211424](https://user-images.githubusercontent.com/102798509/169138571-06f11146-a9b8-4a7e-a52b-02a914879f8c.png)
@@ -152,7 +147,7 @@ Nous regroupons ces deux parties de notre app.layout.
 Nous avons ensuite notre première fonction utilisant un callback. Cette fonction permet de mettre à jour la partie 'content' de notre site,
 en fonction de l'url de ce dernier. On voit que le callback a pour input notre url, défini dans notre layout, et pour output page-content, 
 l'id de notre partie 'content'.
-Le paramètre de notre est fonction est pathname, c'est le pathname de l'url sur lequel on se trouve.
+Le paramètre de notre fonction est pathname, c'est le pathname de l'url sur lequel on se trouve.
 Ici, on voit que si l'on se trouve sur le pathname "/piechart", alors on renvoit dans content deux dropdown, un sur les valleys, et un sur
 les years. On renvoit également un graph d'id 'piechart'. Cette fonction permet donc de mettre en place le contenu de notre content, en fonction
 de l'url sur lequel l'utilisateur se trouve.
