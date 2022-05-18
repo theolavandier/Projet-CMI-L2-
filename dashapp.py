@@ -227,7 +227,6 @@ def plot3d_update(dropdown_values_stations, radiovalue): #Fonction qui permet d'
 		plot3d = data.prepare_data_3dplot(con, dropdown_values_stations)
 		return view.GUI.build_3dplot(plot3d, radiovalue)
 		
-			
 
 @app.callback(Output('scatterplot','figure'),
               [Input('dropdown8', 'value'),
