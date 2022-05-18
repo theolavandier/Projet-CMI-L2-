@@ -13,7 +13,7 @@ cur = con.cursor()
 
 #data.setup_table(cur)
 #data.csv_into_table(cur)
-
+#con.commit()
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.MORPH])   #initialising dash app
 
 SIDEBAR_STYLE = { #CSS pour le style de la barre latérale
@@ -255,5 +255,5 @@ def map_update(dropdown_values_stations, slidervalue): #Fonction qui permet d'ac
 if __name__ == '__main__': 
 	app.run_server(debug=True) #Run le serveur
 
-con.commit()
+
 con.close()
