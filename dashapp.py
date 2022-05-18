@@ -43,6 +43,13 @@ GLAND = {
 NOMS = {
 	"font-size": "25px",
 }
+fin = {
+	"position": "absolute",
+	"top": "95%",
+	"left": "90%",
+  	"transform" : "translate(-50%, -50%)",
+
+}
 sidebar = html.Div(
     [
 		html.H2("TISSANDIER LAVANDIER", className="display-4", style = NOMS),
@@ -53,6 +60,7 @@ sidebar = html.Div(
   
 		dbc.Nav(
 			[
+				dbc.NavLink("Presentation", href="/presentation", active="exact"),
 				dbc.NavLink("Histogramme", href="/", active="exact"),
 				dbc.NavLink("Piechart", href="/piechart", active="exact"),
 				dbc.NavLink("Distribution Marginale", href="/distmarge", active="exact"),
@@ -89,7 +97,28 @@ app.layout = html.Div([
 )
 def render_page_content(pathname):
     
-	if pathname == "/":
+	if pathname == "/presentation":
+		return html.H1("Bienvenue sur notre site !"), html.Span("Nous avons réalisé plusieurs présentations. En voici la liste :"),\
+			html.Div("-Un histogramme qui reprend les données qui nous étaient fourni par notre professeur."),\
+				html.Div("-Une piechart que nous avons faite nous-même composée de deux dropdowns."),\
+					html.Div("-Une distribution marginale que nous avons aussi réalisée composée d'un seul dropdown sur les vallleys."),\
+						html.Div("-Une animation avec pour dropdown les valleys mais aussi une animation qui parcours les années."),\
+							html.Div("-Un graphique de type line compoé d'un dropdown sur sur les stations mais on retrouve aussi un curcesseur sur le graphique pour retrouver les données plus facilement."),\
+								html.Div("-Un grahique de type 3D avec un dropdown sur les stations."),\
+									html.Div("-Et pout finir nous avons une double animation avec une carte, on y retrouve un dropdown sur les stations avec la possibilité de choisir le graphique qu'on veut et une carte qui évolue en fonctions des stations sélectionnées."),\
+										html.Br(),\
+											html.Br(),\
+												html.Div("Nous voulions remercier notre professeur Mr. MELANCON pour nous avoir fait découvrir dash, plotly,... Mais aussi por son aide dans la réalisation de nos projets"),\
+													html.H2("Nous vous souhaitons une bonne découverte de notre site, et surtout n'oubliez pas d'appuyer sur le gland !"),\
+														html.Div("Lavandier Théo & Tissandier Mathilde", style=fin)
+										
+							
+												
+
+
+
+
+	elif pathname == "/":
 		
 		return html.Div([
 				view.GUI.build_dropdown_menu_options(data.get_valley(con,cur),"dropdown3"),
