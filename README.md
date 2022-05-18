@@ -76,3 +76,8 @@ On a ici 3 fonctions. La première get_valley va retourner une liste des valleys
 
 ## Le GUI :
 
+
+![Capture d’écran 2022-05-18 174354](https://user-images.githubusercontent.com/102798509/169085402-45f69252-c420-4c97-a939-5d7f29f3947d.png)
+
+Comme pour la partie data, on commence par faire les import qui nous serons primordiales pour la suite de notre code.
+
