@@ -71,7 +71,8 @@ def csv_into_table(cur): #Fonction qui remplit les tables de la database à part
             query = 'SELECT (id) FROM stations WHERE Station="{}"'.format(row['Station'])
             result = cur.execute(query)        
             if result.fetchone() == None:
-                query = 'INSERT INTO stations (Station, Range, Altitude, lat, lon, id_valley) VALUES ("{}", {}, {} , 0 , 0 , 0);'.format(row['Station'], row['Range'], row['Altitude'])
+                query = 'INSERT INTO stations (Station, Range, Altitude, lat, lon, id_valley) VALUES\
+                     ("{}", {}, {} , 0 , 0 , 0);'.format(row['Station'], row['Range'], row['Altitude'])
                 cur.execute(query)
                 
             query = 'SELECT (id) FROM valley WHERE Valley="{}"'.format(row['Valley'])

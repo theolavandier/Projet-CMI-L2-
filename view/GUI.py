@@ -1,8 +1,5 @@
-from re import A
 import plotly.express as px
-import plotly.graph_objects as go
 from dash import dcc
-from dash import dash_table
 
 def build_dropdown_menu_options(item_list, iddropdown): #création du dropdown
     options = [{'label': x, 'value':x} for x in item_list]
@@ -80,6 +77,6 @@ def build_boxplot(data):#création du boxplot
 def build_map(data):#création de la map
     px.set_mapbox_access_token('pk.eyJ1IjoidGxhdmFuZGllciIsImEiOiJjbDNibjEyaWYwZDJ0M2lwNDZiNXhtazN1In0.spDyDVYEfhMsAT1CbWjkrA')
     fig = px.scatter_mapbox(data, lat=data.lat, lon=data.lon, color=data.AVG_oneacorn, size=data.SUM_Ntot, hover_name=data.Station, hover_data=['SUM_Mtot', 'AVG_Mtot'],
-                  color_continuous_scale=px.colors.cyclical.IceFire, size_max=20, zoom=5,
+                  color_continuous_scale=px.colors.cyclical.IceFire, size_max=25, zoom=5,
                   title ="Carte représentant les Station et certaines de leurs données, en fonction de leur position")
     return fig

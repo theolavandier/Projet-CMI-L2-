@@ -52,7 +52,7 @@ PRESENTATION ={ #CSS pour afficher les images de la page de présentation
 	"height": "200px",
 	"width": "286px",
 }
-sidebar = html.Div(
+sidebar = html.Div( #Initialisation d'une barre latérale pour notre site
     [
 		html.H2("TISSANDIER LAVANDIER", className="display-4", style = NOMS),
 		html.Hr(),
@@ -60,10 +60,10 @@ sidebar = html.Div(
 			"Forêt Pyrénnées", className="lead"
 		),
   
-		dbc.Nav(
+		dbc.Nav( #Celle ci contient un navigateur qui permet de passer d'un graphique à un autre
 			[
-				dbc.NavLink("Presentation", href="/presentation", active="exact"),
-				dbc.NavLink("Histogramme", href="/", active="exact"),
+				dbc.NavLink("Presentation", href="/", active="exact"),
+				dbc.NavLink("Histogramme", href="/histo", active="exact"),
 				dbc.NavLink("Piechart", href="/piechart", active="exact"),
 				dbc.NavLink("Distribution Marginale", href="/distmarge", active="exact"),
 				dbc.NavLink("Animation", href="/animation", active="exact"),
@@ -85,7 +85,7 @@ sidebar = html.Div(
 
 content = html.Div(id="page-content", children=[], style=CONTENT_STYLE) #style sur la barre latérale
 
-app.layout = html.Div([
+app.layout = html.Div([ #Layout de notre application
 	dcc.Location(id="url"),
 	sidebar,
 	content
@@ -95,9 +95,9 @@ app.layout = html.Div([
 	Output("page-content", "children"),
 	Input("url", "pathname")
 )
-def render_page_content(pathname):
+def render_page_content(pathname): #Fonction qui permet d'actualiser le contenu de la page en fonction de l'url utilisé
     
-	if pathname == "/presentation":
+	if pathname == "/":
 		return html.H1("Bienvenue sur notre site !"), html.Span("Nous avons réalisé plusieurs présentations. En voici la liste :"),\
 			html.Div("-Un histogramme avec un dropdown."),\
 				html.Div("-Une piechart composée de deux dropdowns."),\
@@ -117,7 +117,7 @@ def render_page_content(pathname):
 																		html.Img(src='/assets/pyrenees3.jpg',style=PRESENTATION),\
 														]),\
 															html.Div("Lavandier Théo & Tissandier Mathilde", style=FIN)
-	elif pathname == "/":
+	elif pathname == "/histo":
 		
 		return html.Div([
 				view.GUI.build_dropdown_menu_options(data.get_valley(con),"dropdown3"),
@@ -172,7 +172,7 @@ def render_page_content(pathname):
 
 @app.callback(Output('histogramme','figure'),
               Input('dropdown3', 'value'))
-def histogramme_update(dropdown_values_valley):
+def histogramme_update(dropdown_values_valley): #Fonction qui permet d'actualiser l'histogramme en fonction des valeurs d'un dropdown
     if dropdown_values_valley == None:
         raise PreventUpdate 
     histogramme = data.prepare_data_histogramme(con, dropdown_values_valley)
@@ -181,10 +181,9 @@ def histogramme_update(dropdown_values_valley):
 
 @app.callback(Output('distmarge','figure'),
               Input('dropdown4', 'value'))
-def distmarge_update(dropdown_values_valley):
+def distmarge_update(dropdown_values_valley): #Fonction qui permet d'actualiser la distribution marginale en fonction des valeurs d'un dropdown
     if dropdown_values_valley == None:
         raise PreventUpdate 
-    
     distmarge = data.prepare_data_distmarge(con, dropdown_values_valley)
     return view.GUI.build_distmarge(distmarge)
 
@@ -192,17 +191,16 @@ def distmarge_update(dropdown_values_valley):
 @app.callback(Output('piechart','figure'),
 			  [Input('dropdown1','value'),
               Input('dropdown2', 'value')])
-def piechart_update (dropdown_values_valley, dropdown_values_year):
+def piechart_update (dropdown_values_valley, dropdown_values_year): #Fonction qui permet d'actualiser la piechart en fonction des valeurs de deux dropdowns 
 	if dropdown_values_valley == None or dropdown_values_year == None:
 		raise PreventUpdate
-	
 	piechart = data.prepare_data_piechart(con, dropdown_values_valley,dropdown_values_year)
 	return view.GUI.build_piechart(piechart)
 
 
 @app.callback(Output('animation','figure'),
               Input('dropdown5', 'value'))
-def animation_update(dropdown_values_valley):
+def animation_update(dropdown_values_valley): #Fonction qui permet d'actualiser l'animation en fonction des valeurs d'un dropdown
     if dropdown_values_valley == None:
         raise PreventUpdate 
     animation = data.prepare_data_animation(con, dropdown_values_valley)
@@ -211,19 +209,18 @@ def animation_update(dropdown_values_valley):
 
 @app.callback(Output('linegraph','figure'),
               [Input('dropdown6', 'value')])
-def linegraph_update(dropdown_values_stations):
+def linegraph_update(dropdown_values_stations): #Fonction qui permet d'actualiser le line graph en fonction des valeurs d'un dropdown
 	if dropdown_values_stations == None:
 		raise PreventUpdate 
 	else:
 		linegraph = data.prepare_data_linegraph(con, dropdown_values_stations)
-			
 		return view.GUI.build_linegraph(linegraph)
 
 
 @app.callback(Output('3dplot','figure'),
               [Input('dropdown7', 'value'),
 			  Input('scatterradio2','value')])
-def plot3d_update(dropdown_values_stations, radiovalue):
+def plot3d_update(dropdown_values_stations, radiovalue): #Fonction qui permet d'actualiser le 3dplot en fonction des valeurs d'un dropdown et d'un scatter radio
 	if dropdown_values_stations == None:
 		raise PreventUpdate 
 	else:
@@ -236,7 +233,7 @@ def plot3d_update(dropdown_values_stations, radiovalue):
               [Input('dropdown8', 'value'),
               Input('scatterradio', 'value'),
               Input('slider', 'value')])
-def scatter_update(dropdown_values_stations, radiovalue, slidervalue):
+def scatter_update(dropdown_values_stations, radiovalue, slidervalue): #Fonction qui permet d'actualiser les deux scatters en fonction des valeurs d'un dropdown, d'un scatter radio et d'un slider
     if dropdown_values_stations == None:
         raise PreventUpdate 
     else:
@@ -250,7 +247,7 @@ def scatter_update(dropdown_values_stations, radiovalue, slidervalue):
 @app.callback(Output('map','figure'),
               [Input('dropdown8', 'value'),
 			  Input('slider', 'value')])
-def map_update(dropdown_values_stations, slidervalue):
+def map_update(dropdown_values_stations, slidervalue): #Fonction qui permet d'actualiser la map en fonction des valeurs d'un dropdown et d'un slider
 	if dropdown_values_stations == None:
 		raise PreventUpdate 
 	else:
@@ -258,7 +255,7 @@ def map_update(dropdown_values_stations, slidervalue):
 		return view.GUI.build_map(df)
 
 if __name__ == '__main__': 
-	app.run_server(debug=True)
+	app.run_server(debug=True) #Run le serveur
 
 con.commit()
 con.close()
