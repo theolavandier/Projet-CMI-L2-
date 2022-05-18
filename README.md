@@ -24,7 +24,7 @@ On fait notre troisième table, elle se nomme arbre. On y met dedans un id qui s
 
 ![Capture d’écran 2022-05-18 154453](https://user-images.githubusercontent.com/102798509/169054477-a7f9c47f-bf6d-46f3-af38-fdd7ad1b801a.png)
 
-On fait notre dernière table, elle se nomme récolte. On y met dedans un id_r qui s'incrémente automatiquement en commençant par 1. ON y met l'id (ID) de la récolte, la semaine de récolte en jour julien (harv_num), le jour de récolte en jour julien (DD), la semaine de récolte en jour julien (harv), l'année (Year), la date (Date), la masse totale de glands (Mtot), la quantité totale de glands produits (Ntot), la quantité totale de glands produits sans les fruits mis à germer et sans les glands détérioré. Estimation de oneacorn se fait à partir de Ntot1 (Ntot1), la masse moyenne d'un gland (oneacorn), la quantité totale de glands mis à germer (tot_Germ), la masse des glands mis à germer (M_Germ), le nombre de glands qui ont gérmé (N_Germ), le ratio de glands qui ont germé (%) (rate_Germ) et on y met un id_arbre qui sera une clé étrangère. Cette clé rajoutera une colonne dans laquelle on aura l'id d'arbre compris entre 1 et 31. (Chaque station se trouve forcément dans un arbre).
+On fait notre dernière table, elle se nomme récolte. On y met dedans un id_r qui s'incrémente automatiquement en commençant par 1. On y met l'id (ID) de la récolte, la semaine de récolte en jour julien (harv_num), le jour de récolte en jour julien (DD), la semaine de récolte en jour julien (harv), l'année (Year), la date (Date), la masse totale de glands (Mtot), la quantité totale de glands produits (Ntot), la quantité totale de glands produits sans les fruits mis à germer et sans les glands détérioré. L'estimation de oneacorn se fait à partir de Ntot1 (Ntot1), la masse moyenne d'un gland (oneacorn), la quantité totale de glands mis à germer (tot_Germ), la masse des glands mis à germer (M_Germ), le nombre de glands qui ont gérmé (N_Germ), le ratio de glands qui ont germé (%) (rate_Germ) et on y met un id_arbre qui sera une clé étrangère. Cette clé rajoutera une colonne dans laquelle on aura l'id d'arbre compris entre 1 et 31. (Chaque récolte se trouve forcément dans un arbre).
 
 Nous avons maintenant une base de données mais celle-ci est vide. IL nous faut donc la remplir.
 
@@ -171,3 +171,59 @@ Nous avons plusieurs fonction pour mettre à jours nos graphique qui fonctionnen
 Ici, on run les serveur, et quand on le ferme, on se déconnecte de la database.
 
 ## LES MODELISATIONS :
+
+On a d'abord notre page de présentation. Nous avons décidé de ne pas la montrer ici car nous voulions nous concentrer uniquement sur les modélisations que nous avons réalisées.
+
+![histo](https://user-images.githubusercontent.com/102798509/169148082-5ae1d41c-e6aa-4e6c-94fe-21c258e19d4a.png)
+
+Nous commençons avec cette première visualisation sous la forme d'un histogramme. Celui-ci représente la moyenne des Ntot par station en fonctions des années. On a de plus un dropdown permettant de filtrer les valleys.
+Ce graphique est assez intéressant car on peut connaître les stations qui produisent le plus de glands entre 2011 et 2020. On peut ainsi voir par exemple que l'année 2015 est l'année où presque toutes stations ont produits un nombre moyen de glands supérieur à la moyenne des autres années.
+
+![piechart](https://user-images.githubusercontent.com/102798509/169148106-ea7f7498-4992-4c69-a3cc-cc155d8ab73c.png)
+
+Nous avons ensuite ce graphique sous forme de piechart. Celui-ci représente le pourcentage de gland par station en fonctions des années. On a de plus un dropdown permettant de filtrer les valleys.
+Ce graphique est intéressant car on peut voir quelles sont les stations qui produisent le plus et cela sur plusieurs années. Si on reprend l'exemple donné. On peut voir que dans la valley d'Ossau composée des stations : Josbaig, Bager, Le-Hourcq, Gabas et Artouste, pendant les années 2011, 2013,2015,2017,2018 et 2020 réunies, c'est la station Josbaig qui a nettement produit le plus grand pourfecntage de glands.
+
+![dist marg](https://user-images.githubusercontent.com/102798509/169148116-966ee72a-07b8-4216-bf26-2cf4da1da8e6.png)
+
+
+Ce graphique est une distribution maginale sur la ratio de gland ayant germés en fonction de rang de l'altitude.
+Ici, on observe le taux de germination des glands de la valley de Luz. On peut observer que la plupart des données
+de gland ayant germés on germés à un rang d'altitudeentre 100 et 1200. Cependant, on peut oberserver que la médianne se trouve à 
+300. d'après l'lallure de la courbe, il est facile de voir que plus le rang de l'altitude est faible, plus le taux de germination
+est important.
+Nous pouvons faire la même observation pour la vallée de Ossau.
+
+![animation](https://user-images.githubusercontent.com/102798509/169148127-b2fbeb47-a768-4b37-8a43-7b69f8a359e8.png)
+
+Ce graphique est un barchart animé. En cliquant sur le bouton play, nous pouvons voir l'évolution par année de la moyenne de 
+gland collectés dans les stations depuis 2015. Il est possible de trier les données par valley. 
+Nous pouvons observé que cette moyenne par année n'est pas constante car on observe de grande différences sur les stations pour chaque année.
+
+
+
+![line graph](https://user-images.githubusercontent.com/102798509/169148146-d47f95be-44e9-4229-984c-e4c15378668b.png)
+
+Poursuivons avec le graphique sous forme de line. Celui-ci représente la moyenne de la masse des glands produite par chaque arbre en fonction du volume du houppier. On a de plus un dropdown permettant de filtrer les stations.
+Ce graphique est intéressant car il nous permet de déterminer s'il existe une relation entre le volume et la masse moyenne de glands produits. On pourrait supposer que plus le volume est élevé plus la masse moyenne augmente. On voit cependant que ce n'est pas le cas. Si on prend la station Laveyron, on voit que pour un volume de 416 m^3, la masse moyenne de glands est d'environ 2373g. Pour un volume de 1002m^3, la masse moyenne est d'environ 5061g. Pour l'instant nous n'avons rien d'anormal, cependant, nous voyons que pour un volume de 4197m^3, la masse moyenne est d'environ 2012g. On peut donc en déduire qu'il n'y a pas de lien entre les deux.
+
+![3d plot](https://user-images.githubusercontent.com/102798509/169148158-dc6cb482-24cd-46f5-b101-5fe81062278b.png)
+
+Ensuite, nous avons le graphique en 3D. Celui-ci est variable. Nous pouvons choisir entre la quantité moyenne de glands produits et la masse moyenne totale produite. Dans cet exemple nous avons choisi la quantité moyenne de glands produits en fonction de l'année et du jour de la récolte en jour julien. On a de plus un dropdown permettant de filtrer les stations.
+Ce graphique est intéressant car il nous permet de voir dans chaque année quel jour a été le plus productif à propos de la quantité moyenne de glands (ou la masse totale en fonction du choix fait au début). Si on regarde l'année 2017 (en orange), on voit que c'est le jour 283 soit le 23 mars qu'il y a eu la quantité moyenne de glands produits la plus grande, toutes stations réunies soit environ 8384 glands. 
+
+![3 graphs](https://user-images.githubusercontent.com/102798509/169148172-3d8f9536-e9ed-477a-a0ff-867c3f68fb4f.png)
+
+Enfin, voici nos derniers graphiques. Nous avons un premier graphique qui étudie la masse de gland produit
+à chaque récolte en fonction du jour julien. Il est possible de trier les données par Stations, grâce à un dropdown. Nous pouvons 
+observer grace à ce graphique que dans le cas général, les plus grosse masses de glands récoltés de font entre le jour 270 et
+le jour 302, soit entre le 27 septembre et 29 octobre.
+
+Il est possible de remplacer ce graphique par un autre graphique grâce à un scatterradio. En cliquant sur boxplot, 
+nous pouvons étudier les Mtot de chaque récolte en fonction des années, sous la forme de boites à moustaches avec des points.
+
+Nous avons aussi un Slider Range qui permet de trier les données en fonctions des 
+Mtot. Grâce à cela, l'utilisateur peut se concentrer sur des données qui l'interressent.
+
+Puis enfin, en dessous de nos deux graphiques interchangeables, nous avons une carte
+qui est elle aussi connecté au dropdown et au slider range.
