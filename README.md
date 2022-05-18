@@ -43,3 +43,8 @@ On fait une nouvelle requête query, on va sélectionner l'id de l'arbre, ensuit
 ![Capture d’écran 2022-05-18 164238](https://user-images.githubusercontent.com/102798509/169069300-dcf34775-93e6-4054-b85c-a6a0eb04ed6c.png)
 
 On fait une nouvelle requête query, on va sélectionner l'id_r de la récolte, ensuite, si on voit que les données de la table récolte sont nulles, on va la remplir avec la deuxième requête query et l'exécuter avec : cur.execute(query).
+
+Ensuite, on va pouvoir s'occuper des clés étrangères. Les colonnes des clés étrangères sont remplies avec des 0.
+
+
+
