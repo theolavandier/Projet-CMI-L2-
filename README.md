@@ -95,3 +95,9 @@ On créé ici un dropdown. Quand on l'appliquera, il sera possible de sélection
 Cette fonction permet d'initialiser un graph, elle sera utilisée pour tous les graphiques.
 
 ![Capture d’écran 2022-05-18 210407](https://user-images.githubusercontent.com/102798509/169136186-1e3ab275-a56a-45ca-b049-326efb7f6cbd.png)
+
+
+
+## Le DASHAPP :
+
+
