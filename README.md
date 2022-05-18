@@ -8,7 +8,7 @@ Nous avions pour consigne de reprendre ce fichier et de coder une base de donné
 ### La database :
 ![Capture d’écran 2022-05-18 151754](https://user-images.githubusercontent.com/102798509/169049544-cb0c76dc-b763-4cd3-9bfa-f7cfec376ea0.png)
 
-Nous commençons donc par faire les import qui nous serons primordiales pour la suite de notre code.
+Nous commençons donc par faire les import qui nous serons primordiaux pour la suite de notre code.
 
 ![Capture3](https://user-images.githubusercontent.com/102798483/169115581-b5fc8483-9973-48c4-b6eb-fc8589b7f0ac.PNG)
 
@@ -24,9 +24,9 @@ On fait notre troisième table, elle se nomme arbre. On y met dedans un id qui s
 
 ![Capture d’écran 2022-05-18 154453](https://user-images.githubusercontent.com/102798509/169054477-a7f9c47f-bf6d-46f3-af38-fdd7ad1b801a.png)
 
-On fait notre dernière table, elle se nomme récolte. On y met dedans un id_r qui s'incrémente automatiquement en commençant par 1. ON y met l'id (ID) de la récolte, la semaine de récolte en jour julien (harv_num), le jour de récolte en jour julien (DD), la semaine de récolte en jour julien (harv), l'année (Year), la date (Date), la masse totale de glands (Mtot), la quantité totale de glands produits (Ntot), la quantité totale de glands produits sans les fruits mis à germer et sans les glands détérioré. Estimation de oneacorn se fait à partir de Ntot1 (Ntot1), la masse moyenne d'un gland (oneacorn), la quantité totale de glands mis à germer (tot_Germ), la masse des glands mis à germer (M_Germ), le nombre de glands qui ont gérmé (N_Germ), le ratio de glands qui ont germé (%) (rate_Germ) et on y met un id_arbre qui sera une clé étrangère. Cette clé rajoutera une colonne dans laquelle on aura l'id d'arbre compris entre 1 et 31. (Chaque station se trouve forcément dans un arbre).
+On fait notre dernière table, elle se nomme récolte. On y met dedans un id_r qui s'incrémente automatiquement en commençant par 1. On y met l'id (ID) de la récolte, la semaine de récolte en jour julien (harv_num), le jour de récolte en jour julien (DD), la semaine de récolte en jour julien (harv), l'année (Year), la date (Date), la masse totale de glands (Mtot), la quantité totale de glands produits (Ntot), la quantité totale de glands produits sans les fruits mis à germer et sans les glands détérioré. L'estimation de oneacorn se fait à partir de Ntot1 (Ntot1), la masse moyenne d'un gland (oneacorn), la quantité totale de glands mis à germer (tot_Germ), la masse des glands mis à germer (M_Germ), le nombre de glands qui ont gérmé (N_Germ), le ratio de glands qui ont germé (%) (rate_Germ) et on y met un id_arbre qui sera une clé étrangère. Cette clé rajoutera une colonne dans laquelle on aura l'id d'arbre compris entre 1 et 31. (Chaque récolte se trouve forcément dans un arbre).
 
-Nous avons maintenant une base de données mais celle-ci est vide. IL nous faut donc la remplir.
+Nous avons maintenant une base de données mais celle-ci est vide. Il nous faut donc la remplir.
 
 ![Capture2](https://user-images.githubusercontent.com/102798483/169114778-513218af-c2e5-4d35-b443-91c86eb8834d.PNG)
 
@@ -70,13 +70,13 @@ On a ici 3 fonctions. La première get_valley va retourner une liste des valleys
 
 ![Capture d’écran 2022-05-18 205613](https://user-images.githubusercontent.com/102798509/169131681-62f574ac-9e7b-4e6c-b69f-9ea26610c2e2.png)
 
-TEXTE
+Cette fonction prend en argument un connecteur, une liste de station, et un interval range. Elle permet de retourner un dataframe construit à parir d'une requête SQL. La liste de station et la range interviennent quand à eux comme des conditions pour créer notre dataframe. Ici on ne veut que les lignes contenant la où les stations passées en arguments, et nous voulons trier certaines valeurs en fonction de l'intervalle range. Nous avons d'autre fonctions qui fonctionnent en suivant le même principe d'arguments conditions. Ces dataframes, retournés par nos différentes fonctions, nous permettrons de constuire des graphs avec différentes données.
 
 ## LE GUI :
 
 ![Capture4](https://user-images.githubusercontent.com/102798483/169116847-a0b022d6-eed5-481c-9ce0-e274c839d8b1.PNG)
 
-Comme pour la partie data, on commence par faire les import qui nous serons primordiales pour la suite de notre code.
+Comme pour la partie data, on commence par faire les import qui nous serons primordiaux pour la suite de notre code.
 
 ### Le code :
 ![image](https://user-images.githubusercontent.com/102798509/169085672-c657230c-24d2-4287-bca2-b8aa8a12fe91.png)
@@ -87,7 +87,13 @@ On créé ici un dropdown. Quand on l'appliquera, il sera possible de sélection
 
 ![Capture d’écran 2022-05-18 205751](https://user-images.githubusercontent.com/102798509/169133031-a72b50d2-65d5-41d0-8e43-a798ba772222.png)
 
-TEXTE
+Ces deux fonctions sont très similaire à notre fonction build_dropdown_menu_options, car elles retournent aussi un composant
+Dash. 
+	- build_radioitems permet de créer une sorte de liste de valeurs que nous choisissons avec le paramètre item_list.
+	 Nous pouvons sélectionner une valeur de cette liste à la fois.
+	- build_slider permet de créer une barre latérale, pour pouvoir choisir manuellement une intervalle de valeurs. 
+	 Nous devons donc choisir dans notre fonction un intervalle de valeurs. Dans notre cas nous avons choisit [0;55000].
+Dans le deux cas, la variable id permet de donner un identifiant id à notre composant, dans le but de pouvoir l'identifier par la suite.
 
 ![Capture d’écran 2022-05-18 175145](https://user-images.githubusercontent.com/102798509/169086900-1cd6d66f-38ff-437c-94e0-0c289cab363f.png)
 
@@ -95,41 +101,124 @@ Cette fonction permet d'initialiser un graph, elle sera utilisée pour tous les 
 
 ![Capture d’écran 2022-05-18 210407](https://user-images.githubusercontent.com/102798509/169136186-1e3ab275-a56a-45ca-b049-326efb7f6cbd.png)
 
-TEXTE
+Cette fonction permet de créer un scatter plot à partir d'un dataframe placé en paramètre. Dans notre projet, nous utilisons les dataframes
+produits par nos fonctions prepare_data ,que nous avons dans la partie précédente, pour nos fonctions build. Les fonctions build
+comme celle-ci utilisent la librairy plotly-express pour créer des graphs. Ces graphs seront affichés sur notre app, et seront rendus 
+intéractifs.
 
 ## LE DASHAPP :
 
 ![Capture d’écran 2022-05-18 210654](https://user-images.githubusercontent.com/102798509/169137054-b05da799-86f4-4efa-b3f7-814a2ce3680d.png)
 
-Comme pour les deux autres parties, on commence par faire les import qui nous serons primordiales pour la suite de notre code.
+Comme pour les deux autres parties, on commence par faire les import qui nous serons primordiaux pour la suite de notre code.
 
 ![Capture d’écran 2022-05-18 210913](https://user-images.githubusercontent.com/102798509/169137734-c32c9aad-ab76-4631-819b-0fa952d75c72.png)
 
-TEXTE SCREEN + CSS
+Ensuite, on se connecte à notre database Pyrenees.db qui se trouve dans notre répertoire model. On crée un curseur pour pouvoir utiliser et modifier
+cette database. Ensuite, si la database n'a pas déjà été créée, on appelle nos fonctions setup_table et csv_into_table, dont nous avons parlé dans la partie
+Data. Quand cela est fait, on initialise notre app avec dash.Dash.
+
+Dans notre application, nous avons fait beaucoup de CSS pour mettre en forme cette dernière. Cependant, nous ne nous attarderons pas sur cette
+partie pour éviter que cette présentation soit trop longue.
+
+Notre application sera principalement divisée en deux parties :
+	-Nous aurons un menu sur la gauche de notre site, nous permettant de se déplacer sur le site dans les différents graphiques.
+	-Puis nous aurons une partie contenant les graphiques et les différentes intéractions qui leurs sont associées. 
 
 ![Capture d’écran 2022-05-18 211424](https://user-images.githubusercontent.com/102798509/169138571-06f11146-a9b8-4a7e-a52b-02a914879f8c.png)
 
-TEXTE
+Voici le code permettant de créer notre menu 'sidebar'. Celui ci est principalement composé de Html. Nous avons le titre de notre application,
+'TISSANDIER LAVANDIER', un autre titre sur le thème, une image etc... Mais pricipalement nous utilisons un dbc.Nav. C'est une sorte de navigateur,
+qui permet de changer d'url quand on clique sur un bouton de celui-ci. Nous allons voir que c'est grace à celui-ci que nous allons pouvoir 
+afficher différents graphiques, de manière distincte, sur notre site.
 
 ![Capture d’écran 2022-05-18 211525](https://user-images.githubusercontent.com/102798509/169138788-6ae048d0-ea58-4239-a09b-eb3425a7a7da.png)
 
-TEXTE
+Puis nous avons le code qui permet de créer la partie contenant les graphiques; notre 'content'. Nous allons voir que son contenu 
+dépendra de l'url de notre site.
 
 ![Capture d’écran 2022-05-18 211739](https://user-images.githubusercontent.com/102798509/169139115-a6b4dd41-23ef-446f-94fd-8737e3a0ffbd.png)
 
-TEXTE
+Nous regroupons ces deux parties de notre app.layout. 
 
 ![Capture d’écran 2022-05-18 211840](https://user-images.githubusercontent.com/102798509/169139359-41a6bfc7-012b-4fbe-8c2b-6f08b46a8931.png)
 ![Capture d’écran 2022-05-18 211909](https://user-images.githubusercontent.com/102798509/169139400-96e775cb-4aaa-4e98-93f2-2dd2cc62f715.png)
 
-TEXTE
+Nous avons ensuite notre première fonction utilisant un callback. Cette fonction permet de mettre à jour la partie 'content' de notre site,
+en fonction de l'url de ce dernier. On voit que le callback a pour input notre url, défini dans notre layout, et pour output page-content, 
+l'id de notre partie 'content'.
+Le paramètre de notre fonction est pathname, c'est le pathname de l'url sur lequel on se trouve.
+Ici, on voit que si l'on se trouve sur le pathname "/piechart", alors on renvoit dans content deux dropdown, un sur les valleys, et un sur
+les years. On renvoit également un graph d'id 'piechart'. Cette fonction permet donc de mettre en place le contenu de notre content, en fonction
+de l'url sur lequel l'utilisateur se trouve.
 
 ![Capture d’écran 2022-05-18 212023](https://user-images.githubusercontent.com/102798509/169139544-058b1989-cb19-4626-a88b-11bd06f5e00b.png)
 
-TEXTE
+Ici, nous avons une deuxième fonction avec un callback. Cette fonction permet de mettre à jour notre piechart en fonction des valeurs de deux
+dropdowns. Nous voyons que notre callback a pour input les id de nos deux dropdown, et pour output l'id de notre graph piechart. Nous appelons
+ensuite prepare_data_piechart avec en argument les deux listes contenant les valeurs de nos deux dropdown. Les valeurs des dropdowns vont donc
+trier les données renvoyées par prepare_data, et nous utiliserons ces données pour construire notre graphique.
+Les données sont donc mise à jour à chaque fois que nos dropdowns changent de valeurs, ce qui permet une interraction avec les graphiques.
+Nous avons plusieurs fonction pour mettre à jours nos graphique qui fonctionnent en suivant le même principe que celle-ci. 
 
 ![Capture d’écran 2022-05-18 212112](https://user-images.githubusercontent.com/102798509/169139666-0ba9ca5e-5ebf-4b8f-9d84-0a6cc8c7c44c.png)
 
-TEXTE
+Ici, on run les serveur, et quand on le ferme, on se déconnecte de la database.
 
 ## LES MODELISATIONS :
+
+On a d'abord notre page de présentation. Nous avons décidé de ne pas la montrer ici car nous voulions nous concentrer uniquement sur les modélisations que nous avons réalisées.
+
+![histo](https://user-images.githubusercontent.com/102798509/169148082-5ae1d41c-e6aa-4e6c-94fe-21c258e19d4a.png)
+
+Nous commençons avec cette première visualisation sous la forme d'un histogramme. Celui-ci représente la moyenne des Ntot par station en fonctions des années. On a de plus un dropdown permettant de filtrer les valleys.
+Ce graphique est assez intéressant car on peut connaître les stations qui produisent le plus de glands entre 2011 et 2020. On peut ainsi voir par exemple que l'année 2015 est l'année où presque toutes stations ont produits un nombre moyen de glands supérieur à la moyenne des autres années.
+
+![piechart](https://user-images.githubusercontent.com/102798509/169148106-ea7f7498-4992-4c69-a3cc-cc155d8ab73c.png)
+
+Nous avons ensuite ce graphique sous forme de piechart. Celui-ci représente le pourcentage de gland par station en fonctions des années. On a de plus un dropdown permettant de filtrer les valleys.
+Ce graphique est intéressant car on peut voir quelles sont les stations qui produisent le plus et cela sur plusieurs années. Si on reprend l'exemple donné. On peut voir que dans la valley d'Ossau composée des stations : Josbaig, Bager, Le-Hourcq, Gabas et Artouste, pendant les années 2011, 2013,2015,2017,2018 et 2020 réunies, c'est la station Josbaig qui a nettement produit le plus grand pourfecntage de glands.
+
+![dist marg](https://user-images.githubusercontent.com/102798509/169148116-966ee72a-07b8-4216-bf26-2cf4da1da8e6.png)
+
+
+Ce graphique est une distribution maginale sur la ratio de gland ayant germés en fonction de rang de l'altitude.
+Ici, on observe le taux de germination des glands de la valley de Luz. On peut observer que la plupart des données
+de gland ayant germés on germés à un rang d'altitudeentre 100 et 1200. Cependant, on peut oberserver que la médianne se trouve à 
+300. d'après l'lallure de la courbe, il est facile de voir que plus le rang de l'altitude est faible, plus le taux de germination
+est important.
+Nous pouvons faire la même observation pour la vallée de Ossau.
+
+![animation](https://user-images.githubusercontent.com/102798509/169148127-b2fbeb47-a768-4b37-8a43-7b69f8a359e8.png)
+
+Ce graphique est un barchart animé. En cliquant sur le bouton play, nous pouvons voir l'évolution par année de la moyenne de 
+gland collectés dans les stations depuis 2015. Il est possible de trier les données par valley. 
+Nous pouvons observé que cette moyenne par année n'est pas constante car on observe de grande différences sur les stations pour chaque année.
+
+
+
+![line graph](https://user-images.githubusercontent.com/102798509/169148146-d47f95be-44e9-4229-984c-e4c15378668b.png)
+
+Poursuivons avec le graphique sous forme de line. Celui-ci représente la moyenne de la masse des glands produite par chaque arbre en fonction du volume du houppier. On a de plus un dropdown permettant de filtrer les stations.
+Ce graphique est intéressant car il nous permet de déterminer s'il existe une relation entre le volume et la masse moyenne de glands produits. On pourrait supposer que plus le volume est élevé plus la masse moyenne augmente. On voit cependant que ce n'est pas le cas. Si on prend la station Laveyron, on voit que pour un volume de 416 m^3, la masse moyenne de glands est d'environ 2373g. Pour un volume de 1002m^3, la masse moyenne est d'environ 5061g. Pour l'instant nous n'avons rien d'anormal, cependant, nous voyons que pour un volume de 4197m^3, la masse moyenne est d'environ 2012g. On peut donc en déduire qu'il n'y a pas de lien entre les deux.
+
+![3d plot](https://user-images.githubusercontent.com/102798509/169148158-dc6cb482-24cd-46f5-b101-5fe81062278b.png)
+
+Ensuite, nous avons le graphique en 3D. Celui-ci est variable. Nous pouvons choisir entre la quantité moyenne de glands produits et la masse moyenne totale produite. Dans cet exemple nous avons choisi la quantité moyenne de glands produits en fonction de l'année et du jour de la récolte en jour julien. On a de plus un dropdown permettant de filtrer les stations.
+Ce graphique est intéressant car il nous permet de voir dans chaque année quel jour a été le plus productif à propos de la quantité moyenne de glands (ou la masse totale en fonction du choix fait au début). Si on regarde l'année 2017 (en orange), on voit que c'est le jour 283 soit le 23 mars qu'il y a eu la quantité moyenne de glands produits la plus grande, toutes stations réunies soit environ 8384 glands. 
+
+![3 graphs](https://user-images.githubusercontent.com/102798509/169148172-3d8f9536-e9ed-477a-a0ff-867c3f68fb4f.png)
+
+Enfin, voici nos derniers graphiques. Nous avons un premier graphique qui étudie la masse de gland produit
+à chaque récolte en fonction du jour julien. Il est possible de trier les données par Stations, grâce à un dropdown. Nous pouvons 
+observer grace à ce graphique que dans le cas général, les plus grosse masses de glands récoltés de font entre le jour 270 et
+le jour 302, soit entre le 27 septembre et 29 octobre.
+
+Il est possible de remplacer ce graphique par un autre graphique grâce à un scatterradio. En cliquant sur boxplot, 
+nous pouvons étudier les Mtot de chaque récolte en fonction des années, sous la forme de boites à moustaches avec des points.
+
+Nous avons aussi un Slider Range qui permet de trier les données en fonctions des 
+Mtot. Grâce à cela, l'utilisateur peut se concentrer sur des données qui l'interressent.
+
+Puis enfin, en dessous de nos deux graphiques interchangeables, nous avons une carte
+qui est elle aussi connecté au dropdown et au slider range.
