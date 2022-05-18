@@ -4,7 +4,7 @@ Théo Lavandier Mathilde Tissandier : PROJET CMI
 Bonjour,
 Dans le cadre de notre formation nous avons du créer un site internet reprenant les données du fichier csv : Pyrenees.
 Nous avions pour consigne de reprendre ce fichier et de coder une base de données avec SQLite. Nous avons dans notre code data fait cela :
-## Data :
+## LE DATA :
 ### La database :
 ![Capture d’écran 2022-05-18 151754](https://user-images.githubusercontent.com/102798509/169049544-cb0c76dc-b763-4cd3-9bfa-f7cfec376ea0.png)
 
@@ -68,13 +68,11 @@ Comme on avait la longitude et la latitude dans la table Station, il fallait la 
 
 On a ici 3 fonctions. La première get_valley va retourner une liste des valleys. La deuxième get_year va retourner une liste des années et la dernière, get_stations, va retourner la liste des stations. On utilise ces 3 fonctions pour construire les dropdowns plus tard.
 
+![Capture d’écran 2022-05-18 205613](https://user-images.githubusercontent.com/102798509/169131681-62f574ac-9e7b-4e6c-b69f-9ea26610c2e2.png)
 
+TEXTE
 
-
-
-
-
-## Le GUI :
+## LE GUI :
 
 ![Capture4](https://user-images.githubusercontent.com/102798483/169116847-a0b022d6-eed5-481c-9ce0-e274c839d8b1.PNG)
 
@@ -83,8 +81,55 @@ Comme pour la partie data, on commence par faire les import qui nous serons prim
 ### Le code :
 ![image](https://user-images.githubusercontent.com/102798509/169085672-c657230c-24d2-4287-bca2-b8aa8a12fe91.png)
 
-On créé ici un dropdown. Quand on l'appliquera, il sera possible de sélectionner plusieurs éléments : multi=True et, quand on aura au début que tous les éléments seront sélectionnés : value=item_list. 
+![Capture d’écran 2022-05-18 205941](https://user-images.githubusercontent.com/102798509/169135421-e2410eea-b6db-4d75-81bf-c6e28dd6ac98.png)
+
+On créé ici un dropdown. Quand on l'appliquera, il sera possible de sélectionner plusieurs éléments : multi=True et, quand on aura au début que tous les éléments seront sélectionnés : value=item_list. On a ici un exemple de dropdown produit par le code.
+
+![Capture d’écran 2022-05-18 205751](https://user-images.githubusercontent.com/102798509/169133031-a72b50d2-65d5-41d0-8e43-a798ba772222.png)
+
+TEXTE
 
 ![Capture d’écran 2022-05-18 175145](https://user-images.githubusercontent.com/102798509/169086900-1cd6d66f-38ff-437c-94e0-0c289cab363f.png)
 
 Cette fonction permet d'initialiser un graph, elle sera utilisée pour tous les graphiques.
+
+![Capture d’écran 2022-05-18 210407](https://user-images.githubusercontent.com/102798509/169136186-1e3ab275-a56a-45ca-b049-326efb7f6cbd.png)
+
+TEXTE
+
+## LE DASHAPP :
+
+![Capture d’écran 2022-05-18 210654](https://user-images.githubusercontent.com/102798509/169137054-b05da799-86f4-4efa-b3f7-814a2ce3680d.png)
+
+Comme pour les deux autres parties, on commence par faire les import qui nous serons primordiales pour la suite de notre code.
+
+![Capture d’écran 2022-05-18 210913](https://user-images.githubusercontent.com/102798509/169137734-c32c9aad-ab76-4631-819b-0fa952d75c72.png)
+
+TEXTE SCREEN + CSS
+
+![Capture d’écran 2022-05-18 211424](https://user-images.githubusercontent.com/102798509/169138571-06f11146-a9b8-4a7e-a52b-02a914879f8c.png)
+
+TEXTE
+
+![Capture d’écran 2022-05-18 211525](https://user-images.githubusercontent.com/102798509/169138788-6ae048d0-ea58-4239-a09b-eb3425a7a7da.png)
+
+TEXTE
+
+![Capture d’écran 2022-05-18 211739](https://user-images.githubusercontent.com/102798509/169139115-a6b4dd41-23ef-446f-94fd-8737e3a0ffbd.png)
+
+TEXTE
+
+![Capture d’écran 2022-05-18 211840](https://user-images.githubusercontent.com/102798509/169139359-41a6bfc7-012b-4fbe-8c2b-6f08b46a8931.png)
+![Capture d’écran 2022-05-18 211909](https://user-images.githubusercontent.com/102798509/169139400-96e775cb-4aaa-4e98-93f2-2dd2cc62f715.png)
+
+TEXTE
+
+![Capture d’écran 2022-05-18 212023](https://user-images.githubusercontent.com/102798509/169139544-058b1989-cb19-4626-a88b-11bd06f5e00b.png)
+
+TEXTE
+
+![Capture d’écran 2022-05-18 212112](https://user-images.githubusercontent.com/102798509/169139666-0ba9ca5e-5ebf-4b8f-9d84-0a6cc8c7c44c.png)
+
+TEXTE
+
+## LES MODELISATIONS :
