@@ -68,7 +68,7 @@ sidebar = html.Div(
 				dbc.NavLink("Animation", href="/animation", active="exact"),
 				dbc.NavLink("Line Graph", href="/linegraph", active="exact"),
 				dbc.NavLink("3d Plot", href="/3dplot", active="exact"),
-				dbc.NavLink("Scatter And Map", href="/scatterandmap", active="exact"),
+				dbc.NavLink("Scatter, Boxplot And Map", href="/scatterandmap", active="exact"),
 			],
 		
 			vertical=True,	
@@ -98,12 +98,12 @@ def render_page_content(pathname):
     
 	if pathname == "/presentation":
 		return html.H1("Bienvenue sur notre site !"), html.Span("Nous avons réalisé plusieurs présentations. En voici la liste :"),\
-			html.Div("-Un histogramme qui reprend les données qui nous étaient fourni par notre professeur."),\
-				html.Div("-Une piechart que nous avons faite nous-même composée de deux dropdowns."),\
-					html.Div("-Une distribution marginale que nous avons aussi réalisée composée d'un seul dropdown sur les vallleys."),\
-						html.Div("-Une animation avec pour dropdown les valleys mais aussi une animation qui parcours les années."),\
-							html.Div("-Un graphique de type line compoé d'un dropdown sur les stations mais on retrouve aussi un curcesseur sur le graphique pour retrouver les données plus facilement."),\
-								html.Div("-Un grahique de type 3D avec un dropdown sur les stations."),\
+			html.Div("-Un histogramme avec un dropdown."),\
+				html.Div("-Une piechart composée de deux dropdowns."),\
+					html.Div("-Une distribution marginale composée d'un seul dropdown sur les vallleys."),\
+						html.Div("-Un graphique animé avec pour dropdown les valleys mais aussi une animation qui parcours les années."),\
+							html.Div("-Un graphique de type line composé d'un dropdown sur les stations mais on retrouve aussi un curseur sur le graphique pour retrouver les données plus facilement."),\
+								html.Div("-Un grahique de type 3D avec un dropdown sur les stations et la possibilité de choisir entre deux variables à étudier."),\
 									html.Div("-Et pout finir nous avons une double animation avec une carte, on y retrouve un dropdown sur les stations avec la possibilité de choisir le graphique qu'on veut et une carte qui évolue en fonctions des stations sélectionnées."),\
 										html.Br(),\
 											html.Br(),\
@@ -154,6 +154,7 @@ def render_page_content(pathname):
 				view.GUI.build_dropdown_menu_options(data.get_stations(con,cur),"dropdown8"),
 				view.GUI.build_radioitems('scatterradio', ["scatterplot", "boxplot"]),
 				view.GUI.init_graph("scatterplot"),
+				html.H3("Mtot Range :"),
                 view.GUI.build_slider("slider"),
 				view.GUI.init_graph("map"),
 			])
