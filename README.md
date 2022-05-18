@@ -4,7 +4,7 @@ Théo Lavandier Mathilde Tissandier : PROJET CMI
 Bonjour,
 Dans le cadre de notre formation nous avons du créer un site internet reprenant les données du fichier csv : Pyrenees.
 Nous avions pour consigne de reprendre ce fichier et de coder une base de données avec SQLite. Nous avons dans notre code data fait cela :
-## Data :
+## LE DATA :
 ### La database :
 ![Capture d’écran 2022-05-18 151754](https://user-images.githubusercontent.com/102798509/169049544-cb0c76dc-b763-4cd3-9bfa-f7cfec376ea0.png)
 
@@ -72,7 +72,7 @@ On a ici 3 fonctions. La première get_valley va retourner une liste des valleys
 
 TEXTE
 
-## Le GUI :
+## LE GUI :
 
 ![Capture4](https://user-images.githubusercontent.com/102798483/169116847-a0b022d6-eed5-481c-9ce0-e274c839d8b1.PNG)
 
@@ -97,7 +97,7 @@ Cette fonction permet d'initialiser un graph, elle sera utilisée pour tous les 
 
 TEXTE
 
-## Le DASHAPP :
+## LE DASHAPP :
 
 ![Capture d’écran 2022-05-18 210654](https://user-images.githubusercontent.com/102798509/169137054-b05da799-86f4-4efa-b3f7-814a2ce3680d.png)
 
@@ -119,3 +119,17 @@ TEXTE
 
 TEXTE
 
+![Capture d’écran 2022-05-18 211840](https://user-images.githubusercontent.com/102798509/169139359-41a6bfc7-012b-4fbe-8c2b-6f08b46a8931.png)
+![Capture d’écran 2022-05-18 211909](https://user-images.githubusercontent.com/102798509/169139400-96e775cb-4aaa-4e98-93f2-2dd2cc62f715.png)
+
+TEXTE
+
+![Capture d’écran 2022-05-18 212023](https://user-images.githubusercontent.com/102798509/169139544-058b1989-cb19-4626-a88b-11bd06f5e00b.png)
+
+TEXTE
+
+![Capture d’écran 2022-05-18 212112](https://user-images.githubusercontent.com/102798509/169139666-0ba9ca5e-5ebf-4b8f-9d84-0a6cc8c7c44c.png)
+
+TEXTE
+
+## LES MODELISATIONS :
