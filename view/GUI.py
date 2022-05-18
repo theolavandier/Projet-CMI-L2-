@@ -31,8 +31,17 @@ def init_graph(id_graph):
 
 def build_radioitems(id):
     return dcc.RadioItems(id="{}".format(id),
-                        value='discrete', 
+                        value='scatteroneacorn', 
         options=['scatteroneacorn', 'continuous'],)
+
+def build_slider(id):
+    return dcc.RangeSlider(0, 55000,100,
+        marks= {0:'0', 10000:'10k', 20000:'20k', 30000:'30k', 40000:'40k', 50000:'50k', 55000:'55k' },
+        count=1,
+        value=[0, 55000],
+        id='{}'.format(id)
+    )
+
 
 def build_piechart(data):
 	pie = px.pie(data, values=data.Ntot, names=data.Station, title='Pourcentage de gland par station en fonction des années et des deux stations')
@@ -56,7 +65,7 @@ def build_animation(data):
 	return  animation
 
 def build_linegraph(data):
-    fig = px.line(data, x=data.VH, y=data.AVG_Mtot, color=data.code, title="titre indéterminé", color_discrete_sequence=px.colors.qualitative.Set3_r    )
+    fig = px.line(data, x=data.VH, y=data.AVG_Mtot, color=data.code, title="titre indéterminé", color_discrete_sequence=px.colors.qualitative.Set3_r)
     fig.update_traces(mode="markers+lines", hovertemplate=None)
     fig.update_layout(hovermode="x unified")
     return fig
@@ -67,6 +76,11 @@ def build_3dplot(data):
 
 
 def build_scatterplot(data):
-    fig = px.scatter(data, x=data.Year, y=data.Mtot, color=data.oneacorn,
+    fig = px.scatter(data, x=data.DD, y=data.Mtot, color=data.oneacorn,
                  size=data.Ntot, hover_data=['code'])
     return fig
+
+def build_boxplot(data):
+    fig = px.box(data, x=data.Year, y=data.Mtot,color=data.Year , points="all")
+    return fig
+
