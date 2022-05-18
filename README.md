@@ -86,6 +86,8 @@ Comme pour la partie data, on commence par faire les import qui nous serons prim
 
 On créé ici un dropdown. Quand on l'appliquera, il sera possible de sélectionner plusieurs éléments : multi=True et, quand on aura au début que tous les éléments seront sélectionnés : value=item_list. 
 
+![Capture d’écran 2022-05-18 205751](https://user-images.githubusercontent.com/102798509/169133031-a72b50d2-65d5-41d0-8e43-a798ba772222.png)
+
 ![Capture d’écran 2022-05-18 175145](https://user-images.githubusercontent.com/102798509/169086900-1cd6d66f-38ff-437c-94e0-0c289cab363f.png)
 
 Cette fonction permet d'initialiser un graph, elle sera utilisée pour tous les graphiques.
