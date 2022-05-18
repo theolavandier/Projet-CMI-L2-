@@ -34,8 +34,11 @@ On commence par ouvrir le fichier csv et on se met en mode Reader (c'est pour po
 
 ![image](https://user-images.githubusercontent.com/102798509/169068474-ed5ca6f0-9c5a-4a3d-9fc2-726225fcf7e8.png)
 
-On fait une dnouvelle requête query, on va sélectionner l'id de la valley, ensuite, si on voit que les données de la table valley sont nulles, on va la remplir avec la deuxième requête query et l'exécuter avec : cur.execute(query).
+On fait une nouvelle requête query, on va sélectionner l'id de la valley, ensuite, si on voit que les données de la table valley sont nulles, on va la remplir avec la deuxième requête query et l'exécuter avec : cur.execute(query).
 
 
+![image](https://user-images.githubusercontent.com/102798509/169068926-57d9be88-7c50-4327-a176-5e9f71a185de.png)
+
+On fait une nouvelle requête query, on va sélectionner l'id de l'arbre, ensuite, si on voit que les données de la table arbre sont nulles, on va la remplir avec la deuxième requête query et l'exécuter avec : cur.execute(query).
 
 
