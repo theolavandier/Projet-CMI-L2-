@@ -217,16 +217,14 @@ def scatter_update(dropdown_values_stations, radiovalue, slidervalue):
             return view.GUI.build_boxplot(df)
 
 @app.callback(Output('map','figure'),
-              [Input('dropdown8', 'value'),
-              Input('scatterradio', 'value'),
-              Input('slider', 'value')])
+              [Input('dropdown8', 'value')])
 
-def map_update(dropdown_values_stations, radiovalue, slidervalue):
-    if dropdown_values_stations == None:
-        raise PreventUpdate 
-    else:
-        df = data.prepare_data_map(con, dropdown_values_stations, slidervalue)
-        return view.GUI.build_map(df)
+def map_update(dropdown_values_stations):
+	if dropdown_values_stations == None:
+		raise PreventUpdate 
+	else:
+		df = data.prepare_data_map(con, dropdown_values_stations)
+		return view.GUI.build_map(df)
 
 if __name__ == '__main__': 
 	app.run_server(debug=True)

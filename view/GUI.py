@@ -1,8 +1,11 @@
 from re import A
 import plotly.express as px
+import plotly.graph_objects as go
+
 
 from dash import dcc
 from dash import dash_table
+
 
 def build_dropdown_menu(item_list, iddropdown):
     options = [{'label': x, 'value':x} for x in item_list]
@@ -84,5 +87,8 @@ def build_boxplot(data):
     return fig
 
 def build_map(data):
-    fig = px.scatter_mapbox(data, lat=data.lat, lon=data.lon, hover_name=data.Station, hover_data=["Valley", "Mtot"],
-                        color_discrete_sequence=["fuchsia"], size=data.Ntot, zoom=3, height=300)
+    df = px.data.carshare()
+    fig = px.scatter_mapbox(df, lat="centroid_lat", lon="centroid_lon",     color="peak_hour", size="car_hours",
+                  color_continuous_scale=px.colors.cyclical.IceFire, size_max=15, zoom=10)
+    
+    return fig
