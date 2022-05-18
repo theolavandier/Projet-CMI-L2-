@@ -84,7 +84,9 @@ Comme pour la partie data, on commence par faire les import qui nous serons prim
 ### Le code :
 ![image](https://user-images.githubusercontent.com/102798509/169085672-c657230c-24d2-4287-bca2-b8aa8a12fe91.png)
 
-On créé ici un dropdown. Quand on l'appliquera, il sera possible de sélectionner plusieurs éléments : multi=True et, quand on aura au début que tous les éléments seront sélectionnés : value=item_list. 
+![Capture d’écran 2022-05-18 205941](https://user-images.githubusercontent.com/102798509/169135421-e2410eea-b6db-4d75-81bf-c6e28dd6ac98.png)
+
+On créé ici un dropdown. Quand on l'appliquera, il sera possible de sélectionner plusieurs éléments : multi=True et, quand on aura au début que tous les éléments seront sélectionnés : value=item_list. On a ici un exemple de dropdown produit par le code.
 
 ![Capture d’écran 2022-05-18 205751](https://user-images.githubusercontent.com/102798509/169133031-a72b50d2-65d5-41d0-8e43-a798ba772222.png)
 
