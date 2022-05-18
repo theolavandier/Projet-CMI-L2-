@@ -1,31 +1,15 @@
 from re import A
 import plotly.express as px
 import plotly.graph_objects as go
-import numpy as np
-import pandas as pd
 from dash import dcc
 from dash import dash_table
-
-def build_dropdown_menu(item_list, iddropdown):
-    options = [{'label': x, 'value':x} for x in item_list]
-    return dcc.Dropdown(id = '{}'.format(iddropdown),
-                        options=options,
-                        value=item_list[0],
-                        multi=False)
-
-def build_dropdown_menu_single(item_list, iddropdown):
-    options = [{'label': x, 'value':x} for x in item_list]
-    return dcc.Dropdown(id = '{}'.format(iddropdown),
-                        options=options,
-                        value=item_list[1],
-                        multi=True)
 
 def build_dropdown_menu_options(item_list, iddropdown):
     options = [{'label': x, 'value':x} for x in item_list]
     return dcc.Dropdown(id = '{}'.format(iddropdown),
                         options=options,
                         value=item_list,
-                        multi=True)
+                        multi=True)                        
 
 def build_radioitems(id, item_list):
     return dcc.RadioItems(id="{}".format(id),
@@ -44,7 +28,8 @@ def init_graph(id_graph):
     return dcc.Graph(id="{}".format(id_graph))
 
 def build_piechart(data):
-	pie = px.pie(data, values=data.Ntot, names=data.Station, title='Pourcentage de gland par station en fonction des années et des deux valleys',
+	pie = px.pie(data, values=data.Ntot, names=data.Station, 
+    title='Pourcentage de gland par station en fonction des années et des deux valleys',
     color_discrete_sequence=px.colors.qualitative.Pastel1)
 	return pie
         
@@ -62,7 +47,8 @@ def build_distmarge(data):
 def build_animation(data):
 	animation = px.bar(
             data, x=data.Station, y=data.AVG_Ntot, color=data.Station, 
-            animation_frame=data.Year, range_y=[0,10000], title="Evolution de la moyenne des Ntot par Station au fil des années, depuis 2015 (le tout trié par valleys)")
+            animation_frame=data.Year, range_y=[0,10000], 
+            title="Evolution de la moyenne des Ntot par Station au fil des années, depuis 2015 (le tout trié par valleys)")
 	return  animation
 
 def build_linegraph(data):
@@ -70,7 +56,6 @@ def build_linegraph(data):
     title="Moyenne de la masse de glands (Mtot) produite par chaque arbre en fonction du volume du houppier (VH)", 
     color_discrete_sequence=px.colors.qualitative.Set3_r)
     fig.update_traces(mode="markers+lines", hovertemplate=None)
-    
     fig.update_layout(hovermode="x unified")
     fig.update_traces(textposition="bottom right")
     return fig
@@ -78,18 +63,18 @@ def build_linegraph(data):
 def build_3dplot(data, radiovalue):
     fig = px.line_3d(data, x=data.DD, y=data.Year, z=radiovalue, color=data.Year, 
     title="Graphique 3D de {} en fonction de l'année et du jour de la récolte en jour julien (le tout trié par stations)".format(radiovalue),
-     color_discrete_sequence=px.colors.qualitative.Prism)
+    color_discrete_sequence=px.colors.qualitative.Prism)
     return fig
 
 def build_scatterplot(data):
     fig = px.scatter(data, x=data.DD, y=data.Mtot, color=data.oneacorn,
-                 size=data.Ntot, hover_data=['code'], title ="Scatter Plot représentant le Mtot de chaque récolte en fonction du jour de la récolte")
+                 size=data.Ntot, hover_data=['code'], 
+                 title ="Scatter Plot représentant le Mtot de chaque récolte en fonction du jour de la récolte")
     return fig
 
 def build_boxplot(data):
     fig = px.box(data, x=data.Year, y=data.Mtot,color=data.Year,
-    title="Représentation des Mtot par récolte sous la forme de Boxplot, en fonction des années"
-    )
+    title="Représentation des Mtot par récolte sous la forme de Boxplot, en fonction des années")
     return fig
 
 def build_map(data):

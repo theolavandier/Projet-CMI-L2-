@@ -165,21 +165,18 @@ def csv_into_table(cur):
     query = 'UPDATE stations SET lon = -0.5275369 WHERE Station = "Bager"'   
     cur.execute(query)
 
-def get_valley(con,cur):
+def get_valley(con):
 	query="SELECT Valley, id FROM valley"
-	cursor = cur
 	df = pd.read_sql(query, con)
 	return df['Valley'].tolist()
 
-def get_year(con,cur):
+def get_year(con):
 	query="SELECT DISTINCT Year, id_r FROM récolte GROUP BY Year"
-	cursor = cur
 	df = pd.read_sql(query, con)
 	return df['Year'].tolist()
 
-def get_stations(con,cur):
+def get_stations(con):
     query="SELECT Station, id FROM stations"
-    cursor = cur
     df = pd.read_sql(query, con)
     return df['Station'].tolist()
 
@@ -253,7 +250,7 @@ def prepare_data_linegraph(con, station_list):
             station = station_list[0]
             query = "SELECT Station, VH, AVG(Mtot) as AVG_Mtot, code FROM (SELECT Station, VH, Mtot, code FROM stations, récolte, valley, arbre WHERE arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley ) WHERE Station='{}' GROUP BY VH".format(station)
         else:
-            query = "SELECT Station, VH, AVG(Mtot) as AVG_Mtot, code FROM (SELECT Station, VH, Mtot, code FROM stations, récolte, valley, arbre WHERE arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley ) WHERE Station IN {} GROUP BY VH".format(tuple(station_list))
+            query = "SELECT Station,VH, AVG(Mtot) as AVG_Mtot, code FROM (SELECT Station, VH, Mtot, code FROM stations, récolte, valley, arbre WHERE arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley ) WHERE Station IN {} GROUP BY VH".format(tuple(station_list))
         
         df = pd.read_sql(query, con)
         return df

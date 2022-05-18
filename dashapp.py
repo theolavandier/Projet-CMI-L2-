@@ -8,11 +8,12 @@ from dash.dependencies import Input, Output
 from dash.exceptions import PreventUpdate
 import dash_bootstrap_components as dbc
 
-con = sqlite3.connect('Pyrenees.db' ,check_same_thread=False)
+con = sqlite3.connect('./model/Pyrenees.db' ,check_same_thread=False)
 cur = con.cursor()
 
 #data.setup_table(cur)
 #data.csv_into_table(cur)
+
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.MORPH])   #initialising dash app
 
 
@@ -119,39 +120,39 @@ def render_page_content(pathname):
 	elif pathname == "/":
 		
 		return html.Div([
-				view.GUI.build_dropdown_menu_options(data.get_valley(con,cur),"dropdown3"),
+				view.GUI.build_dropdown_menu_options(data.get_valley(con),"dropdown3"),
 				view.GUI.init_graph("histogramme")
 			])
 	elif pathname == "/distmarge":
 		return html.Div([
-				view.GUI.build_dropdown_menu_options(data.get_valley(con,cur),"dropdown4"),
+				view.GUI.build_dropdown_menu_options(data.get_valley(con),"dropdown4"),
 				view.GUI.init_graph("distmarge")
 			])
 	elif pathname == "/piechart":
 		return html.Div([
-				view.GUI.build_dropdown_menu_options(data.get_valley(con,cur),"dropdown1"),
-				view.GUI.build_dropdown_menu_options(data.get_year(con,cur),"dropdown2"),
+				view.GUI.build_dropdown_menu_options(data.get_valley(con),"dropdown1"),
+				view.GUI.build_dropdown_menu_options(data.get_year(con),"dropdown2"),
 				view.GUI.init_graph("piechart")
 			])
 	elif pathname == "/animation":
 		return html.Div([
-				view.GUI.build_dropdown_menu_options(data.get_valley(con,cur),"dropdown5"),
+				view.GUI.build_dropdown_menu_options(data.get_valley(con),"dropdown5"),
 				view.GUI.init_graph("animation")
 			])
 	elif pathname == "/linegraph":
 		return html.Div([
-				view.GUI.build_dropdown_menu_options(data.get_stations(con,cur),"dropdown6"),
+				view.GUI.build_dropdown_menu_options(data.get_stations(con),"dropdown6"),
 				view.GUI.init_graph("linegraph")
 			])
 	elif pathname == "/3dplot":
 		return html.Div([
-				view.GUI.build_dropdown_menu_options(data.get_stations(con,cur),"dropdown7"),
+				view.GUI.build_dropdown_menu_options(data.get_stations(con),"dropdown7"),
 				view.GUI.build_radioitems('scatterradio2', ["AVG_Mtot", "AVG_Ntot"]),
 				view.GUI.init_graph("3dplot")
 			])
 	elif pathname == "/scatterandmap":
 		return html.Div([
-				view.GUI.build_dropdown_menu_options(data.get_stations(con,cur),"dropdown8"),
+				view.GUI.build_dropdown_menu_options(data.get_stations(con),"dropdown8"),
 				view.GUI.build_radioitems('scatterradio', ["scatterplot", "boxplot"]),
 				view.GUI.init_graph("scatterplot"),
 				html.H3("Mtot Range :"),
@@ -174,7 +175,6 @@ def render_page_content(pathname):
 def histogramme_update(dropdown_values_valley):
     if dropdown_values_valley == None:
         raise PreventUpdate 
-    
     histogramme = data.prepare_data_histogramme(con, dropdown_values_valley)
     return view.GUI.build_histogramme(histogramme)
 
