@@ -32,8 +32,6 @@ def build_dropdown_menu_options(item_list, iddropdown):
                         value=item_list,
                         multi=True)
 
-def init_graph(id_graph):
-    return dcc.Graph(id="{}".format(id_graph))
 
 def build_radioitems(id):
     return dcc.RadioItems(id="{}".format(id),
@@ -48,6 +46,8 @@ def build_slider(id):
         id='{}'.format(id)
     )
 
+def init_graph(id_graph):
+    return dcc.Graph(id="{}".format(id_graph))
 
 def build_piechart(data):
 	pie = px.pie(data, values=data.Ntot, names=data.Station, title='Pourcentage de gland par station en fonction des années et des deux valleys')
@@ -71,7 +71,8 @@ def build_animation(data):
 	return  animation
 
 def build_linegraph(data):
-    fig = px.line(data, x=data.VH, y=data.AVG_Mtot, color=data.code, title="Line graph de la moyenne des Mtot en fonction du volume du houppier pour les codes des arbres (le tout trié par stations)", color_discrete_sequence=px.colors.qualitative.Set3_r)
+    fig = px.line(data, x=data.VH, y=data.AVG_Mtot, color=data.code, title="Line graph de la moyenne des Mtot en fonction du volume du houppier pour les codes\
+         des arbres (le tout trié par stations)", color_discrete_sequence=px.colors.qualitative.Set3_r)
     fig.update_traces(mode="markers+lines", hovertemplate=None)
     fig.update_layout(hovermode="x unified")
     return fig
@@ -91,7 +92,7 @@ def build_boxplot(data):
 
 def build_map(data):
     px.set_mapbox_access_token('pk.eyJ1IjoidGxhdmFuZGllciIsImEiOiJjbDNibjEyaWYwZDJ0M2lwNDZiNXhtazN1In0.spDyDVYEfhMsAT1CbWjkrA')
-    fig = px.scatter_mapbox(data, lat=data.lat.to_list(), lon=data.lon.to_list(),
-                  color_continuous_scale=px.colors.cyclical.IceFire, size_max=15, zoom=10)
+    fig = px.scatter_mapbox(data, lat=data.lat, lon=data.lon, color=data.AVG_oneacorn, size=data.SUM_Ntot, hover_name=data.Station, hover_data=['SUM_Mtot', 'AVG_Mtot'],
+                  color_continuous_scale=px.colors.cyclical.IceFire, size_max=20, zoom=5)
     
     return fig

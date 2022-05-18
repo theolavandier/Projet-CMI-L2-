@@ -164,7 +164,7 @@ def render_page_content(pathname):
 				view.GUI.build_radioitems('scatterradio'),
 				view.GUI.init_graph("scatterplot"),
                 view.GUI.build_slider("slider"),
-				view.GUI.build_map("map")
+				view.GUI.init_graph("map"),
 			])
 	else:
 		return html.Div(
@@ -254,12 +254,13 @@ def scatter_update(dropdown_values_stations, radiovalue, slidervalue):
             return view.GUI.build_boxplot(df)
 
 @app.callback(Output('map','figure'),
-              Input('dropdown8', 'value'))
-def map_update(dropdown_values_stations):
+              [Input('dropdown8', 'value'),
+			  Input('slider', 'value')])
+def map_update(dropdown_values_stations, slidervalue):
 	if dropdown_values_stations == None:
 		raise PreventUpdate 
 	else:
-		df = data.prepare_data_map(con, dropdown_values_stations)
+		df = data.prepare_data_map(con, dropdown_values_stations, slidervalue)
 		return view.GUI.build_map(df)
 
 if __name__ == '__main__': 

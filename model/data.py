@@ -305,15 +305,15 @@ def prepare_data_scatter(con, station_list, range):
         return df
 
 
-def prepare_data_map(con, station_list):
+def prepare_data_map(con, station_list, range):
     if station_list == None :
         raise PreventUpdate
     else:
         if (len(station_list) == 1):
             station = station_list[0]
-            query = "SELECT  station.id, SUM_Mtot, SUM_Ntot, AVG_oneacorn, lat, lon, Station FROM (SELECT station.id, Station ,SUM(Mtot) as SUM_Mtot, SUM(Ntot) as SUM_Ntot, AVG(oneacorn) as AVG_oneacorn, lat , lon  FROM stations, récolte, valley, arbre WHERE oneacorn != 'NA'  AND arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley GROUP BY Station ) WHERE Station = '{}' ".format(station)
+            query = "SELECT  AVG_Mtot, SUM_Mtot, SUM_Ntot, AVG_oneacorn, lat, lon, Station FROM (SELECT  Station ,AVG(Mtot) as AVG_Mtot, SUM(Mtot) as SUM_Mtot, SUM(Ntot) as SUM_Ntot, AVG(oneacorn) as AVG_oneacorn, lat , lon  FROM stations, récolte, valley, arbre WHERE oneacorn != 'NA'  AND arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley  GROUP BY Station  ) WHERE AVG_Mtot >= {} AND AVG_Mtot <= {} AND Station = '{}' ".format(range[0],range[1], station)
         else:
-            query = "SELECT  station.id, SUM_Mtot, SUM_Ntot, AVG_oneacorn, lat, lon, Station FROM (SELECT station.id, Station ,SUM(Mtot) as SUM_Mtot, SUM(Ntot) as SUM_Ntot, AVG(oneacorn) as AVG_oneacorn, lat , lon FROM stations, récolte, valley, arbre WHERE oneacorn != 'NA'  AND arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley GROUP BY Station ) WHERE Station IN {} ".format(tuple(station_list))
+            query = "SELECT  AVG_Mtot,SUM_Mtot, SUM_Ntot, AVG_oneacorn, lat, lon, Station FROM (SELECT  Station ,AVG(Mtot) as AVG_Mtot, SUM(Mtot) as SUM_Mtot, SUM(Ntot) as SUM_Ntot, AVG(oneacorn) as AVG_oneacorn, lat , lon FROM stations, récolte, valley, arbre WHERE oneacorn != 'NA'  AND arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley  GROUP BY Station ) WHERE AVG_Mtot >= {} AND AVG_Mtot <= {} AND Station IN {} ".format(range[0],range[1], tuple(station_list))
         
         df = pd.read_sql(query, con)
         return df
