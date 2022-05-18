@@ -70,10 +70,7 @@ On a ici 3 fonctions. La première get_valley va retourner une liste des valleys
 
 ![Capture d’écran 2022-05-18 205613](https://user-images.githubusercontent.com/102798509/169131681-62f574ac-9e7b-4e6c-b69f-9ea26610c2e2.png)
 
-
-
-
-
+TEXTE
 
 ## Le GUI :
 
@@ -90,16 +87,22 @@ On créé ici un dropdown. Quand on l'appliquera, il sera possible de sélection
 
 ![Capture d’écran 2022-05-18 205751](https://user-images.githubusercontent.com/102798509/169133031-a72b50d2-65d5-41d0-8e43-a798ba772222.png)
 
+TEXTE
+
 ![Capture d’écran 2022-05-18 175145](https://user-images.githubusercontent.com/102798509/169086900-1cd6d66f-38ff-437c-94e0-0c289cab363f.png)
 
 Cette fonction permet d'initialiser un graph, elle sera utilisée pour tous les graphiques.
 
 ![Capture d’écran 2022-05-18 210407](https://user-images.githubusercontent.com/102798509/169136186-1e3ab275-a56a-45ca-b049-326efb7f6cbd.png)
 
-
+TEXTE
 
 ## Le DASHAPP :
 
 ![Capture d’écran 2022-05-18 210654](https://user-images.githubusercontent.com/102798509/169137054-b05da799-86f4-4efa-b3f7-814a2ce3680d.png)
 
 Comme pour les deux autres parties, on commence par faire les import qui nous serons primordiales pour la suite de notre code.
+
+![Capture d’écran 2022-05-18 210913](https://user-images.githubusercontent.com/102798509/169137734-c32c9aad-ab76-4631-819b-0fa952d75c72.png)
+
+TEXTE
