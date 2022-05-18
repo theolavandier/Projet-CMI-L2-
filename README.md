@@ -76,7 +76,7 @@ On a ici 3 fonctions. La première get_valley va retourner une liste des valleys
 
 ## Le GUI :
 
-IMAGE
+![Capture4](https://user-images.githubusercontent.com/102798483/169116847-a0b022d6-eed5-481c-9ce0-e274c839d8b1.PNG)
 
 Comme pour la partie data, on commence par faire les import qui nous serons primordiales pour la suite de notre code.
 
