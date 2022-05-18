@@ -126,7 +126,8 @@ def render_page_content(pathname):
 				view.GUI.build_dropdown_menu_options(data.get_stations(con,cur),"dropdown8"),
 				view.GUI.build_radioitems('scatterradio'),
 				view.GUI.init_graph("scatterplot"),
-                view.GUI.build_slider("slider")
+                view.GUI.build_slider("slider"),
+				view.GUI.build_map("map")
 			])
 	else:
 		return html.Div(
@@ -203,6 +204,7 @@ def plot3d_update(dropdown_values_stations):
               [Input('dropdown8', 'value'),
               Input('scatterradio', 'value'),
               Input('slider', 'value')])
+
 def scatter_update(dropdown_values_stations, radiovalue, slidervalue):
     if dropdown_values_stations == None:
         raise PreventUpdate 
@@ -213,6 +215,18 @@ def scatter_update(dropdown_values_stations, radiovalue, slidervalue):
         else :
             df = data.prepare_data_scatter(con, dropdown_values_stations, slidervalue)
             return view.GUI.build_boxplot(df)
+
+@app.callback(Output('map','figure'),
+              [Input('dropdown8', 'value'),
+              Input('scatterradio', 'value'),
+              Input('slider', 'value')])
+
+def map_update(dropdown_values_stations, radiovalue, slidervalue):
+    if dropdown_values_stations == None:
+        raise PreventUpdate 
+    else:
+        df = data.prepare_data_map(con, dropdown_values_stations, slidervalue)
+        return view.GUI.build_map(df)
 
 if __name__ == '__main__': 
 	app.run_server(debug=True)
