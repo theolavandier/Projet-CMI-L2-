@@ -10,7 +10,7 @@ Nous avions pour consigne de reprendre ce fichier et de coder une base de donné
 
 Nous commençons donc par faire les import qui nous serons primordiales pour la suite de notre code.
 
-IMAGE
+![Capture3](https://user-images.githubusercontent.com/102798483/169115581-b5fc8483-9973-48c4-b6eb-fc8589b7f0ac.PNG)
 
 On fait notre première table, elle se nomme valley. On y met dedans un id qui s'incrémente automatiquement en commençant par 1 ainsi que les valleys : Ossau et Luz.
 
