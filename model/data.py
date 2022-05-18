@@ -1,8 +1,6 @@
 import pandas as pd
 import csv 
 import sqlite3
-
-
 import dash
 from dash import html
 from dash import dcc
