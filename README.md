@@ -181,11 +181,8 @@ Ce graphique est intéressant car on peut voir quelles sont les stations qui pro
 
 ![dist marg](https://user-images.githubusercontent.com/102798509/169148116-966ee72a-07b8-4216-bf26-2cf4da1da8e6.png)
 
-
 Ce graphique est une distribution maginale sur la ratio de gland ayant germés en fonction de rang de l'altitude.
-Ici, on observe le taux de germination des glands de la valley de Luz. On peut observer que la plupart des données
-de gland ayant germés on germés à un rang d'altitudeentre 100 et 1200. Cependant, on peut oberserver que la médianne se trouve à 
-300. d'après l'lallure de la courbe, il est facile de voir que plus le rang de l'altitude est faible, plus le taux de germination
+Ici, on observe le taux de germination des glands de la valley de Luz. On peut observer que la plupart des données de glands ayant germés on germés à un rang d'altitude entre 100 et 1200. Cependant, on peut oberserver que la médiane se trouve à 300. D'après l'allure de la courbe, il est facile de voir que plus le rang de l'altitude est faible, plus le taux de germination
 est important.
 Nous pouvons faire la même observation pour la vallée de Ossau.
 
@@ -195,12 +192,10 @@ Ce graphique est un barchart animé. En cliquant sur le bouton play, nous pouvon
 gland collectés dans les stations depuis 2015. Il est possible de trier les données par valley. 
 Nous pouvons observé que cette moyenne par année n'est pas constante car on observe de grande différences sur les stations pour chaque année.
 
-
-
 ![line graph](https://user-images.githubusercontent.com/102798509/169148146-d47f95be-44e9-4229-984c-e4c15378668b.png)
 
 Poursuivons avec le graphique sous forme de line. Celui-ci représente la moyenne de la masse des glands produite par chaque arbre en fonction du volume du houppier. On a de plus un dropdown permettant de filtrer les stations.
-Ce graphique est intéressant car il nous permet de déterminer s'il existe une relation entre le volume et la masse moyenne de glands produits. On pourrait supposer que plus le volume est élevé plus la masse moyenne augmente. On voit cependant que ce n'est pas le cas. Si on prend la station Laveyron, on voit que pour un volume de 416 m^3, la masse moyenne de glands est d'environ 2373g. Pour un volume de 1002m^3, la masse moyenne est d'environ 5061g. Pour l'instant nous n'avons rien d'anormal, cependant, nous voyons que pour un volume de 4197m^3, la masse moyenne est d'environ 2012g. On peut donc en déduire qu'il n'y a pas de lien entre les deux.
+Ce graphique est intéressant car il nous permet de déterminer s'il existe une relation entre le volume du houppier et la masse moyenne de glands produits. On pourrait supposer que plus le volume est élevé plus la masse moyenne augmente. On voit cependant que ce n'est pas le cas. Si on prend la station Laveyron, on voit que pour un volume de 416 m^3, la masse moyenne de glands est d'environ 2373g. Pour un volume de 1002m^3, la masse moyenne est d'environ 5061g. Pour l'instant nous n'avons rien d'anormal, cependant, nous voyons que pour un volume de 4197m^3, la masse moyenne est d'environ 2012g. On peut donc en déduire qu'il n'y a pas de lien entre les deux.
 
 ![3d plot](https://user-images.githubusercontent.com/102798509/169148158-dc6cb482-24cd-46f5-b101-5fe81062278b.png)
 
@@ -209,16 +204,11 @@ Ce graphique est intéressant car il nous permet de voir dans chaque année quel
 
 ![3 graphs](https://user-images.githubusercontent.com/102798509/169148172-3d8f9536-e9ed-477a-a0ff-867c3f68fb4f.png)
 
-Enfin, voici nos derniers graphiques. Nous avons un premier graphique qui étudie la masse de gland produit
-à chaque récolte en fonction du jour julien. Il est possible de trier les données par Stations, grâce à un dropdown. Nous pouvons 
-observer grace à ce graphique que dans le cas général, les plus grosse masses de glands récoltés de font entre le jour 270 et
-le jour 302, soit entre le 27 septembre et 29 octobre.
+Enfin, voici nos derniers graphiques. Nous avons un premier graphique qui étudie la masse de gland produit à chaque récolte en fonction du jour julien. Il est possible de trier les données par station, grâce à un dropdown. Nous pouvons observer grace à ce graphique que dans le cas général, les plus grosses masses de glands récoltés se font entre le jour 270 et le jour 302, soit entre le 27 septembre et 29 octobre.
 
 Il est possible de remplacer ce graphique par un autre graphique grâce à un scatterradio. En cliquant sur boxplot, 
 nous pouvons étudier les Mtot de chaque récolte en fonction des années, sous la forme de boites à moustaches avec des points.
 
-Nous avons aussi un Slider Range qui permet de trier les données en fonctions des 
-Mtot. Grâce à cela, l'utilisateur peut se concentrer sur des données qui l'interressent.
+Nous avons aussi un Slider Range qui permet de trier les données en fonctions des Mtot. Grâce à cela, l'utilisateur peut se concentrer sur des données qui l'interressent.
 
-Puis enfin, en dessous de nos deux graphiques interchangeables, nous avons une carte
-qui est elle aussi connecté au dropdown et au slider range.
+Puis enfin, en dessous de nos deux graphiques interchangeables, nous avons une carte qui est elle aussi connecté au dropdown et au slider range.
