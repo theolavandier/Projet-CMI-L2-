@@ -80,11 +80,6 @@ def build_scatterplot(data):
     return fig
 
 def build_boxplot(data):
-<<<<<<< HEAD
     fig = px.box(data, x=data.Year, y=data.Mtot,color=data.Year , points="all")
     return fig
 
-=======
-    fig = px.box(data, x=data.Year, y=data.Mtot, points="all")
-    return fig
->>>>>>> 658d5747d6100c643468a3ed034fa7635158f7b9
