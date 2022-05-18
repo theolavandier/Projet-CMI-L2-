@@ -100,4 +100,6 @@ Cette fonction permet d'initialiser un graph, elle sera utilisée pour tous les 
 
 ## Le DASHAPP :
 
+![Capture d’écran 2022-05-18 210654](https://user-images.githubusercontent.com/102798509/169137054-b05da799-86f4-4efa-b3f7-814a2ce3680d.png)
 
+Comme pour les deux autres parties, on commence par faire les import qui nous serons primordiales pour la suite de notre code.
