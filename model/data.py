@@ -293,15 +293,15 @@ def prepare_data_3dplot(con, station_list):
         df = pd.read_sql(query, con)
         return df
 
-def prepare_data_scatter(con, station_list):
+def prepare_data_scatter(con, station_list, range):
     if station_list == None :
         raise PreventUpdate
     else:
         if (len(station_list) == 1):
             station = station_list[0]
-            query = "SELECT Year ,Mtot, Ntot, oneacorn, code, DD FROM (SELECT Station, Year ,Mtot, Ntot, oneacorn, code, DD FROM stations, récolte, valley, arbre WHERE oneacorn != 'NA' AND arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley ) WHERE Station='{}' ".format(station)
+            query = "SELECT Year ,Mtot, Ntot, oneacorn, code, DD FROM (SELECT Station, Year ,Mtot, Ntot, oneacorn, code, DD FROM stations, récolte, valley, arbre WHERE oneacorn != 'NA' AND Mtot >= {} AND Mtot <= {} AND arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley ) WHERE Station='{}' ".format(range[0],range[1], station)
         else:
-            query = "SELECT Year ,Mtot, Ntot, oneacorn, code, DD FROM (SELECT Station, Year ,Mtot, Ntot, oneacorn, code, DD FROM stations, récolte, valley, arbre WHERE oneacorn != 'NA' AND arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley ) WHERE Station IN {} ".format(tuple(station_list))
+            query = "SELECT Year ,Mtot, Ntot, oneacorn, code, DD FROM (SELECT Station, Year ,Mtot, Ntot, oneacorn, code, DD FROM stations, récolte, valley, arbre WHERE oneacorn != 'NA' AND Mtot >= {} AND Mtot <= {} AND arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley ) WHERE Station IN {} ".format(range[0],range[1], tuple(station_list))
         
         df = pd.read_sql(query, con)
         return df
