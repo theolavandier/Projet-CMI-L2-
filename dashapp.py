@@ -17,7 +17,7 @@ cur = con.cursor()
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.MORPH])   #initialising dash app
 
 
-SIDEBAR_STYLE = {
+SIDEBAR_STYLE = { #CSS pour le style de la barre latérale
 	"position": "fixed",
 	"top": 0,
 	"left": 0,
@@ -33,7 +33,7 @@ CONTENT_STYLE = {
 	"margin-right": "2rem",
 	"padding": "2rem 1rem",
 }
-GLAND = {
+GLAND = { #CSS pour l'image du gland
 	"margin-left": "3rem",
 	"margin-right": "2rem",
 	"padding": "2rem 1rem",
@@ -41,14 +41,14 @@ GLAND = {
 	"width": "150px",
 }
 
-NOMS = {
+NOMS = { #CSS pour afficher les noms sur la barre latérale
 	"font-size": "25px",
 }
-FIN = {
+FIN = { #CSS pour afficher les noms de la page de présentation
 	"text-align": "center",
 	"text-decoration": "underline",
 }
-PRESENTATION ={
+PRESENTATION ={ #CSS pour afficher les images de la page de présentation
 	"height": "200px",
 	"width": "286px",
 }
@@ -76,14 +76,14 @@ sidebar = html.Div(
 			pills=True,
 		),
 		html.A([
-			html.Img(src='/assets/gland.png', style=GLAND)
+			html.Img(src='/assets/gland.png', style=GLAND) #afficher le gland
 		],
-		href="https://fr.wikipedia.org/wiki/Ch%C3%AAne_p%C3%A9doncul%C3%A9"),
+		href="https://fr.wikipedia.org/wiki/Ch%C3%AAne_p%C3%A9doncul%C3%A9"),#mettre le lien sur le gland
 	],	
 	style=SIDEBAR_STYLE,
 )
 
-content = html.Div(id="page-content", children=[], style=CONTENT_STYLE)
+content = html.Div(id="page-content", children=[], style=CONTENT_STYLE) #style sur la barre latérale
 
 app.layout = html.Div([
 	dcc.Location(id="url"),
