@@ -65,8 +65,11 @@ def build_3dplot(data):
     fig = px.line_3d(data, x=data.DD, y=data.Year, z=data.AVG_Ntot, color=data.Year)
     return fig
 
-
 def build_scatterplot(data):
     fig = px.scatter(data, x=data.Year, y=data.Mtot, color=data.oneacorn,
                  size=data.Ntot, hover_data=['code'])
+    return fig
+
+def build_boxplot(data):
+    fig = px.box(data, x=data.Year, y=data.Mtot, points="all")
     return fig
