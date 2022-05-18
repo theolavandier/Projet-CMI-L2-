@@ -48,4 +48,6 @@ Ensuite, on va pouvoir s'occuper des clés étrangères. Les colonnes des clés 
 
 ![Capture d’écran 2022-05-18 164723](https://user-images.githubusercontent.com/102798509/169070451-03b45aa0-e1b2-4898-bf1e-0459db5d209e.png)
 
-On commence par ouvrir le fichier csv et on se met en mode Reader (c'est pour pouvoir le lire). On fait une boucle for qui va parcourir entièrement le fichier. On commence avec une première requête query, on va sélectionner l'id de la station
+On commence par ouvrir le fichier csv et on se met en mode Reader (c'est pour pouvoir le lire). On fait une boucle for qui va parcourir entièrement le fichier. On commence avec une première requête query, on va sélectionner id_valley donc la clé étrangère. Si cette clé est nulle, il faut faire une nouvelle requête query dans laquelle on va affecter à id_valley : valley.id, on va donc lier les tables.
+
+
