@@ -195,8 +195,8 @@ Ce graphique est intéressant car il nous permet de déterminer s'il existe une 
 
 ![3d plot](https://user-images.githubusercontent.com/102798509/169148158-dc6cb482-24cd-46f5-b101-5fe81062278b.png)
 
-Ensuite, nous avons le graphique en 3D. Celui-ci est variable. Nous pouvons choisir entre la masse moyenne de glands produits et la masse moyenne totale. Dans cet exemple nous avons choisi la masse moyenne de glands produits en fonction de l'année et du jour de la récolte en jour julien. On a de plus un dropdown permettant de filtrer les stations.
-Ce graphique est intéressant car il nous permet de voir dans chaque année quel jour a été le plus productif à propos de la masse moyenne de glands (ou la masse totale en fonction du choix fait au début). Si on regarde l'année 2017 (en orange), on voit que c'est le jour 283 soit le 23 mars qu'il y a eu la masse moyenne de glands produits la plus grande, toutes stations réunies soit environ 8384 glands. 
+Ensuite, nous avons le graphique en 3D. Celui-ci est variable. Nous pouvons choisir entre la quantité moyenne de glands produits et la masse moyenne totale produite. Dans cet exemple nous avons choisi la quantité moyenne de glands produits en fonction de l'année et du jour de la récolte en jour julien. On a de plus un dropdown permettant de filtrer les stations.
+Ce graphique est intéressant car il nous permet de voir dans chaque année quel jour a été le plus productif à propos de la quantité moyenne de glands (ou la masse totale en fonction du choix fait au début). Si on regarde l'année 2017 (en orange), on voit que c'est le jour 283 soit le 23 mars qu'il y a eu la quantité moyenne de glands produits la plus grande, toutes stations réunies soit environ 8384 glands. 
 
 ![3 graphs](https://user-images.githubusercontent.com/102798509/169148172-3d8f9536-e9ed-477a-a0ff-867c3f68fb4f.png)
 
