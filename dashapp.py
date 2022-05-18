@@ -206,11 +206,11 @@ def scatter_update(dropdown_values_stations, radiovalue):
 		raise PreventUpdate 
 	else:
 		if radiovalue == 'scatteroneacorn':
-			plot3d = data.prepare_data_3dplot(con, dropdown_values_stations)
-			return view.GUI.build_3dplot(plot3d)
+			df = data.prepare_data_scatter(con, dropdown_values_stations)
+			return view.GUI.build_scatterplot(df)
 		else :
-			plot3d = data.prepare_data_3dplot(con, dropdown_values_stations)
-			return view.GUI.build_3dplot(plot3d)
+			df = data.prepare_data_scatter(con, dropdown_values_stations)
+			return view.GUI.build_boxplot(df)
 
 if __name__ == '__main__': 
 	app.run_server(debug=True)
