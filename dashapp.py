@@ -68,7 +68,7 @@ sidebar = html.Div(
 				dbc.NavLink("Animation", href="/animation", active="exact"),
 				dbc.NavLink("Line Graph", href="/linegraph", active="exact"),
 				dbc.NavLink("3d Plot", href="/3dplot", active="exact"),
-				dbc.NavLink("doublegraphe", href="/graphdouble", active="exact"),
+				dbc.NavLink("Scatter And Map", href="/scatterandmap", active="exact"),
 			],
 		
 			vertical=True,	
@@ -158,7 +158,7 @@ def render_page_content(pathname):
 				view.GUI.build_dropdown_menu_options(data.get_stations(con,cur),"dropdown7"),
 				view.GUI.init_graph("3dplot")
 			])
-	elif pathname == "/graphdouble":
+	elif pathname == "/scatterandmap":
 		return html.Div([
 				view.GUI.build_dropdown_menu_options(data.get_stations(con,cur),"dropdown8"),
 				view.GUI.build_radioitems('scatterradio'),
@@ -254,8 +254,7 @@ def scatter_update(dropdown_values_stations, radiovalue, slidervalue):
             return view.GUI.build_boxplot(df)
 
 @app.callback(Output('map','figure'),
-              [Input('dropdown8', 'value')])
-
+              Input('dropdown8', 'value'))
 def map_update(dropdown_values_stations):
 	if dropdown_values_stations == None:
 		raise PreventUpdate 

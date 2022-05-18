@@ -1,10 +1,13 @@
 from re import A
 import plotly.express as px
 import plotly.graph_objects as go
+import numpy as np
 
+import pandas as pd
 
 from dash import dcc
 from dash import dash_table
+
 
 
 def build_dropdown_menu(item_list, iddropdown):
@@ -87,8 +90,8 @@ def build_boxplot(data):
     return fig
 
 def build_map(data):
-    df = px.data.carshare()
-    fig = px.scatter_mapbox(df, lat="centroid_lat", lon="centroid_lon",     color="peak_hour", size="car_hours",
-                  color_continuous_scale=px.colors.cyclical.IceFire, size_max=15, zoom=10, title = "??")
+    px.set_mapbox_access_token('pk.eyJ1IjoidGxhdmFuZGllciIsImEiOiJjbDNibjEyaWYwZDJ0M2lwNDZiNXhtazN1In0.spDyDVYEfhMsAT1CbWjkrA')
+    fig = px.scatter_mapbox(data, lat=data.lat.to_list(), lon=data.lon.to_list(),
+                  color_continuous_scale=px.colors.cyclical.IceFire, size_max=15, zoom=10)
     
     return fig
