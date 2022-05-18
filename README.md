@@ -81,6 +81,7 @@ On a ici 3 fonctions. La première get_valley va retourner une liste des valleys
 
 Comme pour la partie data, on commence par faire les import qui nous serons primordiales pour la suite de notre code.
 
+### Le code :
 ![image](https://user-images.githubusercontent.com/102798509/169085672-c657230c-24d2-4287-bca2-b8aa8a12fe91.png)
 
-On créé ici un dropdown. Quand on l'appliquera, il sera possible de sélectionner plusieurs éléments : multi=True et, quand on aura au début que tous les éléments seront sélectionnés : value=item_list.
+On créé ici un dropdown. Quand on l'appliquera, il sera possible de sélectionner plusieurs éléments : multi=True et, quand on aura au début que tous les éléments seront sélectionnés : value=item_list. On a aussi la fonction build_dropdown_menu_single(item_list, iddropdown), elle fait la même chose mais un seul élément est présélectionné.
