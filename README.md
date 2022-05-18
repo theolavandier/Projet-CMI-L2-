@@ -58,6 +58,10 @@ On fait une nouvelle requête query, on va sélectionner id_station donc la clé
 
 On fait une nouvelle requête query, on va sélectionner id_arbre donc la clé étrangère de la table récolte. Si cette clé est nulle, il faut faire une nouvelle requête query dans laquelle on va affecter à id_arbre : récolte.id, on va donc lier les tables arbre et récolte.
 
+![Capture d’écran 2022-05-18 171604](https://user-images.githubusercontent.com/102798509/169077441-5e7bc678-67a5-4a8e-8800-6f17406820a0.png)
+
+Comme on avait la longitude et la latitude dans la table Station, il fallait la remplir. Cependant, dans notre csv nous n'avions pas de données la dessus. Nuos avons donc du les rechercher sur internet et les rentrer à la main une par une d'où la longueur (sans oublier cur.execute(query) à chaque fois).
+
 ### Le code :
 
 
