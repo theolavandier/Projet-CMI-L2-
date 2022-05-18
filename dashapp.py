@@ -16,7 +16,6 @@ cur = con.cursor()
 
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.MORPH])   #initialising dash app
 
-
 SIDEBAR_STYLE = { #CSS pour le style de la barre latérale
 	"position": "fixed",
 	"top": 0,
