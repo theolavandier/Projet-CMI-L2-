@@ -48,7 +48,10 @@ fin = {
 	"top": "95%",
 	"left": "90%",
   	"transform" : "translate(-50%, -50%)",
-
+}
+PRESENTATION ={
+	"height": "200px",
+	"width": "300px",
 }
 sidebar = html.Div(
     [
@@ -108,9 +111,15 @@ def render_page_content(pathname):
 									html.Div("-Et pout finir nous avons une double animation avec une carte, on y retrouve un dropdown sur les stations avec la possibilité de choisir le graphique qu'on veut et une carte qui évolue en fonctions des stations sélectionnées."),\
 										html.Br(),\
 											html.Br(),\
-												html.Div("Nous voulions remercier notre professeur Mr. MELANCON pour nous avoir fait découvrir dash, plotly,... Mais aussi por son aide dans la réalisation de nos projets"),\
+												html.Div("Nous voulions remercier notre professeur Mr. MELANCON pour nous avoir fait découvrir dash, plotly,... Mais aussi pour son aide dans la réalisation de nos projets."),\
 													html.H2("Nous vous souhaitons une bonne découverte de notre site, et surtout n'oubliez pas d'appuyer sur le gland !"),\
-														html.Div("Lavandier Théo & Tissandier Mathilde", style=fin)
+														html.P([
+															html.Img(src='/assets/pyrenees.jpg', style=PRESENTATION),\
+																html.Img(src='/assets/pyrenees1.jpg',style=PRESENTATION),\
+																	html.Img(src='/assets/pyrenees2.jpg',style=PRESENTATION),\
+
+														]),\
+																html.Div("Lavandier Théo & Tissandier Mathilde", style=fin)
 										
 							
 												
