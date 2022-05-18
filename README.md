@@ -69,3 +69,10 @@ Comme on avait la longitude et la latitude dans la table Station, il fallait la 
 On a ici 3 fonctions. La première get_valley va retourner une liste des valleys. La deuxième get_year va retourner une liste des années et la dernière, get_stations, va retourner la liste des stations. On utilise ces 3 fonctions pour construire les dropdowns plus tard.
 
 ![Capture d’écran 2022-05-18 172905](https://user-images.githubusercontent.com/102798509/169082056-7553bc4a-6c2b-46d4-8fb1-d04466681288.png)
+
+
+
+
+
+##Le GUI :
+
