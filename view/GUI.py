@@ -2,13 +2,9 @@ from re import A
 import plotly.express as px
 import plotly.graph_objects as go
 import numpy as np
-
 import pandas as pd
-
 from dash import dcc
 from dash import dash_table
-
-
 
 def build_dropdown_menu(item_list, iddropdown):
     options = [{'label': x, 'value':x} for x in item_list]
@@ -16,7 +12,6 @@ def build_dropdown_menu(item_list, iddropdown):
                         options=options,
                         value=item_list[0],
                         multi=False)
-
 
 def build_dropdown_menu_single(item_list, iddropdown):
     options = [{'label': x, 'value':x} for x in item_list]
@@ -31,7 +26,6 @@ def build_dropdown_menu_options(item_list, iddropdown):
                         options=options,
                         value=item_list,
                         multi=True)
-
 
 def build_radioitems(id):
     return dcc.RadioItems(id="{}".format(id),
@@ -53,7 +47,6 @@ def build_piechart(data):
 	pie = px.pie(data, values=data.Ntot, names=data.Station, title='Pourcentage de gland par station en fonction des années et des deux valleys')
 	return pie
         
-
 def build_histogramme(data):
 	histogramme = px.bar(data, x=data.Year , y=data.Ntot, color=data.Station, barmode="group", title = "Histogramme des Ntot en fonction des années pour les stations (le tout trié par valleys)")
 	return histogramme
@@ -61,7 +54,6 @@ def build_histogramme(data):
 def build_distmarge(data):
     dm = px.scatter(data, x=data.Range, y=data.rate_Germ, color=data.rate_Germ, marginal_y="violin",
            marginal_x="box", trendline="ols", template="simple_white", title="Distribution Marginale sur le ration de glands ayant germés en fonction du rang de l'altitude (le tout trié par valleys)")
-
     return dm
 
 def build_animation(data):

@@ -84,13 +84,11 @@ sidebar = html.Div(
 
 content = html.Div(id="page-content", children=[], style=CONTENT_STYLE)
 
-
 app.layout = html.Div([
 	dcc.Location(id="url"),
 	sidebar,
 	content
 ])
-
 
 @app.callback(
 	Output("page-content", "children"),
@@ -118,14 +116,6 @@ def render_page_content(pathname):
 																		html.Img(src='/assets/pyrenees3.jpg',style=PRESENTATION),\
 														]),\
 															html.Div("Lavandier Théo & Tissandier Mathilde", style=FIN)
-																
-										
-							
-												
-
-
-
-
 	elif pathname == "/":
 		
 		return html.Div([
@@ -175,7 +165,6 @@ def render_page_content(pathname):
 			]
 		)
 
-
 @app.callback(Output('histogramme','figure'),
               Input('dropdown3', 'value'))
 
@@ -205,7 +194,6 @@ def piechart_update (dropdown_values_valley, dropdown_values_year):
 	
 	piechart = data.prepare_data_piechart(con, dropdown_values_valley,dropdown_values_year)
 	return view.GUI.build_piechart(piechart)
-
 
 @app.callback(Output('animation','figure'),
               Input('dropdown5', 'value'))

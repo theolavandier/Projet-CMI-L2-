@@ -165,26 +165,11 @@ def csv_into_table(cur):
     query = 'UPDATE stations SET lon = -0.5275369 WHERE Station = "Bager"'   
     cur.execute(query)
 
-
-
-
 def get_valley(con,cur):
 	query="SELECT Valley, id FROM valley"
 	cursor = cur
 	df = pd.read_sql(query, con)
 	return df['Valley'].tolist()
-
-def get_arbre(con,cur):
-	query="SELECT code, id FROM arbre"
-	cursor = cur
-	df = pd.read_sql(query, con)
-	return df['code'].tolist()
-
-def get_recolte(con,cur):
-	query="SELECT ID, id_r FROM récolte"
-	cursor = cur
-	df = pd.read_sql(query, con)
-	return df['ID'].tolist()
 
 def get_year(con,cur):
 	query="SELECT DISTINCT Year, id_r FROM récolte GROUP BY Year"
@@ -197,8 +182,6 @@ def get_stations(con,cur):
     cursor = cur
     df = pd.read_sql(query, con)
     return df['Station'].tolist()
-
-
 
 def prepare_data_piechart(con,valley_list,year_list):
     if valley_list == None and year_list == None:
@@ -224,7 +207,6 @@ def prepare_data_piechart(con,valley_list,year_list):
         df = pd.read_sql(query, con)
         return df
 
-
 def prepare_data_histogramme(con, valley_list):
     if valley_list == None :
         raise PreventUpdate
@@ -237,7 +219,6 @@ def prepare_data_histogramme(con, valley_list):
         
         df = pd.read_sql(query, con)
         return df
-
 
 def prepare_data_distmarge(con, valley_list):
     if valley_list == None:
@@ -277,7 +258,6 @@ def prepare_data_linegraph(con, station_list):
         df = pd.read_sql(query, con)
         return df
 
-
 def prepare_data_3dplot(con, station_list):
     if station_list == None :
         raise PreventUpdate
@@ -303,7 +283,6 @@ def prepare_data_scatter(con, station_list, range):
         
         df = pd.read_sql(query, con)
         return df
-
 
 def prepare_data_map(con, station_list, range):
     if station_list == None :
