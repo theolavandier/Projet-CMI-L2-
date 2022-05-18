@@ -28,7 +28,7 @@ On fait notre dernière table, elle se nomme récolte. On y met dedans un id_r q
 
 Nous avons maintenant une base de données mais celle-ci est vide. IL nous faut donc la remplir.
 
-IMAGE
+![Capture2](https://user-images.githubusercontent.com/102798483/169114778-513218af-c2e5-4d35-b443-91c86eb8834d.PNG)
 
 On commence par ouvrir le fichier csv et on se met en mode Reader (c'est pour pouvoir le lire). On fait une boucle for qui va parcourir entièrement le fichier. On commence avec une première requête query, on va sélectionner l'id de la station, ensuite, si on voit que les données de la table stations sont nulles, on va la remplir avec la deuxième requête query et l'exécuter avec : cur.execute(query).
 
