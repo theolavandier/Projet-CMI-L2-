@@ -57,3 +57,7 @@ On fait une nouvelle requête query, on va sélectionner id_station donc la clé
 ![image](https://user-images.githubusercontent.com/102798509/169075766-be4467d2-c90d-4dcd-97aa-c71230bfe173.png)
 
 On fait une nouvelle requête query, on va sélectionner id_arbre donc la clé étrangère de la table récolte. Si cette clé est nulle, il faut faire une nouvelle requête query dans laquelle on va affecter à id_arbre : récolte.id, on va donc lier les tables arbre et récolte.
+
+### Le code :
+
+
