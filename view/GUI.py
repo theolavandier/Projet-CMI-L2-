@@ -31,8 +31,8 @@ def init_graph(id_graph):
 
 def build_radioitems(id):
     return dcc.RadioItems(id="{}".format(id),
-                        value='scatteroneacorn', 
-        options=['scatteroneacorn', 'continuous'],)
+                        value='scatterplot', 
+        options=['scatterplot', 'boxplot'],)
 
 def build_slider(id):
     return dcc.RangeSlider(0, 55000,100,
