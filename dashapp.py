@@ -146,12 +146,13 @@ def render_page_content(pathname):
 	elif pathname == "/3dplot":
 		return html.Div([
 				view.GUI.build_dropdown_menu_options(data.get_stations(con,cur),"dropdown7"),
+				view.GUI.build_radioitems('scatterradio2', ["AVG_Mtot", "AVG_Ntot"]),
 				view.GUI.init_graph("3dplot")
 			])
 	elif pathname == "/scatterandmap":
 		return html.Div([
 				view.GUI.build_dropdown_menu_options(data.get_stations(con,cur),"dropdown8"),
-				view.GUI.build_radioitems('scatterradio'),
+				view.GUI.build_radioitems('scatterradio', ["scatterplot", "boxplot"]),
 				view.GUI.init_graph("scatterplot"),
                 view.GUI.build_slider("slider"),
 				view.GUI.init_graph("map"),
@@ -165,9 +166,10 @@ def render_page_content(pathname):
 			]
 		)
 
+
+
 @app.callback(Output('histogramme','figure'),
               Input('dropdown3', 'value'))
-
 def histogramme_update(dropdown_values_valley):
     if dropdown_values_valley == None:
         raise PreventUpdate 
@@ -175,15 +177,16 @@ def histogramme_update(dropdown_values_valley):
     histogramme = data.prepare_data_histogramme(con, dropdown_values_valley)
     return view.GUI.build_histogramme(histogramme)
 
+
 @app.callback(Output('distmarge','figure'),
               Input('dropdown4', 'value'))
-
 def distmarge_update(dropdown_values_valley):
     if dropdown_values_valley == None:
         raise PreventUpdate 
     
     distmarge = data.prepare_data_distmarge(con, dropdown_values_valley)
     return view.GUI.build_distmarge(distmarge)
+
 
 @app.callback(Output('piechart','figure'),
 			  [Input('dropdown1','value'),
@@ -195,18 +198,18 @@ def piechart_update (dropdown_values_valley, dropdown_values_year):
 	piechart = data.prepare_data_piechart(con, dropdown_values_valley,dropdown_values_year)
 	return view.GUI.build_piechart(piechart)
 
+
 @app.callback(Output('animation','figure'),
               Input('dropdown5', 'value'))
-
 def animation_update(dropdown_values_valley):
     if dropdown_values_valley == None:
         raise PreventUpdate 
     animation = data.prepare_data_animation(con, dropdown_values_valley)
     return view.GUI.build_animation(animation)
 
+
 @app.callback(Output('linegraph','figure'),
               [Input('dropdown6', 'value')])
-
 def linegraph_update(dropdown_values_stations):
 	if dropdown_values_stations == None:
 		raise PreventUpdate 
@@ -215,21 +218,23 @@ def linegraph_update(dropdown_values_stations):
 			
 		return view.GUI.build_linegraph(linegraph)
 
-@app.callback(Output('3dplot','figure'),
-              [Input('dropdown7', 'value')])
 
-def plot3d_update(dropdown_values_stations):
+@app.callback(Output('3dplot','figure'),
+              [Input('dropdown7', 'value'),
+			  Input('scatterradio2','value')])
+def plot3d_update(dropdown_values_stations, radiovalue):
 	if dropdown_values_stations == None:
 		raise PreventUpdate 
 	else:
 		plot3d = data.prepare_data_3dplot(con, dropdown_values_stations)
-		return view.GUI.build_3dplot(plot3d)
+		return view.GUI.build_3dplot(plot3d, radiovalue)
+		
+			
 
 @app.callback(Output('scatterplot','figure'),
               [Input('dropdown8', 'value'),
               Input('scatterradio', 'value'),
               Input('slider', 'value')])
-
 def scatter_update(dropdown_values_stations, radiovalue, slidervalue):
     if dropdown_values_stations == None:
         raise PreventUpdate 

@@ -18,7 +18,7 @@ def build_dropdown_menu_single(item_list, iddropdown):
     return dcc.Dropdown(id = '{}'.format(iddropdown),
                         options=options,
                         value=item_list[1],
-                        multi=False)
+                        multi=True)
 
 def build_dropdown_menu_options(item_list, iddropdown):
     options = [{'label': x, 'value':x} for x in item_list]
@@ -27,10 +27,10 @@ def build_dropdown_menu_options(item_list, iddropdown):
                         value=item_list,
                         multi=True)
 
-def build_radioitems(id):
+def build_radioitems(id, item_list):
     return dcc.RadioItems(id="{}".format(id),
-                        value='scatterplot', 
-        options=['scatterplot', 'boxplot'],)
+                        value=item_list[0], 
+        options=item_list,)
 
 def build_slider(id):
     return dcc.RangeSlider(0, 55000,100,
@@ -69,8 +69,9 @@ def build_linegraph(data):
     fig.update_layout(hovermode="x unified")
     return fig
 
-def build_3dplot(data):
-    fig = px.line_3d(data, x=data.DD, y=data.Year, z=data.AVG_Ntot, color=data.Year, title="Graphique 3D de la moyenne des Ntot en fonction de l'année et du jour de la récolte en jour julien (le tout trié par stations)")
+def build_3dplot(data, radiovalue):
+    fig = px.line_3d(data, x=data.DD, y=data.Year, z=radiovalue, color=data.Year, 
+    title="Graphique 3D de {} en fonction de l'année et du jour de la récolte en jour julien (le tout trié par stations)".format(radiovalue))
     return fig
 
 def build_scatterplot(data):
