@@ -190,7 +190,13 @@ Ce graphique est intéressant car on peut voir quelles sont les stations qui pro
 
 ![line graph](https://user-images.githubusercontent.com/102798509/169148146-d47f95be-44e9-4229-984c-e4c15378668b.png)
 
+Poursuivons avec le graphique sous forme de line. Celui-ci représente la moyenne de la masse des glands produite par chaque arbre en fonction du volume du houppier. On a de plus un dropdown permettant de filtrer les stations.
+Ce graphique est intéressant car il nous permet de déterminer s'il existe une relation entre le volume et la masse moyenne de glands produits. On pourrait supposer que plus le volume est élevé plus la masse moyenne augmente. On voit cependant que ce n'est pas le cas. Si on prend la station Laveyron, on voit que pour un volume de 416 m^3, la masse moyenne de glands est d'environ 2373g. Pour un volume de 1002m^3, la masse moyenne est d'environ 5061g. Pour l'instant nous n'avons rien d'anormal, cependant, nous voyons que pour un volume de 4197m^3, la masse moyenne est d'environ 2012g. On peut donc en déduire qu'il n'y a pas de lien entre les deux.
+
 ![3d plot](https://user-images.githubusercontent.com/102798509/169148158-dc6cb482-24cd-46f5-b101-5fe81062278b.png)
+
+Ensuite, nous avons le graphique en 3D. Celui-ci est variable. Nous pouvons choisir entre la masse moyenne de glands produits et la masse moyenne totale. Dans cet exemple nous avons choisi la masse moyenne de glands produits en fonction de l'année et du jour de la récolte en jour julien. On a de plus un dropdown permettant de filtrer les stations.
+Ce graphique est intéressant car il nous permet de voir dans chaque année quel jour a été le plus productif à propos de la masse moyenne de glands (ou la masse totale en fonction du choix fait au début). Si on regarde l'année 2017 (en orange), on voit que c'est le jour 283 soit le 23 mars qu'il y a eu la masse moyenne de glands produits la plus grande, toutes stations réunies soit environ 8384 glands. 
 
 ![3 graphs](https://user-images.githubusercontent.com/102798509/169148172-3d8f9536-e9ed-477a-a0ff-867c3f68fb4f.png)
 
