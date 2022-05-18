@@ -11,6 +11,14 @@ def build_dropdown_menu(item_list, iddropdown):
                         value=item_list[0],
                         multi=False)
 
+
+def build_dropdown_menu_single(item_list, iddropdown):
+    options = [{'label': x, 'value':x} for x in item_list]
+    return dcc.Dropdown(id = '{}'.format(iddropdown),
+                        options=options,
+                        value=item_list[1],
+                        multi=False)
+
 def build_dropdown_menu_options(item_list, iddropdown):
     options = [{'label': x, 'value':x} for x in item_list]
     return dcc.Dropdown(id = '{}'.format(iddropdown),
@@ -24,7 +32,7 @@ def init_graph(id_graph):
 def build_radioitems(id):
     return dcc.RadioItems(id="{}".format(id),
                         value='discrete', 
-        options=['discrete', 'continuous'],)
+        options=['scatteroneacorn', 'continuous'],)
 
 def build_piechart(data):
 	pie = px.pie(data, values=data.Ntot, names=data.Station, title='Pourcentage de gland par station en fonction des années et des deux stations')
@@ -58,3 +66,7 @@ def build_3dplot(data):
     return fig
 
 
+def build_scatterplot(data):
+    fig = px.scatter(data, x=data.Year, y=data.Mtot, color=data.oneacorn,
+                 size=data.Ntot, hover_data=['code'])
+    return fig

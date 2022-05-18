@@ -9,7 +9,7 @@ from dash import dcc
 from dash.dependencies import Input, Output
 from dash.exceptions import PreventUpdate
 
-def setup(cur):
+def setup_table(cur):
 
     cur.execute('''
         CREATE TABLE IF NOT EXISTS valley (
@@ -66,13 +66,14 @@ def setup(cur):
         );
     ''')
 
+def csv_into_table(cur):
     with open('./model/Repro_IS.csv', 'r') as csvfile:
         reader = csv.DictReader(csvfile, delimiter=';')
         for row in reader:
             query = 'SELECT (id) FROM stations WHERE Station="{}"'.format(row['Station'])
             result = cur.execute(query)        
             if result.fetchone() == None:
-                query = 'INSERT INTO stations (Station, Range, Altitude, id_valley) VALUES ("{}", {}, {}, 0);'.format(row['Station'], row['Range'], row['Altitude'])
+                query = 'INSERT INTO stations (Station, Range, Altitude, lat, lon, id_valley) VALUES ("{}", {}, {} , 0 , 0 , 0);'.format(row['Station'], row['Range'], row['Altitude'])
                 cur.execute(query)
                 
             query = 'SELECT (id) FROM valley WHERE Valley="{}"'.format(row['Valley'])
@@ -151,7 +152,7 @@ def setup(cur):
     cur.execute(query)
     query = 'UPDATE stations SET lat = 42.7879051 WHERE Station = "Gedre-Bas"'   
     cur.execute(query) 
-    query = 'UPDATE stations SET lon = 0.0202936 WHERE Station = "Gedre-bas"'   
+    query = 'UPDATE stations SET lon = 0.01888 WHERE Station = "Gedre-Bas"'   
     cur.execute(query)
     query = 'UPDATE stations SET lat = 43.2325985 WHERE Station = "Ibos"'   
     cur.execute(query) 
@@ -165,7 +166,6 @@ def setup(cur):
     cur.execute(query) 
     query = 'UPDATE stations SET lon = -0.5275369 WHERE Station = "Bager"'   
     cur.execute(query)
-
 
 
 

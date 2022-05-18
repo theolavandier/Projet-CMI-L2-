@@ -11,7 +11,8 @@ import dash_bootstrap_components as dbc
 con = sqlite3.connect('Pyrenees.db' ,check_same_thread=False)
 cur = con.cursor()
 
-data.setup(cur)
+#data.setup_table(cur)
+#data.csv_into_table(cur)
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.MORPH])   #initialising dash app
 
 
@@ -58,6 +59,7 @@ sidebar = html.Div(
 				dbc.NavLink("Animation", href="/animation", active="exact"),
 				dbc.NavLink("Line Graph", href="/linegraph", active="exact"),
 				dbc.NavLink("3d Plot", href="/3dplot", active="exact"),
+				dbc.NavLink("doublegraphe", href="/graphdouble", active="exact"),
 			],
 		
 			vertical=True,	
@@ -118,6 +120,12 @@ def render_page_content(pathname):
 		return html.Div([
 				view.GUI.build_dropdown_menu_options(data.get_stations(con,cur),"dropdown7"),
 				view.GUI.init_graph("3dplot")
+			])
+	elif pathname == "/graphdouble":
+		return html.Div([
+				view.GUI.build_dropdown_menu_options(data.get_stations(con,cur),"dropdown8"),
+				view.GUI.build_radioitems('scatterradio'),
+				view.GUI.init_graph("scatterplot")
 			])
 	else:
 		return html.Div(
@@ -188,8 +196,21 @@ def plot3d_update(dropdown_values_stations):
 		raise PreventUpdate 
 	else:
 		plot3d = data.prepare_data_3dplot(con, dropdown_values_stations)
-			
 		return view.GUI.build_3dplot(plot3d)
+
+@app.callback(Output('scatterplot','figure'),
+              [Input('dropdown8', 'value'),
+			  Input('scatterradio', 'value')])
+def scatter_update(dropdown_values_stations, radiovalue):
+	if dropdown_values_stations == None:
+		raise PreventUpdate 
+	else:
+		if radiovalue == 'scatteroneacorn':
+			plot3d = data.prepare_data_3dplot(con, dropdown_values_stations)
+			return view.GUI.build_3dplot(plot3d)
+		else :
+			plot3d = data.prepare_data_3dplot(con, dropdown_values_stations)
+			return view.GUI.build_3dplot(plot3d)
 
 if __name__ == '__main__': 
 	app.run_server(debug=True)
