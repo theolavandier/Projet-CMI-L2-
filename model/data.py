@@ -188,18 +188,22 @@ def prepare_data_piechart(con,valley_list,year_list): #renvoie un dataframe pour
         if (len(valley_list) == 1 and len(year_list) == 1):
             valley = valley_list[0] 
             year = year_list[0]
-            query = "SELECT Station, Ntot FROM (SELECT Station, Year, Ntot, Valley FROM stations, récolte, valley, arbre WHERE arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley )\
+            query = "SELECT Station, Ntot FROM (SELECT Station, Year, Ntot, Valley FROM stations, récolte, valley, arbre WHERE \
+                arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley )\
                  WHERE Valley='{}' AND Year='{}' ".format(valley, year)
         elif (len(valley_list) == 1):
             valley = valley_list[0]
-            query = "SELECT Station, Ntot FROM (SELECT Station, Year, Ntot, Valley FROM stations, récolte, valley, arbre WHERE arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley )\
+            query = "SELECT Station, Ntot FROM (SELECT Station, Year, Ntot, Valley FROM stations, récolte, valley, arbre WHERE \
+                arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley )\
                  WHERE Valley='{}' AND Year IN {} ".format(valley, tuple(year_list))
         elif (len(year_list)==1):
             years = year_list[0]
-            query = "SELECT Station, Ntot FROM (SELECT Station, Year, Ntot, Valley FROM stations, récolte, valley, arbre WHERE arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley )\
+            query = "SELECT Station, Ntot FROM (SELECT Station, Year, Ntot, Valley FROM stations, récolte, valley, arbre WHERE \
+                arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley )\
                  WHERE Valley IN {} AND Year = '{}' ".format(tuple(valley_list), years)
         else:
-            query = "SELECT Station, Ntot FROM (SELECT Station, Year, Ntot, Valley FROM stations, récolte, valley, arbre WHERE arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley )\
+            query = "SELECT Station, Ntot FROM (SELECT Station, Year, Ntot, Valley FROM stations, récolte, valley, arbre WHERE \
+                arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley )\
                  WHERE Valley IN {} AND Year IN {}".format(tuple(valley_list), tuple(year_list))
             
         df = pd.read_sql(query, con)
@@ -211,9 +215,11 @@ def prepare_data_histogramme(con, valley_list): #renvoie un dataframe pour const
     else:
         if (len(valley_list) == 1):
             valley = valley_list[0]
-            query = "SELECT Station, Year, AVG(Ntot) as AVG_Ntot FROM (SELECT Station, Year, Ntot, Valley FROM stations, récolte, valley, arbre WHERE arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley ) WHERE Valley='{}' GROUP BY Station, Year".format(valley)
+            query = "SELECT Station, Year, AVG(Ntot) as AVG_Ntot FROM (SELECT Station, Year, Ntot, Valley FROM stations, récolte, valley, arbre WHERE \
+                arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley ) WHERE Valley='{}' GROUP BY Station, Year".format(valley)
         else:
-            query = "SELECT Station, Year, AVG(Ntot) as AVG_Ntot FROM (SELECT Station, Year, Ntot, Valley FROM stations, récolte, valley, arbre WHERE arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley ) WHERE Valley IN {} GROUP BY Station, Year".format(tuple(valley_list))
+            query = "SELECT Station, Year, AVG(Ntot) as AVG_Ntot FROM (SELECT Station, Year, Ntot, Valley FROM stations, récolte, valley, arbre WHERE \
+                arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley ) WHERE Valley IN {} GROUP BY Station, Year".format(tuple(valley_list))
         
         df = pd.read_sql(query, con)
         return df
@@ -224,9 +230,11 @@ def prepare_data_distmarge(con, valley_list): #renvoie un dataframe pour constui
     else:
         if (len(valley_list) == 1):
             valley = valley_list[0]
-            query = "SELECT Range, rate_Germ FROM (SELECT Range , rate_Germ , Valley FROM stations, récolte, valley, arbre WHERE rate_Germ  != 'NA' AND arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley ) WHERE Valley= '{}'".format(valley)
+            query = "SELECT Range, rate_Germ FROM (SELECT Range , rate_Germ , Valley FROM stations, récolte, valley, arbre WHERE \
+                rate_Germ  != 'NA' AND arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley ) WHERE Valley= '{}'".format(valley)
         else:
-            query = "SELECT Range, rate_Germ FROM (SELECT Range , rate_Germ , Valley FROM stations, récolte, valley, arbre WHERE rate_Germ  != 'NA' AND arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley ) WHERE Valley IN {}".format(tuple(valley_list))
+            query = "SELECT Range, rate_Germ FROM (SELECT Range , rate_Germ , Valley FROM stations, récolte, valley, arbre WHERE \
+                rate_Germ  != 'NA' AND arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley ) WHERE Valley IN {}".format(tuple(valley_list))
         df = pd.read_sql(query, con)
         return df
 
@@ -236,9 +244,11 @@ def prepare_data_animation(con, valley_list): #renvoie un dataframe pour constui
     else:
         if (len(valley_list) == 1):
             valley = valley_list[0]
-            query = "SELECT Station, Year, AVG(Ntot) as AVG_Ntot FROM (SELECT Station, Year, Ntot, Valley FROM stations, récolte, valley, arbre WHERE arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley ) WHERE Valley='{}' AND Year > 2014 GROUP BY Station, Year".format(valley)
+            query = "SELECT Station, Year, AVG(Ntot) as AVG_Ntot FROM (SELECT Station, Year, Ntot, Valley FROM stations, récolte, valley, arbre WHERE \
+                arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley ) WHERE Valley='{}' AND Year > 2014 GROUP BY Station, Year".format(valley)
         else:
-            query = "SELECT Station, Year, AVG(Ntot) as AVG_Ntot FROM (SELECT Station, Year, Ntot, Valley FROM stations, récolte, valley, arbre WHERE arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley ) WHERE Valley IN {} AND Year > 2014 GROUP BY Station, Year".format(tuple(valley_list))
+            query = "SELECT Station, Year, AVG(Ntot) as AVG_Ntot FROM (SELECT Station, Year, Ntot, Valley FROM stations, récolte, valley, arbre WHERE\
+                 arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley ) WHERE Valley IN {} AND Year > 2014 GROUP BY Station, Year".format(tuple(valley_list))
         
         df = pd.read_sql(query, con)
         return df.sort_values(by=['Year','Station'])
@@ -249,9 +259,11 @@ def prepare_data_linegraph(con, station_list): #renvoie un dataframe pour constu
     else:
         if (len(station_list) == 1):
             station = station_list[0]
-            query = "SELECT Station, VH, AVG(Mtot) as AVG_Mtot, code FROM (SELECT Station, VH, Mtot, code FROM stations, récolte, valley, arbre WHERE arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley ) WHERE Station='{}' GROUP BY VH".format(station)
+            query = "SELECT Station, VH, AVG(Mtot) as AVG_Mtot, code FROM (SELECT Station, VH, Mtot, code FROM stations, récolte, valley, arbre WHERE \
+                arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley ) WHERE Station='{}' GROUP BY VH".format(station)
         else:
-            query = "SELECT Station,VH, AVG(Mtot) as AVG_Mtot, code FROM (SELECT Station, VH, Mtot, code FROM stations, récolte, valley, arbre WHERE arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley ) WHERE Station IN {} GROUP BY VH".format(tuple(station_list))
+            query = "SELECT Station,VH, AVG(Mtot) as AVG_Mtot, code FROM (SELECT Station, VH, Mtot, code FROM stations, récolte, valley, arbre WHERE \
+                arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley ) WHERE Station IN {} GROUP BY VH".format(tuple(station_list))
         
         df = pd.read_sql(query, con)
         return df
@@ -262,9 +274,11 @@ def prepare_data_3dplot(con, station_list): #renvoie un dataframe pour constuire
     else:
         if (len(station_list) == 1):
             station = station_list[0]
-            query = "SELECT Year ,DD, AVG(Ntot) as AVG_Ntot, AVG(Mtot) as AVG_Mtot FROM (SELECT Station, DD, Ntot, Mtot, Year FROM stations, récolte, valley, arbre WHERE arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley ) WHERE Station='{}' GROUP BY Year, DD".format(station)
+            query = "SELECT Year ,DD, AVG(Ntot) as AVG_Ntot, AVG(Mtot) as AVG_Mtot FROM (SELECT Station, DD, Ntot, Mtot, Year FROM stations, récolte, valley, arbre WHERE \
+                arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley ) WHERE Station='{}' GROUP BY Year, DD".format(station)
         else:
-            query = "SELECT Year ,DD, AVG(Ntot) as AVG_Ntot, AVG(Mtot) as AVG_Mtot FROM (SELECT Station, DD, Ntot, Mtot, Year FROM stations, récolte, valley, arbre WHERE arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley ) WHERE Station IN {} GROUP BY Year, DD".format(tuple(station_list))
+            query = "SELECT Year ,DD, AVG(Ntot) as AVG_Ntot, AVG(Mtot) as AVG_Mtot FROM (SELECT Station, DD, Ntot, Mtot, Year FROM stations, récolte, valley, arbre WHERE \
+                arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley ) WHERE Station IN {} GROUP BY Year, DD".format(tuple(station_list))
         
         df = pd.read_sql(query, con)
         return df
@@ -275,9 +289,13 @@ def prepare_data_scatter(con, station_list, range): #renvoie un dataframe pour c
     else:
         if (len(station_list) == 1):
             station = station_list[0]
-            query = "SELECT Year ,Mtot, Ntot, oneacorn, code, DD FROM (SELECT Station, Year ,Mtot, Ntot, oneacorn, code, DD FROM stations, récolte, valley, arbre WHERE oneacorn != 'NA' AND Mtot >= {} AND Mtot <= {} AND arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley ) WHERE Station='{}' ".format(range[0],range[1], station)
+            query = "SELECT Year ,Mtot, Ntot, oneacorn, code, DD FROM (SELECT Station, Year ,Mtot, Ntot, oneacorn, code, DD FROM stations, récolte, valley, arbre WHERE \
+                oneacorn != 'NA' AND Mtot >= {} AND Mtot <= {} AND arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley ) WHERE \
+                    Station='{}' ".format(range[0],range[1], station)
         else:
-            query = "SELECT Year ,Mtot, Ntot, oneacorn, code, DD FROM (SELECT Station, Year ,Mtot, Ntot, oneacorn, code, DD FROM stations, récolte, valley, arbre WHERE oneacorn != 'NA' AND Mtot >= {} AND Mtot <= {} AND arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley ) WHERE Station IN {} ".format(range[0],range[1], tuple(station_list))
+            query = "SELECT Year ,Mtot, Ntot, oneacorn, code, DD FROM (SELECT Station, Year ,Mtot, Ntot, oneacorn, code, DD FROM stations, récolte, valley, arbre WHERE \
+                oneacorn != 'NA' AND Mtot >= {} AND Mtot <= {} AND arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley ) WHERE \
+                    Station IN {} ".format(range[0],range[1], tuple(station_list))
         
         df = pd.read_sql(query, con)
         return df
@@ -288,9 +306,13 @@ def prepare_data_map(con, station_list, range): #renvoie un dataframe pour const
     else:
         if (len(station_list) == 1):
             station = station_list[0]
-            query = "SELECT  AVG_Mtot, SUM_Mtot, SUM_Ntot, AVG_oneacorn, lat, lon, Station FROM (SELECT  Station ,AVG(Mtot) as AVG_Mtot, SUM(Mtot) as SUM_Mtot, SUM(Ntot) as SUM_Ntot, AVG(oneacorn) as AVG_oneacorn, lat , lon  FROM stations, récolte, valley, arbre WHERE oneacorn != 'NA'  AND arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley  GROUP BY Station  ) WHERE AVG_Mtot >= {} AND AVG_Mtot <= {} AND Station = '{}' ".format(range[0],range[1], station)
+            query = "SELECT  AVG_Mtot, SUM_Mtot, SUM_Ntot, AVG_oneacorn, lat, lon, Station FROM (SELECT  Station ,AVG(Mtot) as AVG_Mtot, SUM(Mtot) as SUM_Mtot, SUM(Ntot) as SUM_Ntot, AVG(oneacorn) as AVG_oneacorn, lat , lon\
+                  FROM stations, récolte, valley, arbre WHERE oneacorn != 'NA'  AND arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley  GROUP BY Station  ) WHERE \
+                      AVG_Mtot >= {} AND AVG_Mtot <= {} AND Station = '{}' ".format(range[0],range[1], station)
         else:
-            query = "SELECT  AVG_Mtot,SUM_Mtot, SUM_Ntot, AVG_oneacorn, lat, lon, Station FROM (SELECT  Station ,AVG(Mtot) as AVG_Mtot, SUM(Mtot) as SUM_Mtot, SUM(Ntot) as SUM_Ntot, AVG(oneacorn) as AVG_oneacorn, lat , lon FROM stations, récolte, valley, arbre WHERE oneacorn != 'NA'  AND arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley  GROUP BY Station ) WHERE AVG_Mtot >= {} AND AVG_Mtot <= {} AND Station IN {} ".format(range[0],range[1], tuple(station_list))
+            query = "SELECT  AVG_Mtot,SUM_Mtot, SUM_Ntot, AVG_oneacorn, lat, lon, Station FROM (SELECT  Station ,AVG(Mtot) as AVG_Mtot, SUM(Mtot) as SUM_Mtot, SUM(Ntot) as SUM_Ntot, AVG(oneacorn) as AVG_oneacorn, lat ,\
+                 lon FROM stations, récolte, valley, arbre WHERE oneacorn != 'NA'  AND arbre.id = récolte.id_arbre AND stations.id = arbre.id_station AND valley.id = stations.id_valley  GROUP BY Station ) WHERE \
+                     AVG_Mtot >= {} AND AVG_Mtot <= {} AND Station IN {} ".format(range[0],range[1], tuple(station_list))
         
         df = pd.read_sql(query, con)
         return df
