@@ -83,3 +83,6 @@ def build_boxplot(data):
     fig = px.box(data, x=data.Year, y=data.Mtot,color=data.Year)
     return fig
 
+def build_map(data):
+    fig = px.scatter_mapbox(data, lat=data.lat, lon=data.lon, hover_name=data.Station, hover_data=["Valley", "Mtot"],
+                        color_discrete_sequence=["fuchsia"], size=data.Ntot, zoom=3, height=300)
