@@ -10,7 +10,7 @@ Nous avions pour consigne de reprendre ce fichier et de coder une base de donné
 
 Nous commençons donc par faire les import qui nous serons primordiales pour la suite de notre code.
 
-![Capture d’écran 2022-05-18 152908](https://user-images.githubusercontent.com/102798509/169050321-492c1feb-be56-4b6a-b6e7-3cfa94eb2386.png)
+IMAGE
 
 On fait notre première table, elle se nomme valley. On y met dedans un id qui s'incrémente automatiquement en commençant par 1 ainsi que les valleys : Ossau et Luz.
 
@@ -28,7 +28,7 @@ On fait notre dernière table, elle se nomme récolte. On y met dedans un id_r q
 
 Nous avons maintenant une base de données mais celle-ci est vide. IL nous faut donc la remplir.
 
-![Capture d’écran 2022-05-18 160045](https://user-images.githubusercontent.com/102798509/169060079-1c2813e5-0d5d-41fa-9713-0dcb79ce073c.png)
+IMAGE
 
 On commence par ouvrir le fichier csv et on se met en mode Reader (c'est pour pouvoir le lire). On fait une boucle for qui va parcourir entièrement le fichier. On commence avec une première requête query, on va sélectionner l'id de la station, ensuite, si on voit que les données de la table stations sont nulles, on va la remplir avec la deuxième requête query et l'exécuter avec : cur.execute(query).
 
@@ -64,11 +64,11 @@ Comme on avait la longitude et la latitude dans la table Station, il fallait la 
 
 ### Le code :
 
-![Capture d’écran 2022-05-18 172506](https://user-images.githubusercontent.com/102798509/169080581-f7c061fd-f6fb-4a2a-9dd6-7262b5d13717.png)
+IMAGE
 
 On a ici 3 fonctions. La première get_valley va retourner une liste des valleys. La deuxième get_year va retourner une liste des années et la dernière, get_stations, va retourner la liste des stations. On utilise ces 3 fonctions pour construire les dropdowns plus tard.
 
-![Capture d’écran 2022-05-18 172905](https://user-images.githubusercontent.com/102798509/169082056-7553bc4a-6c2b-46d4-8fb1-d04466681288.png)
+
 
 
 
@@ -76,15 +76,14 @@ On a ici 3 fonctions. La première get_valley va retourner une liste des valleys
 
 ## Le GUI :
 
-
-![Capture d’écran 2022-05-18 174354](https://user-images.githubusercontent.com/102798509/169085402-45f69252-c420-4c97-a939-5d7f29f3947d.png)
+IMAGE
 
 Comme pour la partie data, on commence par faire les import qui nous serons primordiales pour la suite de notre code.
 
 ### Le code :
 ![image](https://user-images.githubusercontent.com/102798509/169085672-c657230c-24d2-4287-bca2-b8aa8a12fe91.png)
 
-On créé ici un dropdown. Quand on l'appliquera, il sera possible de sélectionner plusieurs éléments : multi=True et, quand on aura au début que tous les éléments seront sélectionnés : value=item_list. On a aussi la fonction build_dropdown_menu_single(item_list, iddropdown), elle fait la même chose mais un seul élément est présélectionné.
+On créé ici un dropdown. Quand on l'appliquera, il sera possible de sélectionner plusieurs éléments : multi=True et, quand on aura au début que tous les éléments seront sélectionnés : value=item_list. 
 
 ![Capture d’écran 2022-05-18 175145](https://user-images.githubusercontent.com/102798509/169086900-1cd6d66f-38ff-437c-94e0-0c289cab363f.png)
 
