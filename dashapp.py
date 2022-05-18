@@ -78,7 +78,7 @@ sidebar = html.Div( #Initialisation d'une barre latérale pour notre site
 		html.A([
 			html.Img(src='/assets/gland.png', style=GLAND) #afficher le gland
 		],
-		href="https://fr.wikipedia.org/wiki/Ch%C3%AAne_p%C3%A9doncul%C3%A9"),#mettre le lien sur le gland
+		href="https://charlois.com/le-chene-des-pyrenees/"),#mettre le lien sur le gland
 	],	
 	style=SIDEBAR_STYLE,
 )
