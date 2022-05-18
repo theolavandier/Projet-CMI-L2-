@@ -47,48 +47,48 @@ def build_slider(id):
 
 
 def build_piechart(data):
-	pie = px.pie(data, values=data.Ntot, names=data.Station, title='Pourcentage de gland par station en fonction des années et des deux stations')
+	pie = px.pie(data, values=data.Ntot, names=data.Station, title='Pourcentage de gland par station en fonction des années et des deux valleys')
 	return pie
         
 
 def build_histogramme(data):
-	histogramme = px.bar(data, x=data.Year , y=data.Ntot, color=data.Station, barmode="group", title = "Histogramme type fourni")
+	histogramme = px.bar(data, x=data.Year , y=data.Ntot, color=data.Station, barmode="group", title = "Histogramme des Ntot en fonction des années pour les stations (le tout trié par valleys)")
 	return histogramme
 
 def build_distmarge(data):
     dm = px.scatter(data, x=data.Range, y=data.rate_Germ, color=data.rate_Germ, marginal_y="violin",
-           marginal_x="box", trendline="ols", template="simple_white", title="Distribution Marginale sur le ration de glands ayant germés en fonction du rang de l'altitude")
+           marginal_x="box", trendline="ols", template="simple_white", title="Distribution Marginale sur le ration de glands ayant germés en fonction du rang de l'altitude (le tout trié par valleys)")
 
     return dm
 
 def build_animation(data):
 	animation = px.bar(
             data, x=data.Station, y=data.Ntot, color=data.Station, 
-            animation_frame=data.Year, range_y=[0,10000])
+            animation_frame=data.Year, range_y=[0,10000], title="Animation sur les années des Ntot en fonction des stations (le tout trié par valleys)")
 	return  animation
 
 def build_linegraph(data):
-    fig = px.line(data, x=data.VH, y=data.AVG_Mtot, color=data.code, title="titre indéterminé", color_discrete_sequence=px.colors.qualitative.Set3_r)
+    fig = px.line(data, x=data.VH, y=data.AVG_Mtot, color=data.code, title="Line graph de la moyenne des Mtot en fonction du volume du houppier pour les codes des arbres (le tout trié par stations)", color_discrete_sequence=px.colors.qualitative.Set3_r)
     fig.update_traces(mode="markers+lines", hovertemplate=None)
     fig.update_layout(hovermode="x unified")
     return fig
 
 def build_3dplot(data):
-    fig = px.line_3d(data, x=data.DD, y=data.Year, z=data.AVG_Ntot, color=data.Year)
+    fig = px.line_3d(data, x=data.DD, y=data.Year, z=data.AVG_Ntot, color=data.Year, title="Graphique 3D de la moyenne des Ntot en fonction de l'année et du jour de la récolte en jour julien (le tout trié par stations)")
     return fig
 
 def build_scatterplot(data):
     fig = px.scatter(data, x=data.DD, y=data.Mtot, color=data.oneacorn,
-                 size=data.Ntot, hover_data=['code'])
+                 size=data.Ntot, hover_data=['code'], title ="Scatter Plot ??")
     return fig
 
 def build_boxplot(data):
-    fig = px.box(data, x=data.Year, y=data.Mtot,color=data.Year)
+    fig = px.box(data, x=data.Year, y=data.Mtot,color=data.Year, title ="??")
     return fig
 
 def build_map(data):
     df = px.data.carshare()
     fig = px.scatter_mapbox(df, lat="centroid_lat", lon="centroid_lon",     color="peak_hour", size="car_hours",
-                  color_continuous_scale=px.colors.cyclical.IceFire, size_max=15, zoom=10)
+                  color_continuous_scale=px.colors.cyclical.IceFire, size_max=15, zoom=10, title = "??")
     
     return fig

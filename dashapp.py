@@ -43,15 +43,13 @@ GLAND = {
 NOMS = {
 	"font-size": "25px",
 }
-fin = {
-	"position": "absolute",
-	"top": "95%",
-	"left": "90%",
-  	"transform" : "translate(-50%, -50%)",
+FIN = {
+	"text-align": "center",
+	"text-decoration": "underline",
 }
 PRESENTATION ={
 	"height": "200px",
-	"width": "300px",
+	"width": "286px",
 }
 sidebar = html.Div(
     [
@@ -106,7 +104,7 @@ def render_page_content(pathname):
 				html.Div("-Une piechart que nous avons faite nous-même composée de deux dropdowns."),\
 					html.Div("-Une distribution marginale que nous avons aussi réalisée composée d'un seul dropdown sur les vallleys."),\
 						html.Div("-Une animation avec pour dropdown les valleys mais aussi une animation qui parcours les années."),\
-							html.Div("-Un graphique de type line compoé d'un dropdown sur sur les stations mais on retrouve aussi un curcesseur sur le graphique pour retrouver les données plus facilement."),\
+							html.Div("-Un graphique de type line compoé d'un dropdown sur les stations mais on retrouve aussi un curcesseur sur le graphique pour retrouver les données plus facilement."),\
 								html.Div("-Un grahique de type 3D avec un dropdown sur les stations."),\
 									html.Div("-Et pout finir nous avons une double animation avec une carte, on y retrouve un dropdown sur les stations avec la possibilité de choisir le graphique qu'on veut et une carte qui évolue en fonctions des stations sélectionnées."),\
 										html.Br(),\
@@ -117,9 +115,10 @@ def render_page_content(pathname):
 															html.Img(src='/assets/pyrenees.jpg', style=PRESENTATION),\
 																html.Img(src='/assets/pyrenees1.jpg',style=PRESENTATION),\
 																	html.Img(src='/assets/pyrenees2.jpg',style=PRESENTATION),\
-
+																		html.Img(src='/assets/pyrenees3.jpg',style=PRESENTATION),\
 														]),\
-																html.Div("Lavandier Théo & Tissandier Mathilde", style=fin)
+															html.Div("Lavandier Théo & Tissandier Mathilde", style=FIN)
+																
 										
 							
 												
