@@ -106,7 +106,10 @@ Cette fonction permet d'initialiser un graph, elle sera utilisée pour tous les 
 
 ![Capture d’écran 2022-05-18 210407](https://user-images.githubusercontent.com/102798509/169136186-1e3ab275-a56a-45ca-b049-326efb7f6cbd.png)
 
-TEXTE
+Cette fonction permet de créer un scatter plot à partir d'un dataframe placé en paramètre. Dans notre projet, nous utilisons les dataframes
+produits par nos fonctions prepare_data ,que nous avons dans la partie précédente, pour nos fonctions build. Les fonctions build
+comme celle-ci utilisent la librairy plotly-express pour créer des graphs. Ces graphs seront affichés sur notre app, et seront rendus 
+intéractifs.
 
 ## LE DASHAPP :
 
@@ -116,31 +119,55 @@ Comme pour les deux autres parties, on commence par faire les import qui nous se
 
 ![Capture d’écran 2022-05-18 210913](https://user-images.githubusercontent.com/102798509/169137734-c32c9aad-ab76-4631-819b-0fa952d75c72.png)
 
-TEXTE SCREEN + CSS
+Ensuite, on se connecte à notre database Pyrenees.db qui se trouve dans notre répertoire model. On crée un curseur pour pouvoir utiliser et modifier
+cette database. Ensuite, si la database n'a pas déjà été créée, on appelle nos fonctions setup_table et csv_into_table, dont nous avons parlé dans la partie
+Data. Quand cela est fait, on initialise notre app avec dash.Dash.
+
+Dans notre application, nous avons fait beaucoup de CSS pour mettre en forme cette dernière. Cependant, nous ne nous attarderons pas sur cette
+partie pour éviter que cette présentation soit trop longue.
+
+Notre application sera principalement divisée en deux parties :
+	-Nous aurons un menu sur la gauche de notre site, nous permettant de se déplacer sur le site dans les differents graphiques.
+	-Puis nous aurons une partie contenant les graphiques et les différentes intéractions qui leurs sont associées. 
 
 ![Capture d’écran 2022-05-18 211424](https://user-images.githubusercontent.com/102798509/169138571-06f11146-a9b8-4a7e-a52b-02a914879f8c.png)
 
-TEXTE
+Voici le code permettant de créer notre menu 'sidebar'. Celui ci est principalement composé de Html. Nous avons le titre de notre application,
+'TISSANDIER LAVANDIER', un autre titre sur le thème, une image etc... Mais pricipalement nous utilisons un dbc.Nav. C'est une sorte de navigateur,
+qui permet de changer d'url quand on clique sur un bouton de celui-ci. Nous allons voir que c'est grace à celui-ci que nous allons pouvoir 
+afficher différents graphiques, de manière distincte, sur notre site.
 
 ![Capture d’écran 2022-05-18 211525](https://user-images.githubusercontent.com/102798509/169138788-6ae048d0-ea58-4239-a09b-eb3425a7a7da.png)
 
-TEXTE
+Puis nous avons le code qui permet de créer la partie contenant les graphiques; notre 'content'. Nous allons voir que son contenu 
+dépendra de l'url de notre site.
 
 ![Capture d’écran 2022-05-18 211739](https://user-images.githubusercontent.com/102798509/169139115-a6b4dd41-23ef-446f-94fd-8737e3a0ffbd.png)
 
-TEXTE
+Nous regroupons ces deux parties de notre app.layout. 
 
 ![Capture d’écran 2022-05-18 211840](https://user-images.githubusercontent.com/102798509/169139359-41a6bfc7-012b-4fbe-8c2b-6f08b46a8931.png)
 ![Capture d’écran 2022-05-18 211909](https://user-images.githubusercontent.com/102798509/169139400-96e775cb-4aaa-4e98-93f2-2dd2cc62f715.png)
 
-TEXTE
+Nous avons ensuite notre première fonction utilisant un callback. Cette fonction permet de mettre à jour la partie 'content' de notre site,
+en fonction de l'url de ce dernier. On voit que le callback a pour input notre url, défini dans notre layout, et pour output page-content, 
+l'id de notre partie 'content'.
+Le paramètre de notre est fonction est pathname, c'est le pathname de l'url sur lequel on se trouve.
+Ici, on voit que si l'on se trouve sur le pathname "/piechart", alors on renvoit dans content deux dropdown, un sur les valleys, et un sur
+les years. On renvoit également un graph d'id 'piechart'. Cette fonction permet donc de mettre en place le contenu de notre content, en fonction
+de l'url sur lequel l'utilisateur se trouve.
 
 ![Capture d’écran 2022-05-18 212023](https://user-images.githubusercontent.com/102798509/169139544-058b1989-cb19-4626-a88b-11bd06f5e00b.png)
 
-TEXTE
+Ici, nous avons une deuxième fonction avec un callback. Cette fonction permet de mettre à jour notre piechart en fonction des valeurs de deux
+dropdowns. Nous voyons que notre callback a pour input les id de nos deux dropdown, et pour output l'id de notre graph piechart. Nous appelons
+ensuite prepare_data_piechart avec en argument les deux listes contenant les valeurs de nos deux dropdown. Les valeurs des dropdowns vont donc
+trier les données renvoyées par prepare_data, et nous utiliserons ces données pour construire notre graphique.
+Les données sont donc mise à jour à chaque fois que nos dropdowns changent de valeurs, ce qui permet une interraction avec les graphiques.
+Nous avons plusieurs fonction pour mettre à jours nos graphique qui fonctionnent en suivant le même principe que celle-ci. 
 
 ![Capture d’écran 2022-05-18 212112](https://user-images.githubusercontent.com/102798509/169139666-0ba9ca5e-5ebf-4b8f-9d84-0a6cc8c7c44c.png)
 
-TEXTE
+Ici, on run les serveur, et quand on le ferme, on se déconnecte de la database.
 
 ## LES MODELISATIONS :
