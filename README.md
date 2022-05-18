@@ -106,3 +106,9 @@ Comme pour les deux autres parties, on commence par faire les import qui nous se
 ![Capture d’écran 2022-05-18 210913](https://user-images.githubusercontent.com/102798509/169137734-c32c9aad-ab76-4631-819b-0fa952d75c72.png)
 
 TEXTE SCREEN + CSS
+
+![Capture d’écran 2022-05-18 211424](https://user-images.githubusercontent.com/102798509/169138571-06f11146-a9b8-4a7e-a52b-02a914879f8c.png)
+
+TEXTE
+
+
